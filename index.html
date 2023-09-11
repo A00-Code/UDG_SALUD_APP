@@ -1,0 +1,4642 @@
+<!DOCTYPE html>
+<html class="html-Inicio" style="--Toolbar_width: 200px;">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, height=device-height, initial-scale=1.0"
+    />
+    <title>UdG Salud</title>
+    <link rel="stylesheet" href="./Style.css" />
+  </head>
+  <body class="Toolbar_Size_L">
+    <!-- [ Iniciar Sesion ] -->
+    <div class="Mn_Login" id="Mn_Login">
+      <div class="Cn_Login">
+        <form>
+          <img src="IMG/Cutlajo_Logo.png" alt="" />
+          <input
+            type="text"
+            class="Input_Text"
+            placeholder="Codigo de Usuario"
+            id="LOGIN_USER"
+          />
+          <input
+            type="text"
+            class="Input_Text"
+            placeholder="Contraseña"
+            id="LOGIN_PASSWORD"
+          />
+          <button type="button" class="Btn_Sty_1" onclick="User_Login()">
+            <img src="./IMG/cursor.svg" alt="" /> Continuar
+          </button>
+          <button
+            type="button"
+            class="Btn_Sty_0 Tooltip"
+            onclick="GOTO_MENU('Recuperar',0)"
+          >
+            <img src="./IMG/Key.svg" alt="" /> Olvidaste tu Contraseña?
+          </button>
+        </form>
+        <br />
+        <div>
+          <button type="button" class="Btn_Sty_4" onclick="User_Login('LOCAL')">
+            <img src="./IMG/Computer.svg" alt="" /> Usuario Local
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- [ Recuperacion ] -->
+    <div class="Mn_Recuperar Hiden" id="Mn_Recuperar">
+      <div class="Cn_Recuperar">
+        <img src="./IMG/Cutlajo_Logo.png" alt="" />
+        <hr />
+        <br />
+        <h2 class="">Recuperar Contraseña</h2>
+        <br />
+        <input
+          type="text"
+          class="Input_Text"
+          placeholder="Codigo de Usuario"
+          id="RECUPERAR_USER"
+        /><br />
+        <div class="Grid">
+          <button type="button" class="Btn_Sty_4" onclick="End_Sesion()">
+            <img src="./IMG/Undo.svg" alt="" /> Volver
+          </button>
+          <button type="button" class="Btn_Sty_1" onclick="End_Sesion()">
+            <img src="./IMG/Document.svg" alt="" /> Enviar Peticion
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- [ Loading ] -->
+    <div class="Mn_Loading Hiden" id="Mn_Loading">
+      <div class="Cn_Loading">
+        <h1>Cargando</h1>
+        <p id="Loading_Text">...</p>
+        <div class="Loading_Bar"><div></div></div>
+      </div>
+    </div>
+
+    <!-- [ Menu Lateral y Banner ] -->
+    <nav class="Mn_Toolbar Hiden" id="Mn_Toolbar">
+      <!-- [ Menu Lateral ] -->
+      <div class="Cn_Toolbar">
+        <div>
+          <img src="IMG/Cutlajo_Logo.png" alt="" class="IMG_Logo" ITEM="IMG"/>
+          <br /><br />
+          <div class="Toolbar_User">
+            <img src="IMG/User_Img.jpg" alt="" class="IMG_User" />
+            <p><span class="USER_DB_NAME">Nombre</span></p>
+            <p><span class="USER_DB_ID">ID</span></p>
+          </div>
+        </div>
+        <div class="Toolbar_Buttons">
+          <div>
+            <button
+              type="button"
+              class="Btn_Sty_1"
+              onclick="GOTO_MENU('Main',0)"
+            >
+              <img src="./IMG/Home.svg" alt="" class="Img_Icon" /> Principal
+            </button>
+            <button
+              type="button"
+              class="Btn_Sty_1"
+              onclick="GOTO_MENU('Pacient_Select',0)"
+            >
+              <img src="./IMG/Users.svg" alt="" class="Img_Icon" />Pacientes
+            </button>
+            <button
+              type="button"
+              class="Btn_Sty_1"
+              onclick="GOTO_MENU('Dates',0)"
+            >
+              <img src="./IMG/Calendar.svg" alt="" class="Img_Icon" />Citas
+            </button>
+            <button
+              type="button"
+              class="Btn_Sty_1"
+              onclick="GOTO_MENU('Notes',0)"
+            >
+              <img src="./IMG/Notes.svg" alt="" class="Img_Icon" />Notas
+            </button>
+            <button
+              type="button"
+              class="Btn_Sty_1"
+              onclick="GOTO_MENU('Search',0)"
+            >
+              <img src="./IMG/Search.svg" alt="" class="Img_Icon" />Buscar
+            </button>
+            <button
+              type="button"
+              class="Btn_Sty_1"
+              onclick="GOTO_MENU('Help',0)"
+            >
+              <img src="./IMG/Info.svg" alt="" class="Img_Icon" />Ayuda
+            </button>
+          </div>
+          <div id="Toolbar_Time">
+            <p id="TBar_Date">DD/MM/YYYY</p>
+            <p id="TBar_Hour">HH/MM</p>
+          </div>
+          <div>
+            <button
+              type="button"
+              class="Btn_Sty_1"
+              onclick="TOOLBAR_ALT_SIZE()"
+            >
+              <img src="./IMG/Menu.svg" alt="" class="Img_Icon" />Alternar Menu
+            </button>
+            <button type="button" class="Btn_Sty_1" onclick="End_Sesion()">
+              <img src="./IMG/Exit.svg" alt="" class="Img_Icon" />Cerrar Sesion
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- [ Banners ] -->
+      <div class="Mn_Banner" id="Mn_Banner">
+        <div class="Cn_Banner">
+          <!-- [ Principal ] -->
+          <div class="Mn_Banner_Main Hiden" id="Mn_Banner_Main">
+            <div>
+              <h3 class="">Menu Principal</h3>
+              <p class="">Apartado General</p>
+            </div>
+          </div>
+
+          <!-- [ Banner > Pacientes ] -->
+          <div class="Mn_Banner_Pacient Hiden" id="Mn_Banner_Pacient">
+            <div>
+              <h3 class="">Catalogo de Pacientes</h3>
+              <p class="">Pacientes de la Unidad</p>
+            </div>
+            <div>
+              <button
+                class="Btn_Sty_2"
+                onclick="GOTO_MENU('Pacient_Register',0)"
+              >
+                <img src="./IMG/Add.svg" alt="" />Nuevo Paciente
+              </button>
+              <button class="Btn_Sty_4">
+                <img src="./IMG/Info.svg" alt="" />
+              </button>
+            </div>
+          </div>
+
+          <!-- [ Banner > Pacientes > Basic Info ] -->
+          <div
+            class="Grid Mn_Banner_Pacient_Data Hiden"
+            id="Mn_Banner_Pacient_Data"
+          >
+            <div>
+              <h3 class="">Informacion del Paciente</h3>
+              <p class="">Informacion General</p>
+            </div>
+            <div>
+              <button type="button" class="Btn_Sty_3" onclick="">
+                <img src="./IMG/Update.svg" alt="" />Volver a Cargar
+              </button>
+              <button type="button" class="Btn_Sty_2" onclick="Save_Pacient()">
+                <img src="./IMG/Save.svg" alt="" />Guardar Cambios
+              </button>
+              <button class="Btn_Sty_4">
+                <img src="./IMG/Info.svg" alt="" />
+              </button>
+            </div>
+          </div>
+
+          <!-- [ Banner > Pacientes > Historial ] -->
+          <div
+            class="Grid Mn_Banner_Pacient_History Hiden"
+            id="Mn_Banner_Pacient_History"
+          >
+            <div>
+              <h3 class="">Historial Clinico del Paciente</h3>
+              <p class=""></p>
+            </div>
+            <div>
+              <button type="button" class="Btn_Sty_2" onclick="Save_Pacient()">
+                <img src="./IMG/Save.svg" alt="" />Guardar Cambios
+              </button>
+            </div>
+          </div>
+
+          <!-- [ Banner > Pacientes > Notas ] -->
+          <div
+            class="Grid Mn_Banner_Pacient_Notes Hiden"
+            id="Mn_Banner_Pacient_Notes"
+          >
+            <div>
+              <h3 class="">Notas del Paciente</h3>
+              <p class="">Registro de Notas</p>
+            </div>
+            <div></div>
+            <div class="Text_R">
+              <button type="button" class="Btn_Sty_4" onclick="">
+                <img src="./IMG/Info.svg" alt="" />
+              </button>
+            </div>
+          </div>
+
+          <!-- [ Banner > Pacientes > Docs ] -->
+          <div
+            class="Grid Mn_Banner_Pacient_Docs Hiden"
+            id="Mn_Banner_Pacient_Docs"
+          >
+            <div>
+              <h3 class="">Documentos del Paciente</h3>
+              <p class="">Registro de Documentos</p>
+            </div>
+            <div></div>
+            <div class="Text_R">
+              <button type="button" class="Btn_Sty_4" onclick="">
+                <img src="./IMG/Info.svg" alt="" />
+              </button>
+            </div>
+          </div>
+
+          <!-- [ Banner > Pacientes > Citas ] -->
+          <div
+            class="Grid Mn_Banner_Pacient_Dates Hiden"
+            id="Mn_Banner_Pacient_Dates"
+          >
+            <div>
+              <h3 class="">Citas del Paciente</h3>
+              <p class="">Registro Citas</p>
+            </div>
+            <div></div>
+            <div class="Text_R">
+              <button type="button" class="Btn_Sty_2" onclick="">
+                <img src="./IMG/Calendar.svg" alt="" />Nueva Cita
+              </button>
+              <button type="button" class="Btn_Sty_4" onclick="">
+                <img src="./IMG/Info.svg" alt="" />
+              </button>
+            </div>
+          </div>
+
+          <!-- [ Banner > Dates ] -->
+          <div class="Mn_Banner_Dates Hiden" id="Mn_Banner_Dates">
+            <div>
+              <h3 class="">Agenda de Citas</h3>
+              <p class="">Calendario</p>
+            </div>
+            <div class="Text_R">
+              <button class="Btn_Sty_2" onclick="Calendar_DD_Selected()">
+                <img src="./IMG/Calendar.svg" alt="" />Nueva Cita
+              </button>
+              <button class="Btn_Sty_4">
+                <img src="./IMG/Info.svg" alt="" />
+              </button>
+            </div>
+          </div>
+
+          <!-- [ Ayuda ] -->
+          <div class="Mn_Banner_Help Hiden" id="Mn_Banner_Help">
+            <div>
+              <h3 class="">Ayuda e Informacion</h3>
+              <p class="">Apartado General</p>
+            </div>
+          </div>
+
+          <!-- [ Busqueda Avanzada ] -->
+          <div class="Mn_Banner_Adv_Search Hiden" id="Mn_Banner_Adv_Search">
+            <div>
+              <h3 class="">Menu de Busqueda</h3>
+              <p class="">Busqueda Avanzada</p>
+            </div>
+          </div>
+
+          <div class="Mn_Banner_NotesDocs" id="Mn_Banner_NotesDocs">
+            <div>
+              <h3 class="">Documentos y Notas</h3>
+              <p class="">Acceso rapido</p>
+            </div>
+          </div>
+
+          <div class="" id="Mn_Banner_SEARCH">
+            <div class="">
+              <h3>Buscador de Pacientes Registrados</h3>
+              <p>Buscar en base de datos</p>
+            </div>
+          </div>
+
+          <div class="" id="Mn_Banner_PAGEINFO">
+            <div class="">
+              <h3>Informacion de la pagina</h3>
+              <p>Informacion general</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- [ Principal ] -->
+    <div class="Mn_Main Hiden" id="Mn_Main">
+      <div class="Cn_Main">
+        <div class="Cn_Box_Sty_1">
+          <img src="./IMG/User_Img.jpg" alt="" class="IMG_User" ITEM="IMG" />
+          <div class="">
+            <p ITEM="ID" class="">ID:</p>
+            <p ITEM="PREFIJO" class="">PREFIJO:</p>
+            <p ITEM="NOMBRE" class="" ITEM="">NOMBRE:</p>
+            <p ITEM="GENERO" class="">GENERO:</p>
+            <p ITEM="TELEFONO_1" class="">TELEFONO:</p>
+            <p ITEM="CORREO" class="">CORREO:</p>
+            <p ITEM="ESPECIALIDAD" class="">ESPECIALIDAD:</p>
+            <p ITEM="SSA" class="">SSA:</p>
+            <p ITEM="CEDULA" class="">CEDULA:</p>
+          </div>
+          <hr />
+          <div>
+            <p ITEM="CONSULTORIO">CONSULTORIO:</p>
+            <p ITEM="CON_NOMBRE"></p>
+            <p ITEM="CON_DIRECCION"></p>
+          </div>
+        </div>
+        <hr />
+        <h2 class="">Menu de Accesos</h2>
+        <div class="Menu">
+          <button
+            type="button"
+            class="Btn_Sty_1"
+            onclick="GOTO_MENU('Pacient_Select',0)"
+          >
+            <img src="./IMG/Users.svg" alt="" class="" />
+            <span>
+              <h2>Pacientes</h2>
+              <p>Ver lista de pacientes registrados.</p>
+            </span>
+          </button>
+          <button
+            type="button"
+            class="Btn_Sty_1"
+            onclick="GOTO_MENU('Dates',0)"
+          >
+            <img src="./IMG/Calendar.svg" alt="" class="" />
+            <span>
+              <h2>Citas</h2>
+              <p>Abrir calendario y agenda de proximas citas.</p>
+            </span>
+          </button>
+          <button
+            type="button"
+            class="Btn_Sty_1"
+            onclick="GOTO_MENU('Notes',0)"
+          >
+            <img src="./IMG/Notes.svg" alt="" class="" />
+            <span>
+              <h2>Notas</h2>
+              <p>Abrir menu de generacion de notas y documentos.</p>
+            </span>
+          </button>
+          <button
+            type="button"
+            class="Btn_Sty_1"
+            onclick="GOTO_MENU('Search',0)"
+          >
+            <img src="./IMG/Search.svg" alt="" class="" />
+            <span>
+              <h2>Buscar</h2>
+              <p>Abrir menu de busqueda avanzada.</p>
+            </span>
+          </button>
+          <button type="button" class="Btn_Sty_1" onclick="GOTO_MENU('Help',0)">
+            <img src="./IMG/Info.svg" alt="" class="" />
+            <span>
+              <h2>Ayuda</h2>
+              <p>Informacion legal y de contacto de la pagina.</p>
+            </span>
+          </button>
+          <button
+            type="button"
+            class="Btn_Sty_1"
+            onclick="GOTO_MENU('Config',1)"
+          >
+            <img src="./IMG/Config.svg" alt="" class="" />
+            <span>
+              <h2>Configuracion</h2>
+              <p>Abrir menu de configuracion general.</p>
+            </span>
+          </button>
+          <button type="button" class="Btn_Sty_3" onclick="End_Sesion()">
+            <img src="./IMG/Exit.svg" alt="" class="" />
+            <span>
+              <h2>Salir</h2>
+              <p>Cerrar sesion.</p>
+            </span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- [ Pacientes > Lista ] -->
+    <div class="Mn_Pacientes_Index Hiden" id="Mn_Pacientes_Index">
+      <div class="Cn_Pacientes_Index">
+        <br />
+        <h3>Cantidad de pacientes registrados</h3>
+        <br />
+        <div id="TABLE_PACIEENTS_COUNT">
+          <div>
+            <img src="./IMG/Face_Man.svg" alt="" />
+            <span
+              ><p id="TABLE_PACIEENTS_COUNT_M">0</p>
+              <p>Masculino</p></span
+            >
+          </div>
+          <div>
+            <img src="./IMG/Face_Woman.svg" alt="" />
+            <span
+              ><p id="TABLE_PACIEENTS_COUNT_F">0</p>
+              <p>Femenino</p>
+            </span>
+          </div>
+          <div>
+            <img src="./IMG/Users.svg" alt="" />
+            <span
+              ><p id="TABLE_PACIEENTS_COUNT_T">0</p>
+              <p>Total</p>
+            </span>
+          </div>
+        </div>
+        <hr />
+        <div class="Cn_Pacientes_List" id="Cn_Pacientes_List">
+          <h3>Lista de pacientes registrasdos</h3>
+          <br />
+          <ul class="Pacient_List"></ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- [ Pacientes > Registrar ] -->
+    <div class="Mn_Pacientes_Register Hiden" id="Mn_Pacientes_Register">
+      <div class="Cn_Banner_2">
+        <span>
+          <h3 class="">Nuevo Paciente</h3>
+          <p class="">Capture los datos del formulario</p>
+        </span>
+        <div>
+          <button class="Btn_Sty_2" type="button" onclick="Pacient_Register()">
+            <img src="./IMG/Save.svg" alt="" />Guardar Paciente
+          </button>
+          <button class="Btn_Sty_4" onclick="GOTO_MENU('Pacient_Select')">
+            <img src="./IMG/Delete.svg" alt="" />Cancelar
+          </button>
+        </div>
+      </div>
+      <br />
+      <form class="REGISTER_FORM" id="REGISTER_FORM">
+        <div class="images">
+          <button
+            type="button"
+            class="Btn_Sty_4"
+            onclick="GOTO_MENU('Import_File_R', 1)"
+          >
+            <img src="./IMG/Folder.svg" alt="" class="Img_Icon" />
+            <span> Selecionar Foto</span>
+          </button>
+          <button
+            type="button"
+            class="Btn_Sty_4"
+            onclick="GOTO_MENU('Camara', 1)"
+          >
+            <img src="./IMG/Image.svg" alt="" class="Img_Icon" />
+            <span>Tomar Foto</span>
+          </button>
+        </div>
+        <br />
+        <div class="data">
+          <div class="Input_Div">
+            <input
+              type="text"
+              class="Input_Text"
+              placeholder=" "
+              ITEM="NOMBRE"
+            />
+            <label for="">Nombre</label>
+          </div>
+          <div class="Input_Div">
+            <input type="text" class="Input_Text" placeholder=" " ITEM="CURP" />
+            <label for="">CURP</label>
+          </div>
+          <div class="Input_Div">
+            <input
+              type="text"
+              class="Input_Text"
+              placeholder=" "
+              ITEM="APELLIDO_1"
+            />
+            <label for="">Apellido Paterno</label>
+          </div>
+          <div class="Input_Div">
+            <input
+              type="text"
+              class="Input_Text"
+              placeholder=" "
+              ITEM="APELLIDO_2"
+            />
+            <label for="">Apellido Materno</label>
+          </div>
+          <div class="Input_Div">
+            <input
+              type="date"
+              class="Input_Text"
+              placeholder=" "
+              ITEM="FECHA"
+            />
+            <label for="">Fecha de Nacimiento</label>
+          </div>
+          <div class="Input_Div">
+            <input type="text" class="Input_Text" placeholder=" " />
+            <label for="">Edad</label>
+          </div>
+          <select name="Pacient_Register_Gender" ITEM="GENERO">
+            <option value="M">Masculino</option>
+            <option value="F">Femenino</option>
+          </select>
+          <div class="Input_Div">
+            <input type="text" class="Input_Text" placeholder=" " ITEM="RH" />
+            <label for="">Grupo Sangineo / Factor RH</label>
+          </div>
+          <div class="Input_Div">
+            <input
+              type="text"
+              class="Input_Text"
+              placeholder=" "
+              ITEM="OCUPACION"
+            />
+            <label for="">Ocupacion</label>
+          </div>
+          <div class="Input_Div">
+            <input
+              type="text"
+              class="Input_Text"
+              placeholder=" "
+              ITEM="CORREO"
+            />
+            <label for="">Correo Electronico</label>
+          </div>
+          <div class="Input_Div">
+            <input
+              type="text"
+              class="Input_Text"
+              placeholder=" "
+              ITEM="TELEFONO_1"
+            />
+            <label for="">Telefono Celular</label>
+          </div>
+          <div class="Input_Div">
+            <input
+              type="text"
+              class="Input_Text"
+              placeholder=" "
+              ITEM="TELEFONO_2"
+            />
+            <label for="">Telefono Fijo</label>
+          </div>
+          <div class="Input_Div">
+            <input
+              type="text"
+              class="Input_Text"
+              placeholder=" "
+              ITEM="DIRECCION"
+            />
+            <label for="">Domicilio</label>
+          </div>
+          <div class="Input_Div">
+            <input
+              type="text"
+              class="Input_Text"
+              placeholder=" "
+              ITEM="CIUDAD"
+            />
+            <label for="">Ciudad</label>
+          </div>
+          <div class="Input_Div">
+            <input
+              type="text"
+              class="Input_Text"
+              placeholder=" "
+              ITEM="ENTIDAD"
+            />
+            <label for="">Entidad de Nacimiento</label>
+          </div>
+          <div class="Input_Div">
+            <input
+              type="text"
+              class="Input_Text"
+              placeholder=" "
+              ITEM="RELIGION"
+            />
+            <label for="">Religion</label>
+          </div>
+          <div class="Input_Div">
+            <input
+              type="text"
+              class="Input_Text"
+              placeholder=" "
+              ITEM="ESTADO_CIVIL"
+            />
+            <label for="">Estado Civil</label>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <div class="Mn_Pacientes_Data" id="Mn_Pacientes_Data">
+      <!-- [ Pacientes > Menu de Ventanas ] -->
+      <div class="Cn_Box_Sty_0 Text_L Hiden" id="Mn_Banner_Pacientes_Data">
+        <button
+          type="button"
+          class="Btn_Sty_5"
+          onclick="GOTO_MENU('Pacient_Data',0)"
+        >
+          <img src="./IMG/Pencil.svg" alt="" />Registro
+        </button>
+        <button
+          type="button"
+          class="Btn_Sty_5"
+          onclick="GOTO_MENU('Pacient_History',0)"
+        >
+          <img src="./IMG/History.svg" alt="" />Historial
+        </button>
+        <button
+          type="button"
+          class="Btn_Sty_5"
+          onclick="GOTO_MENU('Pacient_Dates',0)"
+        >
+          <img src="./IMG/Calendar.svg" alt="" />Citas
+        </button>
+        <button
+          type="button"
+          class="Btn_Sty_5"
+          onclick="GOTO_MENU('Pacient_Notes',0)"
+        >
+          <img src="./IMG/Notes.svg" alt="" />Notas
+        </button>
+        <button
+          type="button"
+          class="Btn_Sty_5"
+          onclick="GOTO_MENU('Pacient_Docs',0)"
+        >
+          <img src="./IMG/Document.svg" alt="" />Documentos
+        </button>
+      </div>
+
+      <!-- [ Pacientes > Registro ] -->
+      <div class="Mn_Pacientes_Info Hiden" id="Mn_Pacientes_Info">
+        <hr />
+        <div class="Grid">
+          <div class="Cn_Box_Sty_0" id="PACIENTE_INFO">
+            <div class="Grid">
+              <div>
+                <img src="IMG/User_Img.jpg" ITEM="IMG" alt="" class="Img-Face" />
+                <button type="button" class="Btn_Sty_5" onclick="GOTO_MENU('Camara', 1)"><img src="IMG/Image.svg" alt="">Tomar Foto</button>
+              </div>
+              <div class="Text_L">
+                <p>#<span ITEM="ID" class="">#ID del Paciente</span></p>
+                <p><span ITEM="NOMBRE" class="">Nombre Completo</span></p>
+                <p>CURP: <span ITEM="CURP" class="">_______________</span></p>
+                <p><span ITEM="FECHA" class="">YYYY/MM/DD</span></p>
+                <p>SEXO: <span ITEM="GENERO" class="">_____</span></p>
+              </div>
+            </div>
+            <br />
+            <div class="Cn_Box_Sty_2 Text_L">
+              <p>Peso: <input type="text" ITEM="PESO" class="" /> Kg</p>
+              <p>Estatura: <input type="text" ITEM="ALTURA" class="" /> Cm</p>
+              <p>IMC: <input type="text" ITEM="IMC" class="" /></p>
+            </div>
+            <br />
+            <div class="Cn_Box_Sty_2 Text_L">
+              <p>Ciudad: <span ITEM="CIUDAD" class="">___________</span></p>
+              <p>Estado: <span ITEM="ENTIDAD" class="">___________</span></p>
+              <p>
+                Telefono Cel:
+                <span ITEM="TELEFONO_1" class="">___________</span>
+              </p>
+              <p>
+                Telefono Fijo:
+                <span ITEM="TELEFONO_2" class="">___________</span>
+              </p>
+              <p>Correo: <span ITEM="CORREO" class="">___________</span></p>
+              <p>
+                Estado Civil:
+                <span ITEM="ESTADO_CIVIL" class="">___________</span>
+              </p>
+            </div>
+            <br />
+            <div class="Cn_Box_Sty_2 Text_L">
+              <h3>Responsable:</h3>
+              <p>
+                Nombre:
+                <input type="text" class="" ITEM="R_NOMBRE" placeholder=" " />
+              </p>
+              <p>
+                Telefono:
+                <input type="text" class="" ITEM="R_TEL" placeholder=" " />
+              </p>
+              <p>
+                Correo:
+                <input type="text" class="" ITEM="R_CORREO" placeholder=" " />
+              </p>
+            </div>
+          </div>
+
+          <div class="Cn_Box_Sty_2">
+            <div id="Mn_Pacientes_Info_History">
+              <h3 class="Text_Sty_1">Historial Antecendentes</h3>
+              <hr />
+              <details id="Info_History_1">
+                <summary class="Text_Sty_1">Heredo familiares:</summary>
+              </details>
+              <hr />
+              <details id="Info_History_2">
+                <summary class="Text_Sty_1">Personales patológicos:</summary>
+              </details>
+              <hr />
+              <details id="Info_History_3">
+                <summary class="Text_Sty_1">Personales no patológicos:</summary>
+              </details>
+              <hr />
+              <details id="Info_History_4">
+                <summary class="Text_Sty_1">Gineco-Obstetricos:</summary>
+              </details>
+              <hr />
+              <details id="Info_History_5">
+                <summary class="Text_Sty_1">Andrologicos:</summary>
+              </details>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- [ Pacientes > Historial ] -->
+      <div class="Mn_Pacientes_History Hiden" id="Mn_Pacientes_History">
+        <hr />
+        <div class="Cn_Pacientes_History">
+          <div class="Cn_Box_Sty_2">
+            <h3 class="Text_L Text_Sty_1">Antecedentes 'heredo familiares'</h3>
+            <table id="TABLE_Historial_1"></table>
+            <details>
+              <summary class="Text_Sty_1">Otros: (Separados por , )</summary>
+              <textarea
+                name="TABLE_Historial_1More"
+                id="TABLE_Historial_1More"
+                cols="30"
+                rows="10"
+              ></textarea>
+            </details>
+          </div>
+          <br />
+          <div class="Cn_Box_Sty_2">
+            <h3 class="Text_L Text_Sty_1">
+              Antecedentes 'personales patológicos'
+            </h3>
+            <table id="TABLE_Historial_2"></table>
+            <details>
+              <summary class="Text_Sty_1">Otros: (Separados por , )</summary>
+              <textarea
+                name="TABLE_Historial_1More"
+                id="TABLE_Historial_1More"
+                cols="30"
+                rows="10"
+              ></textarea>
+            </details>
+          </div>
+          <br />
+          <div class="Cn_Box_Sty_2" id="TABLE_Historial_3">
+            <h3 class="Text_L Text_Sty_1">
+              Personales 'personales no patológicos'
+            </h3>
+            <div class="Cn_Box_Sty_0">
+              <h4 class="Text_L">La vivienda es:</h4>
+              <table id="TABLE_Historial_30">
+                <tr>
+                  <td>
+                    <button
+                      type="button"
+                      class="NO_CHECKED"
+                      onclick="Btn_Togle(this,'Pacient_History')"
+                    >
+                      Propia
+                    </button>
+                  </td>
+                  <td>
+                    <button
+                      type="button"
+                      class="NO_CHECKED"
+                      onclick="Btn_Togle(this,'Pacient_History')"
+                    >
+                      Prestada
+                    </button>
+                  </td>
+                  <td>
+                    <button
+                      type="button"
+                      class="NO_CHECKED"
+                      onclick="Btn_Togle(this,'Pacient_History')"
+                    >
+                      Rentada
+                    </button>
+                  </td>
+                  <td>
+                    <button
+                      type="button"
+                      class="NO_CHECKED"
+                      onclick="Btn_Togle(this,'Pacient_History')"
+                    >
+                      Otra sitaucion
+                    </button>
+                  </td>
+                </tr>
+              </table>
+            </div>
+            <div class="Cn_Box_Sty_0">
+              <h4 class="Text_L">La calidad de la vivienda es:</h4>
+              <table id="TABLE_Historial_3a">
+                <tr>
+                  <td>
+                    <button
+                      type="button"
+                      class="NO_CHECKED"
+                      onclick="Btn_Togle(this,'Pacient_History')"
+                    >
+                      Buena
+                    </button>
+                  </td>
+                  <td>
+                    <button
+                      type="button"
+                      class="NO_CHECKED"
+                      onclick="Btn_Togle(this,'Pacient_History')"
+                    >
+                      Regular
+                    </button>
+                  </td>
+                  <td>
+                    <button
+                      type="button"
+                      class="NO_CHECKED"
+                      onclick="Btn_Togle(this,'Pacient_History')"
+                    >
+                      Mala
+                    </button>
+                  </td>
+                </tr>
+              </table>
+            </div>
+            <div class="Cn_Box_Sty_0">
+              <h4 class="Text_L">Servicios</h4>
+              <table id="TABLE_Historial_3b">
+                <tr>
+                  <td>
+                    <button
+                      type="button"
+                      class="NO_CHECKED"
+                      onclick="Btn_Togle(this,'Pacient_History')"
+                    >
+                      Agua Potable
+                    </button>
+                  </td>
+                  <td>
+                    <button
+                      type="button"
+                      class="NO_CHECKED"
+                      onclick="Btn_Togle(this,'Pacient_History')"
+                    >
+                      Electricidad
+                    </button>
+                  </td>
+                  <td>
+                    <button
+                      type="button"
+                      class="NO_CHECKED"
+                      onclick="Btn_Togle(this,'Pacient_History')"
+                    >
+                      Drenaje
+                    </button>
+                  </td>
+                </tr>
+              </table>
+            </div>
+            <div class="Cn_Box_Sty_0">
+              <h4 class="Text_L">Fauna</h4>
+              <table id="TABLE_Historial_3c">
+                <tr>
+                  <td>
+                    <button
+                      type="button"
+                      class="NO_CHECKED"
+                      onclick="Btn_Togle(this,'Pacient_History')"
+                    >
+                      Perros
+                    </button>
+                  </td>
+                  <td>
+                    <button
+                      type="button"
+                      class="NO_CHECKED"
+                      onclick="Btn_Togle(this,'Pacient_History')"
+                    >
+                      Gatos
+                    </button>
+                  </td>
+                  <td>
+                    <button
+                      type="button"
+                      class="NO_CHECKED"
+                      onclick="Btn_Togle(this,'Pacient_History')"
+                    >
+                      Aves
+                    </button>
+                  </td>
+                </tr>
+              </table>
+              <details>
+                <summary>Otros:</summary>
+                <textarea
+                  name="TABLE_Historial_3c"
+                  id="TABLE_Historial_3c"
+                  cols="30"
+                  rows="10"
+                ></textarea>
+              </details>
+            </div>
+            <div class="Cn_Box_Sty_0">
+              <h4 class="Text_L">Inmunizaciones</h4>
+              <table id="TABLE_Historial_3d">
+                <tr>
+                  <td>
+                    <button
+                      type="button"
+                      class="NO_CHECKED"
+                      onclick="Btn_Togle(this,'Pacient_History')"
+                    >
+                      Completa
+                    </button>
+                  </td>
+                  <td>
+                    <button
+                      type="button"
+                      class="NO_CHECKED"
+                      onclick="Btn_Togle(this,'Pacient_History')"
+                    >
+                      Incompleta
+                    </button>
+                  </td>
+                </tr>
+              </table>
+            </div>
+            <details>
+              <summary class="Text_Sty_1">Alergias (Separadas por ,)</summary>
+              <textarea
+                name="TABLE_Historial_Alergias"
+                id="TABLE_Historial_Alergias"
+                cols="30"
+                rows="10"
+              ></textarea>
+            </details>
+            <div class="Cn_Box_Sty_0">
+              <h4 class="Text_L">Tabaco</h4>
+              <table id="TABLE_Historial_3e">
+                <tr>
+                  <td>
+                    <button
+                      type="button"
+                      class="NO_CHECKED"
+                      onclick="Btn_Togle(this,'Pacient_History')"
+                    >
+                      Siempre
+                    </button>
+                  </td>
+                  <td>
+                    <button
+                      type="button"
+                      class="NO_CHECKED"
+                      onclick="Btn_Togle(this,'Pacient_History')"
+                    >
+                      A veces
+                    </button>
+                  </td>
+                  <td>
+                    <button
+                      type="button"
+                      class="NO_CHECKED"
+                      onclick="Btn_Togle(this,'Pacient_History')"
+                    >
+                      Nunca
+                    </button>
+                  </td>
+                  <td>
+                    <button
+                      type="button"
+                      class="NO_CHECKED"
+                      onclick="Btn_Togle(this,'Pacient_History')"
+                    >
+                      Ex-Fumador
+                    </button>
+                  </td>
+                </tr>
+              </table>
+            </div>
+            <div class="Cn_Box_Sty_0">
+              <h4 class="Text_L">Alcohol</h4>
+              <table id="TABLE_Historial_3f">
+                <tr>
+                  <td>
+                    <button
+                      type="button"
+                      class="NO_CHECKED"
+                      onclick="Btn_Togle(this,'Pacient_History')"
+                    >
+                      Siempre
+                    </button>
+                  </td>
+                  <td>
+                    <button
+                      type="button"
+                      class="NO_CHECKED"
+                      onclick="Btn_Togle(this,'Pacient_History')"
+                    >
+                      A veces
+                    </button>
+                  </td>
+                  <td>
+                    <button
+                      type="button"
+                      class="NO_CHECKED"
+                      onclick="Btn_Togle(this,'Pacient_History')"
+                    >
+                      Nunca
+                    </button>
+                  </td>
+                  <td>
+                    <button
+                      type="button"
+                      class="NO_CHECKED"
+                      onclick="Btn_Togle(this,'Pacient_History')"
+                    >
+                      Ex-Fumador
+                    </button>
+                  </td>
+                </tr>
+              </table>
+            </div>
+            <div class="Cn_Box_Sty_0">
+              <h4 class="Text_L">Biomasa (Humo de leña)</h4>
+              <table id="TABLE_Historial_3g">
+                <tr>
+                  <td>
+                    <button
+                      type="button"
+                      class="NO_CHECKED"
+                      onclick="Btn_Togle(this,'Pacient_History')"
+                    >
+                      Si
+                    </button>
+                  </td>
+                  <td>
+                    <button
+                      type="button"
+                      class="NO_CHECKED"
+                      onclick="Btn_Togle(this,'Pacient_History')"
+                    >
+                      No
+                    </button>
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </div>
+          <br />
+          <div class="Cn_Box_Sty_2" id="TABLE_Historial_4">
+            <h3 class="Text_L Text_Sty_1">Antecedentes 'GINECO-OBSTETRICOS'</h3>
+            <input
+              type="text"
+              class="Input_Text"
+              onfocusout="Btn_Togle(this,'Pacient_History')"
+              placeholder="Menarquia"
+            />
+            <input
+              type="text"
+              class="Input_Text"
+              onfocusout="Btn_Togle(this,'Pacient_History')"
+              placeholder="Numero de Embarazos"
+            />
+            <input
+              type="text"
+              class="Input_Text"
+              onfocusout="Btn_Togle(this,'Pacient_History')"
+              placeholder="Número de hijos nacidos vivos"
+            />
+            <input
+              type="text"
+              class="Input_Text"
+              onfocusout="Btn_Togle(this,'Pacient_History')"
+              placeholder="Numero de perdidas:"
+            />
+            <input
+              type="text"
+              class="Input_Text"
+              onfocusout="Btn_Togle(this,'Pacient_History')"
+              placeholder="Número de abortos:"
+            />
+            <input
+              type="text"
+              class="Input_Text"
+              onfocusout="Btn_Togle(this,'Pacient_History')"
+              placeholder="Método anticonceptivo:"
+            />
+          </div>
+          <br />
+          <div class="Cn_Box_Sty_2" id="TABLE_Historial_5">
+            <h3 class="Text_L Text_Sty_1">Antecedentes 'ANDROLÓGICOS'</h3>
+            <div class="Cn_Box_Sty_0">
+              <h4 class="Text_L">Priapismo</h4>
+              <table id="TABLE_Historial_5a">
+                <tr>
+                  <td>
+                    <button
+                      type="button"
+                      class="NO_CHECKED"
+                      onclick="Btn_Togle(this,'Pacient_History')"
+                    >
+                      Si
+                    </button>
+                  </td>
+                  <td>
+                    <button
+                      type="button"
+                      class="NO_CHECKED"
+                      onclick="Btn_Togle(this,'Pacient_History')"
+                    >
+                      No
+                    </button>
+                  </td>
+                </tr>
+              </table>
+            </div>
+            <div class="Cn_Box_Sty_0">
+              <h4 class="Text_L">Alteraciones de la erección</h4>
+              <table id="TABLE_Historial_5b">
+                <tr>
+                  <td>
+                    <button
+                      type="button"
+                      class="NO_CHECKED"
+                      onclick="Btn_Togle(this,'Pacient_History')"
+                    >
+                      Si
+                    </button>
+                  </td>
+                  <td>
+                    <button
+                      type="button"
+                      class="NO_CHECKED"
+                      onclick="Btn_Togle(this,'Pacient_History')"
+                    >
+                      No
+                    </button>
+                  </td>
+                </tr>
+              </table>
+            </div>
+            <div class="Cn_Box_Sty_0">
+              <h4 class="Text_L">Secreción uretral</h4>
+              <table id="TABLE_Historial_5c">
+                <tr>
+                  <td>
+                    <button
+                      type="button"
+                      class="NO_CHECKED"
+                      onclick="Btn_Togle(this,'Pacient_History')"
+                    >
+                      Si
+                    </button>
+                  </td>
+                  <td>
+                    <button
+                      type="button"
+                      class="NO_CHECKED"
+                      onclick="Btn_Togle(this,'Pacient_History')"
+                    >
+                      No
+                    </button>
+                  </td>
+                </tr>
+              </table>
+            </div>
+            <div class="Cn_Box_Sty_0">
+              <h4 class="Text_L">Alteraciones escrotales</h4>
+              <table id="TABLE_Historial_5d">
+                <tr>
+                  <td>
+                    <button
+                      type="button"
+                      class="NO_CHECKED"
+                      onclick="Btn_Togle(this,'Pacient_History')"
+                    >
+                      Si
+                    </button>
+                  </td>
+                  <td>
+                    <button
+                      type="button"
+                      class="NO_CHECKED"
+                      onclick="Btn_Togle(this,'Pacient_History')"
+                    >
+                      No
+                    </button>
+                  </td>
+                </tr>
+              </table>
+            </div>
+            <div class="Cn_Box_Sty_0">
+              <h4 class="Text_L">Enfermedades de transmisión sexual</h4>
+              <table id="TABLE_Historial_5e">
+                <tr>
+                  <td>
+                    <button
+                      type="button"
+                      class="NO_CHECKED"
+                      onclick="Btn_Togle(this,'Pacient_History')"
+                    >
+                      Si
+                    </button>
+                  </td>
+                  <td>
+                    <button
+                      type="button"
+                      class="NO_CHECKED"
+                      onclick="Btn_Togle(this,'Pacient_History')"
+                    >
+                      No
+                    </button>
+                  </td>
+                </tr>
+              </table>
+              <input type="text" class="Input_Text" id="" placeholder="Cual?" />
+            </div>
+          </div>
+          <br />
+        </div>
+      </div>
+
+      <!-- [ Pacientes > Nota Rapida ] -->
+      <div class="Mn_Pacientes_Note_Simple" id="Mn_Pacientes_Note_Simple">
+        <div class="Cn_Pacientes_Note_Simple">
+          <div class="Cn_Banner_2">
+            <div class="Grid">
+              <div class="">
+                <h3 class="">Nota Rapida: Nombre Paciente</h3>
+                <p class="">ID, Genero, Edad (Fecha)</p>
+              </div>
+              <div>
+                <button class="Btn_Sty_2">Nota Completa</button>
+                <button class="Btn_Sty_2">Guardar Nota</button>
+                <button class="Btn_Sty_4" onclick="GOTO_MENU('Pacient',1)">
+                  Cancelar
+                </button>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="Grid">
+              <div>
+                <br />
+                <div class="Input_Div" id="Note_Consult">
+                  <input type="text" class="Input_Text" placeholder=" " />
+                  <label for="">Motivo</label>
+                </div>
+                <br />
+                <div class="Input_Div" id="Note_Simple_Info">
+                  <input type="text" class="Input_Text" placeholder=" " />
+                  <label for="">Descripcion</label>
+                </div>
+              </div>
+              <div class="Note_Vital_Data">
+                <br />
+                <div class="Input_Div">
+                  <input type="text" class="Input_Text" placeholder=" " />
+                  <label for="">Diagnostico</label>
+                </div>
+                <br />
+                <p class="">Signos Vitales:</p>
+                <div class="Input_Div">
+                  <input type="text" class="Input_Text" placeholder=" " />
+                  <label for="">Talla (Estatura)</label>
+                </div>
+                <div class="Input_Div">
+                  <input type="text" class="Input_Text" placeholder=" " />
+                  <label for="">Peso</label>
+                </div>
+                <div class="Input_Div">
+                  <input type="text" class="Input_Text" placeholder=" " />
+                  <label for="">IMC</label>
+                </div>
+                <div class="Input_Div">
+                  <input type="text" class="Input_Text" placeholder=" " />
+                  <label for="">Tension Sistolica</label>
+                </div>
+                <div class="Input_Div">
+                  <input type="text" class="Input_Text" placeholder=" " />
+                  <label for="">Tension Diastolica</label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- [ Pacientes > Notas ] -->
+      <div class="Mn_Pacientes_Notes" id="Mn_Pacientes_Notes">
+        <hr />
+        <div class="Cn_Box_Sty_1 Text_L">
+          <h2>Generar Nota</h2>
+          <div class="Cn_Box_Sty_0" id="Mn_Pacientes_Notes_B">
+            <button
+              type="button"
+              class="Btn_Sty_5"
+              onclick="Mn_Note(0,'N_FAST')"
+            >
+              <img src="./IMG/Notes.svg" alt="" />Simple
+            </button>
+            <button
+              type="button"
+              class="Btn_Sty_5"
+              onclick="Mn_Note(0,'N_EVO')"
+            >
+              <img src="./IMG/Notes.svg" alt="" />Evolucion
+            </button>
+            <button
+              type="button"
+              class="Btn_Sty_5"
+              onclick="Mn_Note(0,'N_COMPLETE')"
+            >
+              <img src="./IMG/Notes.svg" alt="" />Completa
+            </button>
+            <button
+              type="button"
+              class="Btn_Sty_5"
+              onclick="Mn_Note(0,'N_REF')"
+            >
+              <img src="./IMG/Document.svg" alt="" />Referencia
+            </button>
+            <button
+              type="button"
+              class="Btn_Sty_5"
+              onclick="Mn_Note(0,'N_EGRESO')"
+            >
+              <img src="./IMG/Exit.svg" alt="" />Egreso
+            </button>
+            <hr />
+            <button
+              type="button"
+              class="Btn_Sty_5"
+              onclick="Mn_Note(0,'RECIPE')"
+            >
+              <img src="./IMG/Medicine.svg" alt="" />Receta
+            </button>
+          </div>
+        </div>
+        <hr />
+        <div class="Cn_Pacientes_Notes">
+          <div>
+            <h2>Registro de Notas</h2>
+            <div>
+              <input type="search" class="" placeholder="Buscar..." />
+              <button
+                type="button"
+                class="Btn_Sty_1"
+                onclick="SEARCH_FILE('NOTA')"
+              >
+                <img src="./IMG/Search.svg" alt="" />Buscar
+              </button>
+            </div>
+            <table id="TABLE_Notes">
+              <tr class="Table_UP">
+                <td>Fechas</td>
+                <td>Motivo</td>
+                <td>Tags</td>
+                <td>Accion</td>
+              </tr>
+            </table>
+          </div>
+          <br />
+        </div>
+      </div>
+
+      <!-- [ Pacientes > Citas] -->
+      <div class="Mn_Pacientes_Dates" id="Mn_Pacientes_Dates">
+        <hr />
+        <div class="Cn_Pacientes_Dates">
+          <div class="Cn_Box_Sty_1">
+            <h2>Generar Cita</h2>
+            <div class="Cn_Box_Sty_0">
+              <button
+                type="button"
+                class="Btn_Sty_5"
+                onclick="Calendar_DD_Selected()"
+              >
+                <img src="./IMG/Calendar.svg" alt="" />Nueva Cita
+              </button>
+            </div>
+          </div>
+          <hr />
+          <h2>Registro de citas</h2>
+          <table id="TABLE_Dates">
+            <tr class="Table_UP">
+              <td>Fecha</td>
+              <td>Estado</td>
+              <td>Motivo</td>
+              <td>Accion</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+
+      <!-- [ Pacientes > Documentos ] -->
+      <div class="Mn_Pacientes_Docs" id="Mn_Pacientes_Docs">
+        <div class="Cn_Pacientes_Docs">
+          <hr />
+          <div class="Cn_Box_Sty_1 Text_L">
+            <h2>Generar Documento</h2>
+            <div class="Cn_Box_Sty_0" id="Mn_Pacientes_Notes_B">
+              <button
+                type="button"
+                class="Btn_Sty_5"
+                onclick="Mn_Doc(0,'CARTA')"
+              >
+                <img src="./IMG/Document.svg" alt="" />Carta Vacia
+              </button>
+              <button
+                type="button"
+                class="Btn_Sty_5"
+                onclick="Mn_Doc(0,'CARTA2')"
+              >
+                <img src="./IMG/Document.svg" alt="" />Cargar Plantilla
+              </button>
+              <hr />
+              <button
+                type="button"
+                class="Btn_Sty_5"
+                onclick="Mn_Doc(0,'IMPORT')"
+              >
+                <img src="./IMG/Document_Import.svg" alt="" />Subir Archivo
+              </button>
+              <button
+                type="button"
+                class="Btn_Sty_5"
+                onclick="Mn_Doc(0,'JSON')"
+              >
+                <img src="./IMG/Document_Import.svg" alt="" />Importar JSON
+              </button>
+            </div>
+          </div>
+          <hr />
+          <details class="" Submenu="Archivos">
+            <summary>* ARCHIVOS</summary>
+            <h2>Registro de Archivos</h2>
+            <div>
+              <input type="search" class="" placeholder="Buscar..." />
+              <button
+                type="button"
+                class="Btn_Sty_1"
+                onclick="SEARCH_FILE('FILE')"
+              >
+                <img src="./IMG/Search.svg" alt="" />Buscar
+              </button>
+            </div>
+            <table id="TABLE_Files">
+              <tr class="Table_UP">
+                <td>Fecha</td>
+                <td>Nombre</td>
+                <td>Tipo</td>
+                <td>Accion</td>
+              </tr>
+            </table>
+          </details>
+          <hr />
+          <details class="" Submenu="Cartas" open>
+            <summary>* CARTAS</summary>
+            <h2>Registro de Documentos</h2>
+            <div>
+              <input type="search" class="" placeholder="Buscar..." />
+              <button
+                type="button"
+                class="Btn_Sty_1"
+                onclick="SEARCH_FILE('CARTA')"
+              >
+                <img src="./IMG/Search.svg" alt="" />Buscar
+              </button>
+            </div>
+            <table id="TABLE_Docs">
+              <tr class="Table_UP">
+                <td>Fecha</td>
+                <td>Nombre</td>
+                <td>Motivo</td>
+                <td>Accion</td>
+              </tr>
+            </table>
+          </details>
+        </div>
+      </div>
+    </div>
+
+    <!-- [ Citas > TODO ] -->
+    <div class="Mn_Dates Hiden" id="Mn_Dates">
+      <div class="Cn_Dates">
+        <div class="DATES_1">
+          <div id="calendar">
+            <h3 id="Calendar_YY"></h3>
+            <div class="Calendar_MM">
+              <button type="button" class="" onclick="Calendar_MM(-1)">
+                <
+              </button>
+              <h2 id="MM_Name">Agosto</h2>
+              <button type="button" class="" onclick="Calendar_MM(1)">></button>
+            </div>
+            <div id="Calendar_DD">
+              <span class="DD_Name">L</span>
+              <span class="DD_Name">M</span>
+              <span class="DD_Name">I</span>
+              <span class="DD_Name">J</span>
+              <span class="DD_Name">V</span>
+              <span class="DD_Name">S</span>
+              <span class="DD_Name">D</span>
+              <span id="DD_S_1"
+                ><button type="button" onclick="Calendar_DD_Selected('01')">
+                  1
+                </button>
+              </span>
+              <span id="DD_S_2"
+                ><button type="button" onclick="Calendar_DD_Selected('02')">
+                  2
+                </button>
+              </span>
+              <span id="DD_S_3"
+                ><button type="button" onclick="Calendar_DD_Selected('03')">
+                  3
+                </button>
+              </span>
+              <span id="DD_S_4"
+                ><button type="button" onclick="Calendar_DD_Selected('04')">
+                  4
+                </button>
+              </span>
+              <span id="DD_S_5"
+                ><button type="button" onclick="Calendar_DD_Selected('05')">
+                  5
+                </button>
+              </span>
+              <span id="DD_S_6"
+                ><button type="button" onclick="Calendar_DD_Selected('06')">
+                  6
+                </button>
+              </span>
+              <span id="DD_S_7"
+                ><button type="button" onclick="Calendar_DD_Selected('07')">
+                  7
+                </button>
+              </span>
+              <span id="DD_S_8"
+                ><button type="button" onclick="Calendar_DD_Selected('08')">
+                  8
+                </button>
+              </span>
+              <span id="DD_S_9"
+                ><button type="button" onclick="Calendar_DD_Selected('09')">
+                  9
+                </button>
+              </span>
+              <span id="DD_S_10"
+                ><button type="button" onclick="Calendar_DD_Selected('10')">
+                  10
+                </button>
+              </span>
+              <span id="DD_S_11"
+                ><button type="button" onclick="Calendar_DD_Selected('11')">
+                  11
+                </button>
+              </span>
+              <span id="DD_S_12"
+                ><button type="button" onclick="Calendar_DD_Selected('12')">
+                  12
+                </button>
+              </span>
+              <span id="DD_S_13"
+                ><button type="button" onclick="Calendar_DD_Selected('13')">
+                  13
+                </button>
+              </span>
+              <span id="DD_S_14"
+                ><button type="button" onclick="Calendar_DD_Selected('14')">
+                  14
+                </button>
+              </span>
+              <span id="DD_S_15"
+                ><button type="button" onclick="Calendar_DD_Selected('15')">
+                  15
+                </button>
+              </span>
+              <span id="DD_S_16"
+                ><button type="button" onclick="Calendar_DD_Selected('16')">
+                  16
+                </button>
+              </span>
+              <span id="DD_S_17"
+                ><button type="button" onclick="Calendar_DD_Selected('17')">
+                  17
+                </button>
+              </span>
+              <span id="DD_S_18"
+                ><button type="button" onclick="Calendar_DD_Selected('18')">
+                  18
+                </button>
+              </span>
+              <span id="DD_S_19"
+                ><button type="button" onclick="Calendar_DD_Selected('19')">
+                  19
+                </button>
+              </span>
+              <span id="DD_S_20"
+                ><button type="button" onclick="Calendar_DD_Selected('20')">
+                  20
+                </button>
+              </span>
+              <span id="DD_S_21"
+                ><button type="button" onclick="Calendar_DD_Selected('21')">
+                  21
+                </button>
+              </span>
+              <span id="DD_S_22"
+                ><button type="button" onclick="Calendar_DD_Selected('22')">
+                  22
+                </button>
+              </span>
+              <span id="DD_S_23"
+                ><button type="button" onclick="Calendar_DD_Selected('23')">
+                  23
+                </button>
+              </span>
+              <span id="DD_S_24"
+                ><button type="button" onclick="Calendar_DD_Selected('24')">
+                  24
+                </button>
+              </span>
+              <span id="DD_S_25"
+                ><button type="button" onclick="Calendar_DD_Selected('25')">
+                  25
+                </button>
+              </span>
+              <span id="DD_S_26"
+                ><button type="button" onclick="Calendar_DD_Selected('26')">
+                  26
+                </button>
+              </span>
+              <span id="DD_S_27"
+                ><button type="button" onclick="Calendar_DD_Selected('27')">
+                  27
+                </button>
+              </span>
+              <span id="DD_S_28"
+                ><button type="button" onclick="Calendar_DD_Selected('28')">
+                  28
+                </button>
+              </span>
+              <span id="DD_S_29"
+                ><button type="button" onclick="Calendar_DD_Selected('29')">
+                  29
+                </button>
+              </span>
+              <span id="DD_S_30"
+                ><button type="button" onclick="Calendar_DD_Selected('30')">
+                  30
+                </button>
+              </span>
+              <span id="DD_S_31"
+                ><button type="button" onclick="Calendar_DD_Selected('31')">
+                  31
+                </button>
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="Dates_List">
+          <h2>Agenda</h2>
+          <br />
+          <ul id="Next_Dates"></ul>
+        </div>
+        <div class="Dates_Details">
+          <h2>Detalles</h2>
+          <br />
+          <h3>Fecha</h3>
+          <p ITEM="FECHA">DD-MM-YYYY</p>
+          <br />
+          <h3>Hora</h3>
+          <p ITEM="HORA">HH-MM</p>
+          <br />
+          <h3>Paciente</h3>
+          <p ITEM="ID">ID:</p>
+          <p ITEM="NOMBRE">Nombre:</p>
+          <br />
+          <h3>Motivo</h3>
+          <p ITEM="MOTIVO">...</p>
+          <br />
+          <h3>Doctores</h3>
+          <p ITEM="DOCTOR_1">Resgistrado por:</p>
+          <p ITEM="DOCTOR_2">Atendido por:</p>
+          <br />
+          <h3>Consultorio</h3>
+          <p ITEM="CONSULTORIO">ID:</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="New_Date" id="NEW_DATE">
+      <div class="Cn_Banner_2">
+        <h3>Crear Cita</h3>
+        <div>
+          <button type="button" class="Btn_Sty_2" onclick="Add_New_Date()">
+            <img src="./IMG/Save.svg" alt="" />Guardar
+          </button>
+          <button
+            type="button"
+            class="Btn_Sty_4"
+            onclick="Calendar_DD_Selected('NO')"
+          >
+            <img src="./IMG/Delete.svg" alt="" />Cancelar
+          </button>
+        </div>
+      </div>
+      <br />
+      <form class="">
+        <input
+          type="text"
+          class="Input_Full"
+          ITEM="DOCTOR_1"
+          placeholder="Registrado por..."
+          readonly
+        />
+        <div>
+          <input
+            type="text"
+            class="Input_Select"
+            ITEM="DOCTOR_2"
+            placeholder="Atendido por... (Opcional)"
+          />
+          <button type="button" class="Btn_Sty_4" onclick="">
+            <img src="./IMG/Hospital.svg" alt="" />Seleccionar
+          </button>
+        </div>
+        <div>
+          <input
+            type="text"
+            class="Input_Select"
+            placeholder="Paciente"
+            ITEM="ID"
+          />
+          <button type="button" class="Btn_Sty_4" onclick="">
+            <img src="./IMG/Users.svg" alt="" /> Seleccionar
+          </button>
+        </div>
+        <div>
+          <input type="date" class="" placeholder="Fecha" ITEM="FECHA" />
+          <input type="time" class="" placeholder="Hora" ITEM="HORA" />
+        </div>
+        <input
+          type="text"
+          class="Input_Full"
+          placeholder="Motivo"
+          ITEM="MOTIVO"
+        />
+      </form>
+    </div>
+
+    <!-- [ Notas > Evolucion ] -->
+    <div class="Mn_NotesEv Hiden" id="Mn_NotesEv">
+      <div class="Cn_Notes2">
+        <div class="Cn_Banner_2 Grid">
+          <span>
+            <h3>Nota Evolucion</h3>
+            <p>Nota</p>
+          </span>
+          <div class="Text_R">
+            <button
+              type="button"
+              class="Btn_Sty_2"
+              id=""
+              onclick="Mn_Note( 1, 'N_EVO')"
+            >
+              <img src="./IMG/Save.svg" alt="" />Guardar
+            </button>
+            <button
+              type="button"
+              class="Btn_Sty_4"
+              id=""
+              onclick="Mn_Note(-1, 'N_EVO')"
+            >
+              <img src="./IMG/Delete.svg" alt="" />Borrar
+            </button>
+          </div>
+        </div>
+        <div class="data">
+          <input
+            type="text"
+            class="Hiden"
+            ITEM="TYPE"
+            placeholder=" "
+            value="Evolucion"
+          />
+          <div>
+            <input
+              type="text"
+              class=""
+              ITEM="DOCTOR"
+              placeholder="DOCTOR"
+              readonly
+            />
+            <input type="text" class="" ITEM="ID" placeholder="PACIENTE" />
+            <button type="button" class="Btn_Sty_4" onclick="">
+              <img src="./IMG/Users.svg" alt="" />Seleccionar
+            </button>
+          </div>
+          <input
+            type="text"
+            class="Input_Text"
+            ITEM="MOTIVO"
+            placeholder="Motivo"
+          />
+        </div>
+        <div class="Grid">
+          <div>
+            <textarea
+              name=""
+              item="TEXTO"
+              cols="30"
+              rows="10"
+              placeholder="Detalles"
+            ></textarea>
+          </div>
+          <span class="more">
+            <input
+              type="text"
+              class="Input_Text"
+              ITEM="PESO"
+              placeholder="Peso"
+            />
+            <input
+              type="text"
+              class="Input_Text"
+              ITEM="ALTURA"
+              placeholder="Talla"
+            />
+            <input
+              type="text"
+              class="Input_Text"
+              ITEM="TA"
+              placeholder="Tencion Arterial"
+            />
+            <input
+              type="text"
+              class="Input_Text"
+              ITEM="FC"
+              placeholder="Frecuencia Cardiaca"
+            />
+            <input
+              type="text"
+              class="Input_Text"
+              ITEM="FR"
+              placeholder="Frecuencia Respiratoria"
+            />
+            <input
+              type="text"
+              class="Input_Text"
+              ITEM="TEMPERATURA"
+              placeholder="Temperatura"
+            />
+            <input
+              type="text"
+              class="Input_Text"
+              ITEM="SO2"
+              placeholder="Oxigeno en sangre"
+            />
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- [ Notas > Completas ] -->
+    <div class="Mn_Notes Hiden" id="Mn_Notes">
+      <div class="Cn_Notes">
+        <div class="Cn_Box_Sty_2">
+          <div class="Cn_Banner_2 Grid">
+            <span class="Text_L">
+              <h3>Nota Completa</h3>
+              <h4>Nota</h4>
+            </span>
+            <div class="Text_R">
+              <button
+                type="button"
+                class="Btn_Sty_2"
+                id=""
+                onclick="Mn_Note( 1, 'N_COMPLETE')"
+              >
+                <img src="./IMG/Save.svg" alt="" />Guardar
+              </button>
+              <button
+                type="button"
+                class="Btn_Sty_4"
+                id=""
+                onclick="Mn_Note(-1, 'N_COMPLETE')"
+              >
+                <img src="./IMG/Delete.svg" alt="" />Borrar
+              </button>
+            </div>
+          </div>
+          <br />
+          <div class="more">
+            <input
+              type="text"
+              class="Hiden"
+              ITEM="TYPE"
+              placeholder=" "
+              value="Completa"
+            />
+            <div class="CNote_1">
+              <input
+                type="text"
+                class="Input_Text"
+                ITEM="DOCTOR"
+                placeholder="Doctor"
+                readonly
+              />
+              <div>
+                <input
+                  type="text"
+                  class="Input_Text"
+                  ITEM="ID"
+                  placeholder="Paciente"
+                />
+                <button type="button" class="Btn_Sty_4" onclick="">
+                  <img src="./IMG/Users.svg" alt="" />
+                </button>
+              </div>
+              <input
+                type="text"
+                class="Input_Text"
+                ITEM="MOTIVO"
+                placeholder="MOTIVO"
+              />
+              <textarea
+                name=""
+                id=""
+                cols="30"
+                rows="10"
+                placeholder="Detalles"
+                ITEM="TEXTO"
+              ></textarea>
+            </div>
+            <div class="CNote_2">
+              <button type="button" class="Btn_Sty_5" onclick="Mn_NoteSub(0)">
+                <img src="./IMG/heart-pulse-solid.svg" alt="" />Signos Vitales
+              </button>
+              <button type="button" class="Btn_Sty_5" onclick="Mn_NoteSub(1)">
+                <img src="./IMG/eye-solid.svg" alt="" />Aparatos y Sistemas
+              </button>
+              <button type="button" class="Btn_Sty_5" onclick="Mn_NoteSub(2)">
+                <img src="./IMG/Regla.svg" alt="" />Somatometria, ANTROPOMETRÍA
+              </button>
+              <button type="button" class="Btn_Sty_5" onclick="Mn_NoteSub(3)">
+                <img src="./IMG/correr.svg" alt="" />MOVIMIENTO ARTICULAR
+              </button>
+              <button type="button" class="Btn_Sty_5" onclick="Mn_NoteSub(4)">
+                <img src="./IMG/Pesas.svg" alt="" />FUERZA ESTIMADA
+              </button>
+              <button type="button" class="Btn_Sty_5" onclick="Mn_NoteSub(5)">
+                <img src="./IMG/mano.svg" alt="" />Evaluacion SNP
+              </button>
+            </div>
+            <div class="CNote_3">
+              <div class="">
+                <h3>Signos Vitales</h3>
+                <input
+                  type="text"
+                  class="Input_Text"
+                  ITEM="PESO"
+                  placeholder="Peso (Kg)"
+                />
+                <input
+                  type="text"
+                  class="Input_Text"
+                  ITEM="ALTURA"
+                  placeholder="Talla (Altura)"
+                />
+                <input
+                  type="text"
+                  class="Input_Text"
+                  ITEM="TA"
+                  placeholder="Tencion Arterial"
+                />
+                <input
+                  type="text"
+                  class="Input_Text"
+                  ITEM="FC"
+                  placeholder="Frecuencia Cardiaca"
+                />
+                <input
+                  type="text"
+                  class="Input_Text"
+                  ITEM="FR"
+                  placeholder="Frecuencia Respiratoria"
+                />
+                <input
+                  type="text"
+                  class="Input_Text"
+                  ITEM="TEMPERATURA"
+                  placeholder="Temperatura"
+                />
+                <input
+                  type="text"
+                  class="Input_Text"
+                  ITEM="SO2"
+                  placeholder="Oxigeno en sangre"
+                />
+              </div>
+              <div class="Hiden">
+                <h3>Aparatos y Sistemas</h3>
+                <h3>GENERALES</h3>
+                <label
+                  ><input type="checkbox" ITEM="AaS1" />Fiebre recurrente</label
+                >
+                <label
+                  ><input type="checkbox" ITEM="AaS2" />Cansancio todo el
+                  tiempo</label
+                >
+                <label
+                  ><input type="checkbox" ITEM="AaS3" />Intolerancia al
+                  frío/calor</label
+                >
+                <label
+                  ><input type="checkbox" ITEM="AaS4" />Pérdida de peso
+                  repentina</label
+                >
+                <label
+                  ><input type="checkbox" ITEM="AaS5" />Debilidad en todo el
+                  cuerpo</label
+                >
+                <h3>OJOS</h3>
+                <label
+                  ><input type="checkbox" ITEM="AaS6" />Frecuente enrojecimiento
+                  de los ojos</label
+                >
+                <label
+                  ><input type="checkbox" ITEM="AaS7" />Resequedad crónica en
+                  los ojos</label
+                >
+                <label
+                  ><input type="checkbox" ITEM="AaS8" />Frecuente dolor en los
+                  ojos</label
+                >
+                <label
+                  ><input type="checkbox" ITEM="AaS9" />Cambios recientes de la
+                  visión</label
+                >
+                <h3>OIDOS/NARIZ/GARGANTA</h3>
+                <label
+                  ><input type="checkbox" ITEM="AaS10" />Resequedad crónica en
+                  la boca</label
+                >
+                <label
+                  ><input type="checkbox" ITEM="AaS11" />Ronquera crónica</label
+                >
+                <label
+                  ><input type="checkbox" ITEM="AaS12" />Frecuentes úlceras en
+                  la boca</label
+                >
+                <label
+                  ><input type="checkbox" ITEM="AaS13" />Perdida de la
+                  audición</label
+                >
+                <h3>APARATO RESPIRATORIO</h3>
+                <label
+                  ><input type="checkbox" ITEM="AaS14" />Dolor de pecho al
+                  respirar profundo</label
+                >
+                <label
+                  ><input type="checkbox" ITEM="AaS15" />Tos frecuente</label
+                >
+                <label
+                  ><input type="checkbox" ITEM="AaS16" />Pulmonía
+                  recurrente</label
+                >
+                <label
+                  ><input type="checkbox" ITEM="AaS17" />Falta la respiración
+                  frecuentemente</label
+                >
+                <label><input type="checkbox" ITEM="AaS18" />Ronquidos</label>
+                <label><input type="checkbox" ITEM="AaS19" />Asma</label>
+                <h3>SISTEMA CARDIOVASCULAR</h3>
+                <label
+                  ><input type="checkbox" ITEM="AaS20" />Dolor en el pecho
+                  cuando se esfuerza</label
+                >
+                <label
+                  ><input type="checkbox" ITEM="AaS21" />Desmayos
+                  recientes</label
+                >
+                <label
+                  ><input type="checkbox" ITEM="AaS22" />Esforzarse levemente
+                  resulta en una falta de aire?</label
+                >
+                <label
+                  ><input type="checkbox" ITEM="AaS23" />Inflamación recurrente
+                  en los tobillos</label
+                >
+                <h3>SISTEMA GASTROINTESTINAL</h3>
+                <label><input type="checkbox" ITEM="AaS24" />Acidez</label>
+                <label
+                  ><input type="checkbox" ITEM="AaS25" />Síndrome de intestino
+                  irritable</label
+                >
+                <label
+                  ><input type="checkbox" ITEM="AaS26" />Estreñimiento</label
+                >
+                <label
+                  ><input type="checkbox" ITEM="AaS27" />Incontinencia
+                  fecal</label
+                >
+                <label
+                  ><input type="checkbox" ITEM="AaS28" />Nausea frecuente</label
+                >
+                <label
+                  ><input type="checkbox" ITEM="AaS29" />Sangre en las
+                  heces</label
+                >
+                <h3>SISTEMA URINARIO</h3>
+                <label
+                  ><input type="checkbox" ITEM="AaS30" />Dolor al orinar</label
+                >
+                <label
+                  ><input type="checkbox" ITEM="AaS31" />Cálculos en los
+                  riñones</label
+                >
+                <label
+                  ><input type="checkbox" ITEM="AaS32" />Incontinencia
+                  urinaria</label
+                >
+                <label
+                  ><input type="checkbox" ITEM="AaS33" />Sangre en la
+                  orina</label
+                >
+                <label
+                  ><input type="checkbox" ITEM="AaS34" />Úlceras genitales
+                  frecuentes</label
+                >
+                <h3>SISTEMA MÚSCULO ESQUELÉTICO</h3>
+                <label
+                  ><input type="checkbox" ITEM="AaS35" />Dolor en todo el
+                  cuerpo</label
+                >
+                <label
+                  ><input type="checkbox" ITEM="AaS36" />Dolor en las
+                  articulaciones</label
+                >
+                <label
+                  ><input type="text" placeholder="Cuales" ITEM="AaS37"
+                /></label>
+                <label
+                  ><input type="checkbox" ITEM="AaS38" />Dolores
+                  musculares</label
+                >
+                <label
+                  ><input type="text" placeholder="Donde" ITEM="AaS39"
+                /></label>
+                <label
+                  ><input type="checkbox" ITEM="AaS40" />Rigidez corporal al
+                  despertarse</label
+                >
+                <label
+                  ><input type="text" placeholder="Duracion" ITEM="AaS41"
+                /></label>
+                <label
+                  ><input type="checkbox" ITEM="AaS42" />Limitación del
+                  movimiento</label
+                >
+                <h3>NEUROLOGICO</h3>
+                <label
+                  ><input type="checkbox" ITEM="AaS43" />Dolores de
+                  cabeza</label
+                >
+                <label
+                  ><input type="checkbox" ITEM="AaS44" />Convulsiones</label
+                >
+                <label
+                  ><input type="checkbox" ITEM="AaS45" />Entumecimiento</label
+                >
+                <label><input type="checkbox" ITEM="AaS46" />Ardor</label>
+                <label
+                  ><input type="checkbox" ITEM="AaS47" />Sensación de
+                  hormigueo</label
+                >
+                <label
+                  ><input type="checkbox" ITEM="AaS48" />Debilidad en alguna
+                  parte del cuerpo</label
+                >
+                <h3>PSIQUIATRICO</h3>
+                <label><input type="checkbox" ITEM="AaS49" />Depresión</label>
+                <label><input type="checkbox" ITEM="AaS50" />Ansiedad</label>
+                <label
+                  ><input type="checkbox" ITEM="AaS51" />Problemas al
+                  dormir</label
+                >
+                <label
+                  ><input type="checkbox" ITEM="AaS52" />Para quedarse
+                  dormido</label
+                >
+                <label
+                  ><input type="checkbox" ITEM="AaS53" />Para mantenerse
+                  dormido</label
+                >
+                <label
+                  ><input type="checkbox" ITEM="AaS54" />Problemas para poder
+                  despertar</label
+                >
+              </div>
+              <div class="Hiden">
+                <h3>Somatometria y ANTROPOMETRÍA</h3>
+                <table>
+                  <tr class="Table_UP">
+                    <td></td>
+                    <td>IZQUIERDA</td>
+                    <td>DERECHA</td>
+                  </tr>
+                  <tr>
+                    <td>HOMBROS</td>
+                    <td><input type="text" ITEM="SaA_L1" /></td>
+                    <td><input type="text" ITEM="SaA_R1" /></td>
+                  </tr>
+                  <tr>
+                    <td>PECHO</td>
+                    <td><input type="text" ITEM="SaA_L2" /></td>
+                    <td><input type="text" ITEM="SaA_R2" /></td>
+                  </tr>
+                  <tr>
+                    <td>BICEPS RELAJADO</td>
+                    <td><input type="text" ITEM="SaA_L3" /></td>
+                    <td><input type="text" ITEM="SaA_R3" /></td>
+                  </tr>
+                  <tr>
+                    <td>BICEPS CONTRAÍDO</td>
+                    <td><input type="text" ITEM="SaA_L4" /></td>
+                    <td><input type="text" ITEM="SaA_R4" /></td>
+                  </tr>
+                  <tr>
+                    <td>ANTEBRAZO</td>
+                    <td><input type="text" ITEM="SaA_L5" /></td>
+                    <td><input type="text" ITEM="SaA_R5" /></td>
+                  </tr>
+                  <tr>
+                    <td>MUÑECA</td>
+                    <td><input type="text" ITEM="SaA_L6" /></td>
+                    <td><input type="text" ITEM="SaA_R6" /></td>
+                  </tr>
+                  <tr>
+                    <td>ABDOMEN</td>
+                    <td><input type="text" ITEM="SaA_L7" /></td>
+                    <td><input type="text" ITEM="SaA_R7" /></td>
+                  </tr>
+                  <tr>
+                    <td>CINTURA</td>
+                    <td><input type="text" ITEM="SaA_L8" /></td>
+                    <td><input type="text" ITEM="SaA_R8" /></td>
+                  </tr>
+                  <tr>
+                    <td>CADERA</td>
+                    <td><input type="text" ITEM="SaA_L9" /></td>
+                    <td><input type="text" ITEM="SaA_R9" /></td>
+                  </tr>
+                  <tr>
+                    <td>MUSLO</td>
+                    <td><input type="text" ITEM="SaA_L10" /></td>
+                    <td><input type="text" ITEM="SaA_R10" /></td>
+                  </tr>
+                  <tr>
+                    <td>RODILLA</td>
+                    <td><input type="text" ITEM="SaA_L11" /></td>
+                    <td><input type="text" ITEM="SaA_R11" /></td>
+                  </tr>
+                  <tr>
+                    <td>GEMELOS</td>
+                    <td><input type="text" ITEM="SaA_L12" /></td>
+                    <td><input type="text" ITEM="SaA_R12" /></td>
+                  </tr>
+                  <tr>
+                    <td>TOBILLO</td>
+                    <td><input type="text" ITEM="SaA_L13" /></td>
+                    <td><input type="text" ITEM="SaA_R13" /></td>
+                  </tr>
+                </table>
+              </div>
+              <div class="Hiden">
+                <h3>Movimiento Articular</h3>
+                <table>
+                  <tr class="Table_UP">
+                    <td>Movimiento</td>
+                    <td>Extremidad</td>
+                    <td>Arco IZQUIERDA</td>
+                    <td>Arco DERECHA</td>
+                  </tr>
+                  <tr>
+                    <td>Flexion 0-150/170</td>
+                    <td rowspan="6">Hombro</td>
+                    <td><input type="text" ITEM="MA_L1" /></td>
+                    <td><input type="text" ITEM="MA_R1" /></td>
+                  </tr>
+                  <tr>
+                    <td>Extencion 0-40</td>
+                    <td><input type="text" ITEM="MA_L2" /></td>
+                    <td><input type="text" ITEM="MA_R2" /></td>
+                  </tr>
+                  <tr>
+                    <td>Abduccion 0-160/180</td>
+                    <td><input type="text" ITEM="MA_L3" /></td>
+                    <td><input type="text" ITEM="MA_R3" /></td>
+                  </tr>
+                  <tr>
+                    <td>Aduccion 0-30</td>
+                    <td><input type="text" ITEM="MA_L" /></td>
+                    <td><input type="text" ITEM="MA_R" /></td>
+                  </tr>
+                  <tr>
+                    <td>Rotacion interna 0-70</td>
+                    <td><input type="text" ITEM="MA_L4" /></td>
+                    <td><input type="text" ITEM="MA_R4" /></td>
+                  </tr>
+                  <tr>
+                    <td>Rotacion externa 0-70</td>
+                    <td><input type="text" ITEM="MA_L5" /></td>
+                    <td><input type="text" ITEM="MA_R5" /></td>
+                  </tr>
+                  <tr>
+                    <td>Flexion 0-150</td>
+                    <td rowspan="2">Codo</td>
+                    <td><input type="text" ITEM="MA_L6" /></td>
+                    <td><input type="text" ITEM="MA_R6" /></td>
+                  </tr>
+                  <tr>
+                    <td>Extencion 0-10</td>
+                    <td><input type="text" ITEM="MA_L7" /></td>
+                    <td><input type="text" ITEM="MA_R7" /></td>
+                  </tr>
+                  <tr>
+                    <td>Pronacion 0-90</td>
+                    <td rowspan="2">Antebrazo</td>
+                    <td><input type="text" ITEM="MA_8" /></td>
+                    <td><input type="text" ITEM="MA_R8" /></td>
+                  </tr>
+                  <tr>
+                    <td>Supinacion 0-90</td>
+                    <td><input type="text" ITEM="MA_L9" /></td>
+                    <td><input type="text" ITEM="MA_R9" /></td>
+                  </tr>
+                  <tr>
+                    <td>Flexion 0-50/60</td>
+                    <td rowspan="4">Muñeca</td>
+                    <td><input type="text" ITEM="MA_L10" /></td>
+                    <td><input type="text" ITEM="MA_R10" /></td>
+                  </tr>
+                  <tr>
+                    <td>Extencion 0-35/60</td>
+                    <td><input type="text" ITEM="MA_L11" /></td>
+                    <td><input type="text" ITEM="MA_R11" /></td>
+                  </tr>
+                  <tr>
+                    <td>Desviacion radial 0-50/60</td>
+                    <td><input type="text" ITEM="MA_L12" /></td>
+                    <td><input type="text" ITEM="MA_R12" /></td>
+                  </tr>
+                  <tr>
+                    <td>Desviacion cubital 0-30/40</td>
+                    <td><input type="text" ITEM="MA_L13" /></td>
+                    <td><input type="text" ITEM="MA_R13" /></td>
+                  </tr>
+                  <tr>
+                    <td>Flexion 0-140</td>
+                    <td rowspan="6">Cadera</td>
+                    <td><input type="text" ITEM="MA_L14" /></td>
+                    <td><input type="text" ITEM="MA_R14" /></td>
+                  </tr>
+                  <tr>
+                    <td>Extencion 0-20</td>
+                    <td><input type="text" ITEM="MA_L15" /></td>
+                    <td><input type="text" ITEM="MA_R15" /></td>
+                  </tr>
+                  <tr>
+                    <td>Abduccion 0-50</td>
+                    <td><input type="text" ITEM="MA_L16" /></td>
+                    <td><input type="text" ITEM="MA_R16" /></td>
+                  </tr>
+                  <tr>
+                    <td>Aduccion 0-30</td>
+                    <td><input type="text" ITEM="MA_L17" /></td>
+                    <td><input type="text" ITEM="MA_R17" /></td>
+                  </tr>
+                  <tr>
+                    <td>Rotacion interna 0-40</td>
+                    <td><input type="text" ITEM="MA_L18" /></td>
+                    <td><input type="text" ITEM="MA_R18" /></td>
+                  </tr>
+                  <tr>
+                    <td>Rotacion externa 0-50</td>
+                    <td><input type="text" ITEM="MA_L19" /></td>
+                    <td><input type="text" ITEM="MA_R19" /></td>
+                  </tr>
+                  <tr>
+                    <td>Flexion 0-150</td>
+                    <td rowspan="2">Rodilla</td>
+                    <td><input type="text" ITEM="MA_L20" /></td>
+                    <td><input type="text" ITEM="MA_R20" /></td>
+                  </tr>
+                  <tr>
+                    <td>Extencion 0-10</td>
+                    <td><input type="text" ITEM="MA_L21" /></td>
+                    <td><input type="text" ITEM="MA_R21" /></td>
+                  </tr>
+                  <tr>
+                    <td>Flexion plantar 0-50</td>
+                    <td rowspan="4">Tobillo</td>
+                    <td><input type="text" ITEM="MA_L22" /></td>
+                    <td><input type="text" ITEM="MA_R23" /></td>
+                  </tr>
+                  <tr>
+                    <td>Dorsiflexion 0-30</td>
+                    <td><input type="text" ITEM="MA_L23" /></td>
+                    <td><input type="text" ITEM="MA_R24" /></td>
+                  </tr>
+                  <tr>
+                    <td>Eversion 0-30</td>
+                    <td><input type="text" ITEM="MA_L24" /></td>
+                    <td><input type="text" ITEM="MA_R25" /></td>
+                  </tr>
+                  <tr>
+                    <td>Inversion 0-60</td>
+                    <td><input type="text" ITEM="MA_L25" /></td>
+                    <td><input type="text" ITEM="MA_R26" /></td>
+                  </tr>
+                </table>
+              </div>
+              <div class="Hiden">
+                <h3>FUERZA ESTIMADA</h3>
+                <table>
+                  <tr class="Table_UP">
+                    <td>Segmento</td>
+                    <td>Movimiento</td>
+                    <td>IZQUIERDA</td>
+                    <td>DERECHA</td>
+                  </tr>
+                  <tr>
+                    <td rowspan="2">ESCAPULA</td>
+                    <td>Elevación</td>
+                    <td><input type="text" ITEM="FE_L1" /></td>
+                    <td><input type="text" ITEM="FE_R1" /></td>
+                  </tr>
+                  <tr>
+                    <td>Descenso</td>
+                    <td><input type="text" ITEM="FE_L2" /></td>
+                    <td><input type="text" ITEM="FE_R2" /></td>
+                  </tr>
+                  <tr>
+                    <td rowspan="6">HOMBRO</td>
+                    <td>Flexión</td>
+                    <td><input type="text" ITEM="FE_3" /></td>
+                    <td><input type="text" ITEM="FE_R3" /></td>
+                  </tr>
+                  <tr>
+                    <td>Extensión</td>
+                    <td><input type="text" ITEM="FE_L4" /></td>
+                    <td><input type="text" ITEM="FE_R4" /></td>
+                  </tr>
+                  <tr>
+                    <td>Abducción</td>
+                    <td><input type="text" ITEM="FE_L5" /></td>
+                    <td><input type="text" ITEM="FE_R5" /></td>
+                  </tr>
+                  <tr>
+                    <td>Aducción</td>
+                    <td><input type="text" ITEM="FE_6" /></td>
+                    <td><input type="text" ITEM="FE_R6" /></td>
+                  </tr>
+                  <tr>
+                    <td>Rotación externa</td>
+                    <td><input type="text" ITEM="FE_L7" /></td>
+                    <td><input type="text" ITEM="FE_R7" /></td>
+                  </tr>
+                  <tr>
+                    <td>Rotación intema</td>
+                    <td><input type="text" ITEM="FE_L8" /></td>
+                    <td><input type="text" ITEM="FE_R8" /></td>
+                  </tr>
+                  <tr>
+                    <td rowspan="4">CODO</td>
+                    <td>Flexión</td>
+                    <td><input type="text" ITEM="FE_L9" /></td>
+                    <td><input type="text" ITEM="FE_R9" /></td>
+                  </tr>
+                  <tr>
+                    <td>Extensión</td>
+                    <td><input type="text" ITEM="FE_L10" /></td>
+                    <td><input type="text" ITEM="FE_R10" /></td>
+                  </tr>
+                  <tr>
+                    <td>Suinación</td>
+                    <td><input type="text" ITEM="FE_L11" /></td>
+                    <td><input type="text" ITEM="FE_R11" /></td>
+                  </tr>
+                  <tr>
+                    <td>Pronación</td>
+                    <td><input type="text" ITEM="FE_L12" /></td>
+                    <td><input type="text" ITEM="FE_R12" /></td>
+                  </tr>
+                  <tr>
+                    <td rowspan="4">MUÑECA</td>
+                    <td>Flexión</td>
+                    <td><input type="text" ITEM="FE_L13" /></td>
+                    <td><input type="text" ITEM="FE_R13" /></td>
+                  </tr>
+                  <tr>
+                    <td>Extensión</td>
+                    <td><input type="text" ITEM="FE_L14" /></td>
+                    <td><input type="text" ITEM="FE_R14" /></td>
+                  </tr>
+                  <tr>
+                    <td>Desviación radial</td>
+                    <td><input type="text" ITEM="FE_L15" /></td>
+                    <td><input type="text" ITEM="FE_R15" /></td>
+                  </tr>
+                  <tr>
+                    <td>Desviación cubital</td>
+                    <td><input type="text" ITEM="FE_L16" /></td>
+                    <td><input type="text" ITEM="FE_R16" /></td>
+                  </tr>
+                  <tr>
+                    <td rowspan="6">DEDOS</td>
+                    <td>Flexión MCF</td>
+                    <td><input type="text" ITEM="FE_L17" /></td>
+                    <td><input type="text" ITEM="FE_R17" /></td>
+                  </tr>
+                  <tr>
+                    <td>Flexión IF</td>
+                    <td><input type="text" ITEM="FE_L18" /></td>
+                    <td><input type="text" ITEM="FE_R18" /></td>
+                  </tr>
+                  <tr>
+                    <td>Extensión MCF</td>
+                    <td><input type="text" ITEM="FE_L19" /></td>
+                    <td><input type="text" ITEM="FE_R19" /></td>
+                  </tr>
+                  <tr>
+                    <td>Extensión IF</td>
+                    <td><input type="text" ITEM="FE_L20" /></td>
+                    <td><input type="text" ITEM="FE_R20" /></td>
+                  </tr>
+                  <tr>
+                    <td>Abducción</td>
+                    <td><input type="text" ITEM="FE_L21" /></td>
+                    <td><input type="text" ITEM="FE_R21" /></td>
+                  </tr>
+                  <tr>
+                    <td>Aducción</td>
+                    <td><input type="text" ITEM="FE_L22" /></td>
+                    <td><input type="text" ITEM="FE_R22" /></td>
+                  </tr>
+                  <tr>
+                    <td rowspan="6">CADERA</td>
+                    <td>Flexión</td>
+                    <td><input type="text" ITEM="FE_L23" /></td>
+                    <td><input type="text" ITEM="FE_R23" /></td>
+                  </tr>
+                  <tr>
+                    <td>Extensión</td>
+                    <td><input type="text" ITEM="FE_L24" /></td>
+                    <td><input type="text" ITEM="FE_R24" /></td>
+                  </tr>
+                  <tr>
+                    <td>Abducción</td>
+                    <td><input type="text" ITEM="FE_L25" /></td>
+                    <td><input type="text" ITEM="FE_R25" /></td>
+                  </tr>
+                  <tr>
+                    <td>Aducción</td>
+                    <td><input type="text" ITEM="FE_L26" /></td>
+                    <td><input type="text" ITEM="FE_R26" /></td>
+                  </tr>
+                  <tr>
+                    <td>Rotación interna</td>
+                    <td><input type="text" ITEM="FE_L27" /></td>
+                    <td><input type="text" ITEM="FE_R27" /></td>
+                  </tr>
+                  <tr>
+                    <td>Rotación externa</td>
+                    <td><input type="text" ITEM="FE_L28" /></td>
+                    <td><input type="text" ITEM="FE_R28" /></td>
+                  </tr>
+                  <tr>
+                    <td rowspan="2">RODILLA</td>
+                    <td>Flexión</td>
+                    <td><input type="text" ITEM="FE_L29" /></td>
+                    <td><input type="text" ITEM="FE_R29" /></td>
+                  </tr>
+                  <tr>
+                    <td>Extensión</td>
+                    <td><input type="text" ITEM="FE_L30" /></td>
+                    <td><input type="text" ITEM="FE_R30" /></td>
+                  </tr>
+                  <tr>
+                    <td rowspan="4">TOBILLO</td>
+                    <td>Dorsiflexión</td>
+                    <td><input type="text" ITEM="FE_L31" /></td>
+                    <td><input type="text" ITEM="FE_R31" /></td>
+                  </tr>
+                  <tr>
+                    <td>Plantifiexión</td>
+                    <td><input type="text" ITEM="FE_L32" /></td>
+                    <td><input type="text" ITEM="FE_R32" /></td>
+                  </tr>
+                  <tr>
+                    <td>Inversión</td>
+                    <td><input type="text" ITEM="FE_L33" /></td>
+                    <td><input type="text" ITEM="FE_R33" /></td>
+                  </tr>
+                  <tr>
+                    <td>Eversión</td>
+                    <td><input type="text" ITEM="FE_L34" /></td>
+                    <td><input type="text" ITEM="FE_R34" /></td>
+                  </tr>
+                  <tr>
+                    <td rowspan="3">DEDOS</td>
+                    <td>Flexión MTF de todos los dedos</td>
+                    <td><input type="text" ITEM="FE_L35" /></td>
+                    <td><input type="text" ITEM="FE_R35" /></td>
+                  </tr>
+                  <tr>
+                    <td>Flexión IFP e IFD de los dedos</td>
+                    <td><input type="text" ITEM="FE_L36" /></td>
+                    <td><input type="text" ITEM="FE_R36" /></td>
+                  </tr>
+                  <tr>
+                    <td>Extensión MTF e IF de los dedos</td>
+                    <td><input type="text" ITEM="FE_L37" /></td>
+                    <td><input type="text" ITEM="FE_R37" /></td>
+                  </tr>
+                  <tr>
+                    <td rowspan="3">CERVICAL</td>
+                    <td>Flexión</td>
+                    <td><input type="text" ITEM="FE_L38" /></td>
+                    <td><input type="text" ITEM="FE_R38" /></td>
+                  </tr>
+                  <tr>
+                    <td>Extensión</td>
+                    <td><input type="text" ITEM="FE_L39" /></td>
+                    <td><input type="text" ITEM="FE_R39" /></td>
+                  </tr>
+                  <tr>
+                    <td>Rotación</td>
+                    <td><input type="text" ITEM="FE_L40" /></td>
+                    <td><input type="text" ITEM="FE_R40" /></td>
+                  </tr>
+                  <tr>
+                    <td rowspan="3">DORSOLUMBAR</td>
+                    <td>Flexión de tronco</td>
+                    <td><input type="text" ITEM="FE_L41" /></td>
+                    <td><input type="text" ITEM="FE_R41" /></td>
+                  </tr>
+                  <tr>
+                    <td>Extensión de tronco</td>
+                    <td><input type="text" ITEM="FE_L42" /></td>
+                    <td><input type="text" ITEM="FE_R42" /></td>
+                  </tr>
+                  <tr>
+                    <td>Rotación de tronco</td>
+                    <td><input type="text" ITEM="FE_L43" /></td>
+                    <td><input type="text" ITEM="FE_R43" /></td>
+                  </tr>
+                </table>
+              </div>
+              <div class="Hiden">
+                <h3>EVALUACIÓN DEL SNP</h3>
+                <table>
+                  <tr class="Table_UP">
+                    <td>VALORACION</td>
+                    <td>Prueba</td>
+                    <td>estado</td>
+                    <td>observaciones</td>
+                  </tr>
+                  <tr>
+                    <td rowspan="6">SENSIBILIDAD VITAL</td>
+                    <td>Sensibilidad al tacto</td>
+                    <td><input type="text" ITEM="SNP1" /></td>
+                    <td><input type="text" ITEM="SNP_O1" /></td>
+                  </tr>
+                  <tr>
+                    <td>Sensibilidad a la temperatura</td>
+                    <td><input type="text" ITEM="SNP2" /></td>
+                    <td><input type="text" ITEM="SNP_O2" /></td>
+                  </tr>
+                  <tr>
+                    <td>Sensibilidad al dolor</td>
+                    <td><input type="text" ITEM="SNP3" /></td>
+                    <td><input type="text" ITEM="SNP_O3" /></td>
+                  </tr>
+                  <tr>
+                    <td>Sensibilidad táctil fina</td>
+                    <td><input type="text" ITEM="SNP4" /></td>
+                    <td><input type="text" ITEM="SNP_O4" /></td>
+                  </tr>
+                  <tr>
+                    <td>discriminativa</td>
+                    <td><input type="text" ITEM="SNP5" /></td>
+                    <td><input type="text" ITEM="SNP_O5" /></td>
+                  </tr>
+                  <tr>
+                    <td>Grafaestesia</td>
+                    <td><input type="text" ITEM="SNP6" /></td>
+                    <td><input type="text" ITEM="SNP_O6" /></td>
+                  </tr>
+                  <tr>
+                    <td rowspan="5">SENSIBILIDAD GNÓSTICA</td>
+                    <td>Sensibilidad al peso</td>
+                    <td><input type="text" ITEM="SNP7" /></td>
+                    <td><input type="text" ITEM="SNP_O7" /></td>
+                  </tr>
+                  <tr>
+                    <td>Sensibilidad a la presión</td>
+                    <td><input type="text" ITEM="SNP8" /></td>
+                    <td><input type="text" ITEM="SNP_O8" /></td>
+                  </tr>
+                  <tr>
+                    <td>Sensibilidad a la posición de los</td>
+                    <td><input type="text" ITEM="SNP9" /></td>
+                    <td><input type="text" ITEM="SNP_O9" /></td>
+                  </tr>
+                  <tr>
+                    <td>se mentos co rales</td>
+                    <td><input type="text" ITEM="SNP10" /></td>
+                    <td><input type="text" ITEM="SNP_O10" /></td>
+                  </tr>
+                  <tr>
+                    <td>Sensibilidad a Ia vibración</td>
+                    <td><input type="text" ITEM="SNP11" /></td>
+                    <td><input type="text" ITEM="SNP_O11" /></td>
+                  </tr>
+                  <tr>
+                    <td rowspan="6">MOVIMIENTO VOLUNTARIO</td>
+                    <td>Prueba 1</td>
+                    <td><input type="text" ITEM="SNP12" /></td>
+                    <td><input type="text" ITEM="SNP_O12" /></td>
+                  </tr>
+                  <tr>
+                    <td>Prueba 2</td>
+                    <td><input type="text" ITEM="SNP13" /></td>
+                    <td><input type="text" ITEM="SNP_O13" /></td>
+                  </tr>
+                  <tr>
+                    <td>Prueba 3</td>
+                    <td><input type="text" ITEM="SNP14" /></td>
+                    <td><input type="text" ITEM="SNP_O14" /></td>
+                  </tr>
+                  <tr>
+                    <td>Prueba 4</td>
+                    <td><input type="text" ITEM="SNP15" /></td>
+                    <td><input type="text" ITEM="SNP_O15" /></td>
+                  </tr>
+                  <tr>
+                    <td>Prueba 5</td>
+                    <td><input type="text" ITEM="SNP16" /></td>
+                    <td><input type="text" ITEM="SNP_O16" /></td>
+                  </tr>
+                  <tr>
+                    <td>Prueba 6</td>
+                    <td><input type="text" ITEM="SNP17" /></td>
+                    <td><input type="text" ITEM="SNP_O17" /></td>
+                  </tr>
+                  <tr>
+                    <td rowspan="6">COORDINACIÓN MUSCULAR</td>
+                    <td>Metría</td>
+                    <td><input type="text" ITEM="SNP18" /></td>
+                    <td><input type="text" ITEM="SNP_O18" /></td>
+                  </tr>
+                  <tr>
+                    <td>Sinergia</td>
+                    <td><input type="text" ITEM="SNP19" /></td>
+                    <td><input type="text" ITEM="SNP_O19" /></td>
+                  </tr>
+                  <tr>
+                    <td>Diadococinesia</td>
+                    <td><input type="text" ITEM="SNP20" /></td>
+                    <td><input type="text" ITEM="SNP_O20" /></td>
+                  </tr>
+                  <tr>
+                    <td>Control de la musculatura antonista</td>
+                    <td><input type="text" ITEM="SNP21" /></td>
+                    <td><input type="text" ITEM="SNP_O21" /></td>
+                  </tr>
+                  <tr>
+                    <td>Reflejo flexor: abdominal</td>
+                    <td><input type="text" ITEM="SNP22" /></td>
+                    <td><input type="text" ITEM="SNP_O22" /></td>
+                  </tr>
+                  <tr>
+                    <td>Reflejo flexor: cremastérico</td>
+                    <td><input type="text" ITEM="SNP23" /></td>
+                    <td><input type="text" ITEM="SNP_O23" /></td>
+                  </tr>
+                  <tr>
+                    <td rowspan="7">MOVIMIENTOS REFLEJOS</td>
+                    <td>Reflejo flexor: plantar</td>
+                    <td><input type="text" ITEM="SNP24" /></td>
+                    <td><input type="text" ITEM="SNP_O24" /></td>
+                  </tr>
+                  <tr>
+                    <td>Reflejo flexor: glúteo</td>
+                    <td><input type="text" ITEM="SNP25" /></td>
+                    <td><input type="text" ITEM="SNP_O25" /></td>
+                  </tr>
+                  <tr>
+                    <td>Reflejo extensor: bicipital</td>
+                    <td><input type="text" ITEM="SNP26" /></td>
+                    <td><input type="text" ITEM="SNP_O26" /></td>
+                  </tr>
+                  <tr>
+                    <td>Reflejo extensor: tricipital</td>
+                    <td><input type="text" ITEM="SNP27" /></td>
+                    <td><input type="text" ITEM="SNP_O27" /></td>
+                  </tr>
+                  <tr>
+                    <td>Reflejo extensor: braquiorradial</td>
+                    <td><input type="text" ITEM="SNP28" /></td>
+                    <td><input type="text" ITEM="SNP_O28" /></td>
+                  </tr>
+                  <tr>
+                    <td>Reflejo extensor: rotuliano</td>
+                    <td><input type="text" ITEM="SNP29" /></td>
+                    <td><input type="text" ITEM="SNP_O29" /></td>
+                  </tr>
+                  <tr>
+                    <td>Reflejo extensor: aquileo</td>
+                    <td><input type="text" ITEM="SNP30" /></td>
+                    <td><input type="text" ITEM="SNP_O30" /></td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- [ Carta de Consentimiento ] -->
+    <div class="Mn_Note_Consent Hiden" id="Mn_Note_Consent">
+      <div class="Cn_Note_Conset">
+        <div class="Cn_Banner_2">
+          <span>
+            <h3>Carta General</h3>
+            <p>Editor de Texto</p>
+          </span>
+          <div class="">
+            <button type="" class="Btn_Sty_1" onclick="GOTO_MENU('Cart2',1)">
+              <img src="./IMG/Document_Import.svg" alt="" />Plantillas
+            </button>
+            <button type="" class="Btn_Sty_2" onclick="Mn_Doc(1,'CARTA')">
+              <img src="./IMG/Save.svg" alt="" />Guardar
+            </button>
+            <button type="" class="Btn_Sty_4" onclick="Mn_Doc(-1,'CARTA')">
+              <img src="./IMG/Delete.svg" alt="" />Cancelar
+            </button>
+          </div>
+        </div>
+        <div class="data">
+          <div>
+            <input
+              type="text"
+              class="Input_Text"
+              ITEM="DOCTOR"
+              placeholder="DOCTOR"
+              readonly
+            />
+            <input
+              type="text"
+              class="Input_Text"
+              ITEM="ID"
+              placeholder="PACIENTE"
+            />
+            <button type="button" class="Btn_Sty_4" onclick="">
+              <img src="./IMG/Users.svg" alt="" />
+            </button>
+          </div>
+          <input
+            type="text"
+            class="Input_Text"
+            ITEM="NOMBRE"
+            placeholder="NOMBRE DE LA CARTA"
+          />
+          <input
+            type="text"
+            class="Input_Text"
+            ITEM="MOTIVO"
+            placeholder="MOTIVO"
+          />
+        </div>
+        <textarea
+          name=""
+          id=""
+          cols="30"
+          rows="10"
+          ITEM="TEXTO"
+          placeholder="INFORMACION"
+        ></textarea>
+      </div>
+      <div
+        class="Mn_Note_Consent_Templates Hiden"
+        id="Mn_Note_Consent_Templates"
+      >
+        <div class="Cn_Banner_2 Grid">
+          <div class="Text_L">
+            <h3>Plantillas</h3>
+          </div>
+          <div class="Text_R">
+            <button type="button" class="Btn_Sty_1" onclick="Load_Plantilla()">
+              <img src="./IMG/Document_Import.svg" alt="" /> Cargar
+            </button>
+            <button
+              type="button"
+              class="Btn_Sty_4"
+              onclick="Mn_Doc(-1,'PLANTILLA')"
+            >
+              <img src="./IMG/Delete.svg" alt="" /> Cancelar
+            </button>
+          </div>
+        </div>
+        <div class="Grid">
+          <div class="">
+            <ul ITEM="CATEGORY">
+              <li><h3>-- En Linea --</h3></li>
+              <li>
+                <button
+                  type="button"
+                  class="Btn_Sty_0"
+                  onclick="Load_Plantilla(0,1,0)"
+                >
+                  Consentimiento
+                </button>
+              </li>
+              <li>
+                <button
+                  type="button"
+                  class="Btn_Sty_0"
+                  onclick="Load_Plantilla(0,2,0)"
+                >
+                  Estudios
+                </button>
+              </li>
+              <li>
+                <button
+                  type="button"
+                  class="Btn_Sty_0"
+                  onclick="Load_Plantilla(0,3,0)"
+                >
+                  Informativas
+                </button>
+              </li>
+              <li>
+                <button
+                  type="button"
+                  class="Btn_Sty_0"
+                  onclick="Load_Plantilla(0,4,0)"
+                >
+                  Otras
+                </button>
+              </li>
+              <li><h3>-- Propias --</h3></li>
+              <li>
+                <button
+                  type="button"
+                  class="Btn_Sty_0"
+                  onclick="Load_Plantilla(1,1,0)"
+                >
+                  Consentimiento
+                </button>
+              </li>
+              <li>
+                <button
+                  type="button"
+                  class="Btn_Sty_0"
+                  onclick="Load_Plantilla(1,2,0)"
+                >
+                  Estudios
+                </button>
+              </li>
+              <li>
+                <button
+                  type="button"
+                  class="Btn_Sty_0"
+                  onclick="Load_Plantilla(1,3,0)"
+                >
+                  Informativas
+                </button>
+              </li>
+              <li>
+                <button
+                  type="button"
+                  class="Btn_Sty_0"
+                  onclick="Load_Plantilla(1,4,0)"
+                >
+                  Otras
+                </button>
+              </li>
+            </ul>
+          </div>
+          <div class="">
+            <ul ITEM="OPTIONS"></ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- [ Menu de Notas y Documentos ] -->
+    <div class="Mn_NotesDocs Hiden" id="Mn_NotesDocs">
+      <div class="Cn_NotesDocs" id="Cn_NotesDocs">
+        <br />
+        <h2>Notas</h2>
+        <div class="Cn_Box_Sty_0">
+          <div class="Cn_Box_Sty_1">
+            <button
+              type="button"
+              class="Btn_Sty_5"
+              onclick="Mn_Note(0,'N_FAST')"
+            >
+              <img src="./IMG/Notes.svg" alt="" />Simple
+            </button>
+            <button
+              type="button"
+              class="Btn_Sty_5"
+              onclick="Mn_Note(0,'N_EVO')"
+            >
+              <img src="./IMG/Notes.svg" alt="" />Evolucion
+            </button>
+            <button
+              type="button"
+              class="Btn_Sty_5"
+              onclick="Mn_Note(0,'N_COMPLETE')"
+            >
+              <img src="./IMG/Notes.svg" alt="" />Completa
+            </button>
+            <button
+              type="button"
+              class="Btn_Sty_5"
+              onclick="Mn_Note(0,'N_REF')"
+            >
+              <img src="./IMG/Document.svg" alt="" />Referencia
+            </button>
+            <button
+              type="button"
+              class="Btn_Sty_5"
+              onclick="Mn_Note(0,'N_EGRESO')"
+            >
+              <img src="./IMG/Exit.svg" alt="" />Egreso
+            </button>
+            <hr />
+            <button
+              type="button"
+              class="Btn_Sty_5"
+              onclick="Mn_Note(0,'RECIPE')"
+            >
+              <img src="./IMG/Medicine.svg" alt="" />Receta
+            </button>
+          </div>
+        </div>
+        <h2>Documentos</h2>
+        <div class="Cn_Box_Sty_0">
+          <div class="Cn_Box_Sty_1">
+            <button type="button" class="Btn_Sty_5" onclick="Mn_Doc(0,'CARTA')">
+              <img src="./IMG/Document.svg" alt="" />Carta Vacia
+            </button>
+            <button
+              type="button"
+              class="Btn_Sty_5"
+              onclick="Mn_Doc(0,'CARTA2')"
+            >
+              <img src="./IMG/Document.svg" alt="" />Cargar Plantilla
+            </button>
+            <hr />
+            <button
+              type="button"
+              class="Btn_Sty_5"
+              onclick="Mn_Doc(0,'IMPORT')"
+            >
+              <img src="./IMG/Document_Import.svg" alt="" />Subir Archivo
+            </button>
+            <button type="button" class="Btn_Sty_5" onclick="Mn_Doc(0,'JSON')">
+              <img src="./IMG/Document_Import.svg" alt="" />Importar JSON
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- [ Ayuda ] -->
+    <div class="Mn_Help Hiden" id="Mn_Help">
+      <div class="Cn_Help">
+        <h1>INFORMACION GENERAL</h1>
+        <p>Esta pagina web esta enfocada en el manejo de expedientes digitales para pacientes de la universidad de guadalajara. Brindando una serie simple de herramientas para registrar informacion y archivos.</p>
+        <p>Fue desarrollada con el propocito de apoyar a los estudiantes de las carreras enfocadas al area medica. Siendo esta para su uso personal y academico.</p>
+        <p>Este proyecto aun esta en desarrollo de ser optimizado y ampliado, por lo que las sugerencias y el reporte de errores es ampliamente agradecido.</p>
+        <br />
+        <br />
+        <div class="Grid">
+          <div>
+            <div>
+              <h3>RETROALIMENTACION</h3>
+              <button type="button" class="Btn_Sty_1" onclick="REPORT(0)">
+                <img src="IMG/Document.svg" alt="">
+                SUGERENCIA
+              </button>
+              <button type="button" class="Btn_Sty_3" onclick="REPORT(1)">
+                <img src="IMG/Shield.svg" alt="">
+                REPORTAR PROBLEMA
+              </button>
+              <button type="button" class="Btn_Sty_3" onclick="REPORT(2)">
+                <img src="IMG/Shield_Alert.svg" alt="">
+                REPORTAR ERROR
+              </button>
+            </div>
+            <br>
+            <div>
+              <h3>INFORMACION LEGAL</h3>
+              <button type="button" class="Btn_Sty_4" onclick="GOTO_MENU('LegalInfo',0)">
+                <img src="IMG/Paperclip.svg" alt="">
+                INFORMACION LEGAL
+              </button>
+              <button type="button" class="Btn_Sty_4" onclick="GOTO_MENU('Terminos',0)">
+                <img src="IMG/Paperclip.svg" alt="">
+                TERMINOS Y CONDICIONES
+              </button>
+            </div>
+            <br>
+          </div>
+          <div>
+            <div>
+              <h3>CONTACTOS DE ADMINISTACION</h3>
+              <h4>Nombre 1</h4>
+              <p class="">...@gmail.com</p>
+              <br>
+              <h4>Nombre 2</h4>
+              <p class="">...@gmail.com</p>
+              <br>
+              <h4>Nombre 3</h4>
+              <p class="">...@gmail.com</p>
+            </div>
+            <br>
+            <div>
+              <h3>CONTACTO DESARROLLADOR</h3>
+              <h4>JORGE ORTEGA:</h4>
+              <p>jorge.ortega7964@alumnos.udg.mx</p>
+              <hr>
+              <a href="https://github.com/A00-Code" target="_blank">
+                <button type="button" class="Btn_Sty_5" item="GITHUB" onclick="">
+                <img src="IMG/github.svg" alt="">
+                GITHUB
+                </button>
+              </a>
+            </div>
+          </div>
+        </div>
+        <br />
+      </div>
+    </div>
+
+    <div class="Mn_LegalInfo Hiden" id="Mn_LegalInfo">
+      <div class="Cn_LegalInfo">
+        <h1>INFORMACION LEGAL</h1>
+        <br />
+          <p class="Text_L">
+            Esta pagina web es exclusiva de la Universidad de Guadalajara y no
+            esta permitido su uso al publico.
+          </p>
+          <br />
+      </div>
+    </div>
+
+    <div class="Mn_Terminos Hiden" id="Mn_Terminos">
+      <div class="Cn_Terminos">
+        <h1>TERMINOS Y CONDICIONES</h1>
+        <br />
+          <p class="Text_L">
+            1. El acceso a esta pagina Web esta limitada a ser utilizada
+            unicamente por Estudiantes, Docentes y Administrativos
+            pertenecientes a la Universidad, Por lo que cualquier cuenta externa
+            da su autorizacion para que toda su informacion sea borrada
+            libremente en cualquier momento.
+          </p>
+          <p class="Text_L">
+            2. Los datos generados por el usuario son almacenados dentro de
+            bases de datos propiedad de la Universidad, por lo que cualquier mal
+            uso de dicho sistema, da la autorizacion para que dichos registros
+            sean borrados sin previo aviso.
+          </p>
+          <p class="Text_L">
+            3. La utilizacion de esta Web es puramente para Practicas Personales
+            y Profecionales desarrolladas durante el periodo como estudiante,
+            por lo que su utilizacon fuera de este periodo no esta permitido.
+          </p>
+          <p class="Text_L">
+            4. El Usuario es libre de solicitar una copia de sus registros
+            generados, pero esta solo sera entregada bajo una carta firmada
+            donde se especifique que los registros son necesarios y se
+            especifique el motivo de su solicitud. (El personal encargado es
+            libre de rechasar la solicitud si esta no muestra motivos realmente
+            importantes y no se muestran puebas de que dicho motivo es veridico)
+          </p>
+          <p class="Text_L"></p>
+          <br />
+      </div>
+    </div>
+
+    <div class="Mn_Report Hiden" id="Mn_Report">
+      <div class="Cn_Report">
+        <span class="Hiden" ITEM="TYPE">0</span>
+        <input type="text" class="Hiden" ITEM="DOCTOR">
+        <h1>RETROALIMENTACION</h1><br>
+        <h3 ITEM="TYPE_TEXT">SUGERENCIA</h3>
+        <br>
+        <textarea name="" id="" cols="30" rows="10"></textarea>
+        <div class="Grid">
+          <button type="button" class="Btn_Sty_4" onclick="SEND_REPORT(true)">
+          <img src="IMG/Delete.svg" alt="">
+          CANCELAR
+          </button>
+          <button type="button" class="Btn_Sty_2" onclick="SEND_REPORT()">
+          <img src="IMG/Wifi_Cloud.svg" alt="">
+          ENVIAR
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- [ Busqueda General ] -->
+    <div class="Mn_Adv_Search Hiden" id="Mn_Adv_Search">
+      <div class="Cn_Adv_Search">
+        <br />
+        <div class="Cn_Box_Sty_1">
+          <h3 class="">Valores de Busqueda</h3>
+          <div class="Grid">
+            <div class="Input_Div">
+              <input type="text" class="Input_Text" id="" placeholder=" " />
+              <label for="">Buscar</label>
+            </div>
+            <div class="Input_Div">
+              <input type="text" class="Input_Text" id="" placeholder=" " />
+              <label for="">ID Paciente (Opcional)</label>
+            </div>
+            <div class="Input_Div">
+              <input type="number" class="Input_Text" id="" placeholder=" " />
+              <label for="">Limite de Resultados</label>
+            </div>
+            <button class="Btn_Sty_1">Buscar</button>
+          </div>
+        </div>
+        <br />
+        <div class="Cn_Box_Sty_1">
+          <h3 class="">Buscar por Categoria:</h3>
+          <div class="Grid Grid_3">
+            <div class="Input_Div">
+              <input type="radio" class="" id="" placeholder=" " />
+              <label for="">Paciente</label>
+            </div>
+            <div class="Input_Div">
+              <input type="radio" class="" id="" placeholder=" " />
+              <label for="">Documento</label>
+            </div>
+            <div class="Input_Div">
+              <input type="radio" class="" id="" placeholder=" " />
+              <label for="">Nota</label>
+            </div>
+            <div class="Input_Div">
+              <input type="radio" class="" id="" placeholder=" " />
+              <label for="">Cita</label>
+            </div>
+          </div>
+        </div>
+        <br />
+        <div class="Cn_Box_Sty_1">
+          <h3 class="">Resultados:</h3>
+          <table>
+            <tr>
+              <td>Paciente</td>
+              <td>Nombre</td>
+              <td>Fecha</td>
+              <td>Tipo</td>
+              <td>Accion</td>
+            </tr>
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td><button class="Btn_Sty_1">Abrir</button></td>
+            </tr>
+          </table>
+          <br />
+        </div>
+      </div>
+    </div>
+
+    <div class="Mn_FNote Hiden" id="Mn_FNote">
+      <div class="Cn_Banner_2">
+        <span>
+          <h3>Nota Rapida</h3>
+          <p>Nota general</p>
+        </span>
+        <div>
+          <button
+            type="button"
+            class="Btn_Sty_2"
+            onclick="Mn_Note(1, 'N_FAST')"
+          >
+            <img src="./IMG/Save.svg" alt="" />Guardar
+          </button>
+          <button
+            type="button"
+            class="Btn_Sty_4"
+            onclick="Mn_Note(-1, 'N_FAST')"
+          >
+            <img src="./IMG/Delete.svg" alt="" />Cancelar
+          </button>
+        </div>
+      </div>
+      <div class="data">
+        <input
+          type="text"
+          class="Hiden"
+          ITEM="TYPE"
+          placeholder=" "
+          value="Simple"
+        />
+        <div>
+          <input
+            type="text"
+            class=""
+            ITEM="DOCTOR"
+            placeholder="DOCTOR"
+            readonly
+          />
+          <input type="text" class="" ITEM="ID" placeholder="PACIENTE" />
+          <button type="button" class="Btn_Sty_4" onclick="">
+            <img src="./IMG/Users.svg" alt="" />Seleccionar
+          </button>
+        </div>
+        <input type="text" class="" ITEM="MOTIVO" placeholder="MOTIVO" />
+        <div>
+          <textarea
+            name=""
+            item="TEXTO"
+            cols="30"
+            rows="10"
+            placeholder="DESCRIPCION"
+          ></textarea>
+        </div>
+      </div>
+    </div>
+
+    <div class="Mn_UpDoc" id="Mn_UpDoc">
+      <div class="Cn_UpDoc" id="Cn_UpDoc">
+        <div class="Cn_Banner_2 Grid">
+          <div>
+            <h3>Subir Documento</h3>
+            <p>Subir Archivo</p>
+          </div>
+          <div class="Text_R">
+            <button
+              type="button"
+              class="Btn_Sty_2"
+              onclick="GOTO_MENU('Pacient_Docs')"
+            >
+              Guardar
+            </button>
+            <button
+              type="button"
+              class="Btn_Sty_4"
+              onclick="GOTO_MENU('Pacient_Docs')"
+            >
+              Cancelar
+            </button>
+          </div>
+        </div>
+        <div>
+          <input type="file" name="" id="" />
+        </div>
+      </div>
+    </div>
+
+    <div class="Mn_Pacient_Register_Type Hiden" id="Mn_Pacient_Register_Type">
+      <div class="Cn_Pacient_Register_Type">
+        <div class="Cn_Box_Sty_1">
+          <br />
+          <h2>Tipo de Paciente</h2>
+          <hr />
+          <div>
+            <button type="button" class="Btn_Sty_4" onclick="">
+              <img src="./IMG/Add.svg" alt="" />No Registrado
+            </button>
+            <button type="button" class="Btn_Sty_4" onclick="">
+              <img src="./IMG/Hospital.svg" alt="" />Ya Existente
+            </button>
+          </div>
+          <br />
+        </div>
+      </div>
+    </div>
+
+    <div class="Mn_Pacient_Register_Web Hiden" id="Mn_Pacient_Register_Web">
+      <div class="Cn_Pacient_Register_Web">
+        <div class="Cn_Box_Sty_1">
+          <br />
+          <h2>Informacion del Paciente</h2>
+          <hr />
+          <div>
+            <p>Codigo Identificador del paciente</p>
+            <input
+              type="text"
+              class="Input_Text"
+              placeholder="ID del paciente"
+            /><br />
+            <p>Fecha de Nacimiento</p>
+            <input type="date" class="Input_Text" />
+          </div>
+          <hr />
+          <div>
+            <button class="Btn_Sty_3">
+              <img src="./IMG/Delete.svg" alt="" />Cancelar
+            </button>
+            <button class="Btn_Sty_2">
+              <img src="./IMG/Download.svg" alt="" />Importar Paciente
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="Mn_Config_App Hiden" id="Mn_Config_App">
+      <div class="Cn_Config_App">
+        <div class="Cn_Banner_2 Grid">
+          <div>
+            <h3>Configuracion</h3>
+          </div>
+          <div class="Text_R">
+            <button
+              type="button"
+              class="Btn_Sty_2"
+              onclick="SAVE_LOCAL_CONFIG()"
+            >
+              <img src="./IMG/Save.svg" alt="" />Guardar
+            </button>
+            <button
+              type="button"
+              class="Btn_Sty_4"
+              onclick="GOTO_MENU('Main',0)"
+            >
+              <img src="./IMG/No_select.svg" alt="" />Cancelar
+            </button>
+          </div>
+        </div>
+        <br />
+        <div id="Config_Menu">
+          <button
+            type="button"
+            class="CHECKED"
+            onclick="Btn_Togle(this,'Config')"
+          >
+            <img src="./IMG/Users.svg" alt="" />Usuario
+          </button>
+          <button
+            type="button"
+            class="NO_CHECKED"
+            onclick="Btn_Togle(this,'Config')"
+          >
+            <img src="./IMG/Hospital.svg" alt="" />Consultorio
+          </button>
+          <button
+            type="button"
+            class="NO_CHECKED"
+            onclick="Btn_Togle(this,'Config')"
+          >
+            <img src="./IMG/Calendar.svg" alt="" />Horario
+          </button>
+          <button
+            type="button"
+            class="NO_CHECKED"
+            onclick="Btn_Togle(this,'Config')"
+          >
+            <img src="./IMG/Data_Transfer.svg" alt="" />DataBase
+          </button>
+        </div>
+        <br />
+        <div class="Cn_Box_Sty_0" id="Config_User">
+          <h3>INFORMACION DE USUARIO</h3>
+          <hr />
+          <div class="Text_L">
+            <button type="button" class="Btn_Sty_4" onclick="">
+              <img src="./IMG/Folder.svg" alt="" />Seleccionar Foto
+            </button>
+            <button
+              type="button"
+              class="Btn_Sty_5"
+              onclick="GOTO_MENU('Camara', 1)"
+            >
+              <img src="./IMG/Picture_Face.svg" alt="" />Tomar Foto
+            </button>
+          </div>
+          <input type="text" name="" ITEM="PREFIJO" placeholder="Prefijo" />
+          <input type="text" name="" ITEM="NOMBRE" placeholder="Nombre" />
+          <input
+            type="text"
+            name=""
+            ITEM="APELLIDO_1"
+            placeholder="Apellido Paterno"
+          />
+          <input
+            type="text"
+            name=""
+            ITEM="APELLIDO_1"
+            placeholder="Apellido Materno"
+          />
+          <input type="text" name="" ITEM="CURP" placeholder="CURP" />
+          <div class="Text_L" id="Config_User_Gender">
+            <button
+              type="button"
+              ITEM="GENERO"
+              class="CHECKED"
+              onclick="Btn_Togle(this,'Config')"
+            >
+              <img src="./IMG/Gender_Man.svg" alt="" /> Hombre
+            </button>
+            <button
+              type="button"
+              ITEM="GENERO"
+              class="NO_CHECKED"
+              onclick="Btn_Togle(this,'Config')"
+            >
+              <img src="./IMG/Gender_Woman.svg" alt="" /> Mujer
+            </button>
+          </div>
+          <input
+            type="date"
+            name=""
+            ITEM="FECHA"
+            placeholder="Fecha de Nacimiento (DD-MM-YYYY)"
+          />
+          <input type="text" name="" ITEM="SSA" placeholder="S.S.A" />
+          <input
+            type="text"
+            name=""
+            ITEM="ESPECIALIDAD"
+            placeholder="Especialidad"
+          />
+          <input
+            type="text"
+            name=""
+            ITEM="CEDULA"
+            placeholder="Cedula Profecional"
+          />
+          <input type="text" name="" ITEM="TELEFONO_1" placeholder="Telefono" />
+          <input
+            type="text"
+            name=""
+            ITEM="CORREO"
+            placeholder="Correo Electronico"
+          />
+          <br />
+        </div>
+        <div class="Cn_Box_Sty_0 Hiden" id="Config_Consultory">
+          <h3>INFORMACION DEL CONSULTORIO</h3>
+          <hr />
+          <input type="text" name="" ITEM="ID" placeholder="Consultorio" />
+          <input type="text" name="" ITEM="CLUES" placeholder="Clues" />
+          <input type="text" name="" ITEM="DIRECCION" placeholder="Calle" />
+          <input type="text" name="" ITEM="NUMERO" placeholder="Numero" />
+          <input type="text" name="" ITEM="COLONIA" placeholder="Colonia" />
+          <input type="text" name="" ITEM="CIUDAD" placeholder="Ciudad" />
+          <input type="text" name="" ITEM="TELEFONO" placeholder="Telefono" />
+          <input
+            type="text"
+            name=""
+            ITEM="ZONA_UTG"
+            placeholder="Zona Horaria"
+          />
+
+          <p>Notificaciones</p>
+          <select name="" id="">
+            <option value="False">No</option>
+            <option value="True">Si</option>
+          </select>
+          <p>Email al paciente al citar</p>
+          <select name="" id="">
+            <option value="False">No</option>
+            <option value="True">Si</option>
+          </select>
+          <p>SMS al paciente al citar</p>
+          <select name="" id="">
+            <option value="False">No</option>
+            <option value="True">Si</option>
+          </select>
+          <p>Recordar al paciente el dia de la cita</p>
+          <select name="" id="">
+            <option value="False">No</option>
+            <option value="True">Si</option>
+          </select>
+          <br />
+        </div>
+        <div class="Cn_Box_Sty_0 Hiden" id="Config_Time">
+          <h3>HORARIO LABORAL</h3>
+          <hr />
+          <div>
+            <p>Lunes</p>
+            <input type="time" name="" id="" />
+            <input type="time" name="" id="" />
+          </div>
+          <div>
+            <p>Martes</p>
+            <input type="time" name="" id="" />
+            <input type="time" name="" id="" />
+          </div>
+          <div>
+            <p>Miercoles</p>
+            <input type="time" name="" id="" />
+            <input type="time" name="" id="" />
+          </div>
+          <div>
+            <p>Jueves</p>
+            <input type="time" name="" id="" />
+            <input type="time" name="" id="" />
+          </div>
+          <div>
+            <p>Viernes</p>
+            <input type="time" name="" id="" />
+            <input type="time" name="" id="" />
+          </div>
+          <div>
+            <p>Sabado</p>
+            <input type="time" name="" id="" />
+            <input type="time" name="" id="" />
+          </div>
+          <div>
+            <p>Domingo</p>
+            <input type="time" name="" id="" />
+            <input type="time" name="" id="" />
+          </div>
+        </div>
+        <div class="Cn_Box_Sty_0 Hiden" id="Config_DB">
+          <h3>* Funcion desactivada</h3>
+          <hr>
+          <h3>INFORMACION DE CONEXION</h3>
+          <hr />
+          <input type="text" name="" id="HOST" placeholder="HOST" />
+          <input
+            type="text"
+            name=""
+            id="NOMBRE"
+            placeholder="Nombre de la Base de Datos"
+          />
+          <input type="text" name="" id="USER" placeholder="Usuario" />
+          <input type="text" name="" id="PASSWORD" placeholder="Contraseña" />
+          <hr />
+          <h3>Tipo de Base de datos:</h3>
+          <div class="Text_L" id="Config_DB_Type">
+            <button
+              type="button"
+              ITEM="TYPE"
+              class="CHECKED"
+              onclick="Btn_Togle(this,'Config')"
+            >
+              <img src="./IMG/Update.svg" alt="" /> SQL
+            </button>
+            <button
+              type="button"
+              ITEM="TYPE"
+              class="NO_CHECKED"
+              onclick="Btn_Togle(this,'Config')"
+            >
+              <img src="./IMG/Update.svg" alt="" /> NoSQL
+            </button>
+          </div>
+          <br />
+          <h3>Tipo de Alamacenamiento:</h3>
+          <div class="Text_L" id="Config_DB_Storage">
+            <button
+              type="button"
+              ITEM="METHOD"
+              class="CHECKED"
+              onclick="Btn_Togle(this,'Config')"
+            >
+              <img src="./IMG/Update.svg" alt="" /> LOCAL
+            </button>
+            <button
+              type="button"
+              ITEM="METHOD"
+              class="NO_CHECKED"
+              onclick="Btn_Togle(this,'Config')"
+            >
+              <img src="./IMG/Update.svg" alt="" /> SEMI-LOCAL
+            </button>
+            <button
+              type="button"
+              ITEM="METHOD"
+              class="NO_CHECKED"
+              onclick="Btn_Togle(this,'Config')"
+            >
+              <img src="./IMG/Update.svg" alt="" /> ONLY WEB
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="Mn_Notes_IAS Hiden" id="Mn_Notes_IAS">
+      <div class="Cn_Notes_IAS">
+        <h3>GENERALES</h3>
+        <p>Fiebre recurrente</p>
+        <p>Cansancio todo el tiempo</p>
+        <p>Intolerancia al frío/calor</p>
+        <p>Pérdida de peso repentina</p>
+        <p>Debilidad en todo el cuerpo</p>
+        <h3>OJOS</h3>
+        <p>Frecuente enrojecimiento de los ojos</p>
+        <p>Resequedad crónica en los ojos</p>
+        <p>Frecuente dolor en los ojos</p>
+        <p>Cambios recientes de la visión</p>
+        <h3>OIDOS/NARIZ/GARGANTA</h3>
+        <p>Resequedad crónica en la boca</p>
+        <p>Ronquera crónica</p>
+        <p>Frecuentes úlceras en la boca</p>
+        <p>Perdida de la audición</p>
+        <h3>APARATO RESPIRATORIO</h3>
+        <p>¿El pecho le duele cuando respira profundo?</p>
+        <p>Tos frecuente</p>
+        <p>Pulmonía recurrente</p>
+        <p>¿Siente que le falta la respiración frecuentemente?</p>
+        <p>Ronquidos</p>
+        <p>Asma</p>
+        <h3>SISTEMA CARDIOVASCULAR</h3>
+        <p>Dolor en el pecho cuando se esfuerza</p>
+        <p>Desmayos recientes</p>
+        <p>Esforzarse levemente resulta en una falta de aire?</p>
+        <p>Inflamación recurrente en los tobillos</p>
+        <h3>SISTEMA GASTROINTESTINAL</h3>
+        <p>Acidez</p>
+        <p>Síndrome de intestino irritable</p>
+        <p>Estreñimiento</p>
+        <p>Incontinencia fecal</p>
+        <p>Nausea frecuente</p>
+        <p>Sangre en las heces</p>
+        <p>¿Cuántas veces al día va a defecar?</p>
+        <h3>SISTEMA URINARIO</h3>
+        <p>Dolor al orinar</p>
+        <p>Cálculos en los riñones</p>
+        <p>Incontinencia urinaria</p>
+        <p>Sangre en la orina</p>
+        <p>Úlceras genitales frecuentes</p>
+        <h3>SISTEMA MÚSCULO ESQUELÉTICO</h3>
+        <p>¿Dolor en todo el cuerpo?</p>
+        <p>¿Dolor en las articulaciones?</p>
+        <p>¿Cuáles?</p>
+        <p>¿Dolores musculares?</p>
+        <p>¿Dónde?</p>
+        <p>¿Rigidez corporal al despertarse?</p>
+        <p>¿Cuánto tiempo dura?</p>
+        <p>¿Limitación del movimiento?</p>
+        <h3>NEUROLOGICO</h3>
+        <p>Dolores de cabeza</p>
+        <p>Convulsiones</p>
+        <p>Entumecimiento</p>
+        <p>Ardor</p>
+        <p>Sensación de hormigueo</p>
+        <p>¿Debilidad reciente en alguna parte del cuerpo?</p>
+        <h3>PSIQUIATRICO</h3>
+        <p>Depresión</p>
+        <p>Ansiedad</p>
+        <p>Problemas al dormir</p>
+        <p>Para quedarse dormido</p>
+        <p>Para mantenerse dormido</p>
+        <p>Problemas para poder despertar</p>
+      </div>
+    </div>
+
+    <div class="Mn_Notes_Perimeter Hiden" id="Mn_Notes_Perimeter">
+      <div class="Cn_Notes_Perimeter">
+        <div class="Cn_Banner_2 Grid">
+          <div>
+            <h3>Perimetros</h3>
+            <p></p>
+          </div>
+          <div class="Text_R">
+            <button type="button" class="Btn_Sty_2" onclick="">Guardar</button>
+            <button type="button" class="Btn_Sty_4" onclick="">Cancelar</button>
+          </div>
+        </div>
+        <br />
+        <table>
+          <tr>
+            <td></td>
+            <td>IZQUIERDA</td>
+            <td>DERECHA</td>
+          </tr>
+          <tr>
+            <td>HOMBROS</td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>PECHO</td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>BICEPS RELAJADO</td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>BICEPS CONTRAÍDO</td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>ANTEBRAZO</td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>MUÑECA</td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>ABDOMEN</td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>CINTURA</td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>CADERA</td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>MUSLO</td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>RODILLA</td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>GEMELOS</td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>TOBILLO</td>
+            <td></td>
+            <td></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="Mn_Notes_MovArticular Hiden" id="Mn_Notes_MovArticular">
+      <div class="Cn_Notes_MovArticular">
+        <div class="Cn_Banner_2 Grid">
+          <div>
+            <h3>Movimiento Articular</h3>
+            <p></p>
+          </div>
+          <div class="Text_R">
+            <button type="button" class="Btn_Sty_2" onclick="">Guardar</button>
+            <button type="button" class="Btn_Sty_4" onclick="">Cancelar</button>
+          </div>
+        </div>
+        <br />
+        <table>
+          <tr>
+            <td>Movimiento</td>
+            <td>Extremidad</td>
+            <td>Arco IZQUIERDA</td>
+            <td>Arco DERECHA</td>
+          </tr>
+          <tr>
+            <td>Flexion 0-150/170</td>
+            <td rowspan="6">Hombro</td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>Extencion 0-40</td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>Abduccion 0-160/180</td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>Aduccion 0-30</td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>Rotacion interna 0-70</td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>Rotacion externa 0-70</td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>Flexion 0-150</td>
+            <td rowspan="2">Codo</td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>Extencion 0-10</td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>Pronacion 0-90</td>
+            <td rowspan="2">Antebrazo</td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>Supinacion 0-90</td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>Flexion 0-50/60</td>
+            <td rowspan="4">Muñeca</td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>Extencion 0-35/60</td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>Desviacion radial 0-50/60</td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>Desviacion cubital 0-30/40</td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>Flexion 0-140</td>
+            <td rowspan="6">Cadera</td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>Extencion 0-20</td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>Abduccion 0-50</td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>Aduccion 0-30</td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>Rotacion interna 0-40</td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>Rotacion externa 0-50</td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>Flexion 0-150</td>
+            <td rowspan="2">Rodilla</td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>Extencion 0-10</td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>Flexion plantar 0-50</td>
+            <td rowspan="4">Tobillo</td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>Dorsiflexion 0-30</td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>Eversion 0-30</td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>Inversion 0-60</td>
+            <td></td>
+            <td></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="Mn_Note_Traslado Hiden" id="Mn_Note_Traslado">
+      <div class="Cn_Note_Traslado">
+        <div class="Cn_Banner_2">
+          <span>
+            <h3>Nota de Referencia o Traslado</h3>
+            <p></p>
+          </span>
+          <div>
+            <button
+              type="button"
+              class="Btn_Sty_2"
+              onclick="Mn_Note(1, 'N_REF')"
+            >
+              <img src="./IMG/Save.svg" alt="" />Guardar
+            </button>
+            <button
+              type="button"
+              class="Btn_Sty_4"
+              onclick="Mn_Note(-1, 'N_REF')"
+            >
+              <img src="./IMG/Delete.svg" alt="" /> Cancelar
+            </button>
+          </div>
+        </div>
+        <div>
+          <div class="data">
+            <input
+              type="text"
+              class="Hiden"
+              ITEM="TYPE"
+              placeholder=" "
+              value="Referencia"
+            />
+            <div>
+              <input
+                type="text"
+                class="Input_Text"
+                ITEM="DOCTOR"
+                placeholder="Medico"
+              />
+              <input
+                type="text"
+                class="Input_Text"
+                ITEM="CONSULTORIO"
+                placeholder="Consultorio Actual"
+              />
+            </div>
+            <div>
+              <input
+                type="text"
+                class="Input_Text"
+                ITEM="DOCTOR_2"
+                placeholder="Medico Reseptor"
+              />
+              <button type="button" class="Btn_Sty_4" onclick="">
+                <img src="./IMG/Hospital.svg" alt="" />Seleccionar
+              </button>
+            </div>
+            <div>
+              <input
+                type="text"
+                class="Input_Text"
+                ITEM="DIRECCION"
+                placeholder="Domicilio"
+              />
+              <button type="button" class="Btn_Sty_4" onclick="">
+                <img src="./IMG/Hospital.svg" alt="" />Seleccionar
+              </button>
+            </div>
+            <div>
+              <input
+                type="text"
+                class="Input_Text"
+                ITEM="ID"
+                placeholder="Paciente"
+              />
+              <button type="button" class="Btn_Sty_4" onclick="">
+                <img src="./IMG/Users.svg" alt="" />Seleccionar
+              </button>
+            </div>
+            <textarea
+              name=""
+              id=""
+              cols="30"
+              rows="10"
+              ITEM="TEXTO"
+              placeholder="Diagnostico"
+            ></textarea>
+          </div>
+          <div class="more">
+            <h3>indicaciones</h3>
+            <label
+              ><input type="checkbox" name="" ITEM="ToR1" />Verifica indicación
+              destino del traslado</label
+            >
+            <label
+              ><input type="checkbox" name="" ITEM="ToR2" />Informa al paciente
+              y/o a la familia</label
+            >
+            <label
+              ><input type="checkbox" name="" ITEM="ToR3" />Evalúa que
+              integrante del equipo realiza el traslado</label
+            >
+            <label
+              ><input type="checkbox" name="" ITEM="ToR4" />Realiza informa del
+              traslado</label
+            >
+            <label
+              ><input type="checkbox" name="" ITEM="ToR5" />Entrega al paciente
+              telefónicamente y/o personalmente</label
+            >
+            <label
+              ><input type="checkbox" name="" ITEM="ToR6" />Entregan las
+              indicaciones del traslado.</label
+            >
+            <label
+              ><input type="checkbox" name="" ITEM="ToR7" />Verifica
+              permeabilidad de las vías venosa</label
+            >
+            <label
+              ><input type="checkbox" name="" ITEM="ToR8" />Verifica higiene del
+              paciente</label
+            >
+            <label
+              ><input type="checkbox" name="" ITEM="ToR9" />Verifica que la
+              historia clínica este completa</label
+            >
+            <label
+              ><input
+                type="text"
+                name=""
+                ITEM="ToR10"
+                placeholder="Medidas de seguridad para traslado"
+            /></label>
+            <label
+              ><input
+                type="text"
+                name=""
+                ITEM="ToR11"
+                placeholder="Recomendaciones de traslado para el paciente"
+            /></label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="Mn_Note_Egreso Hiden" id="Mn_Note_Egreso">
+      <div class="Cn_Note_Egreso">
+        <div class="Cn_Banner_2 Grid">
+          <div>
+            <h3>Carta de Egreso</h3>
+            <p></p>
+          </div>
+          <div class="Text_R">
+            <button
+              type="button"
+              class="Btn_Sty_2"
+              onclick="Mn_Note(1, 'N_EGRESO')"
+            >
+              <img src="./IMG/Save.svg" alt="" />Guardar
+            </button>
+            <button
+              type="button"
+              class="Btn_Sty_4"
+              onclick="Mn_Note(-1, 'N_EGRESO')"
+            >
+              <img src="./IMG/Delete.svg" alt="" />Cancelar
+            </button>
+          </div>
+        </div>
+        <br />
+        <div class="data">
+          <input
+            type="text"
+            class="Hiden"
+            ITEM="TYPE"
+            placeholder=" "
+            value="Egreso"
+          />
+          <div>
+            <input
+              type="text"
+              name=""
+              ITEM="DOCTOR"
+              placeholder="Medico Responsable"
+            />
+            <input type="text" name="" ITEM="ID" placeholder="Paciente" />
+            <button type="button" class="Btn_Sty_4" onclick="">
+              <img src="./IMG/Users.svg" alt="" />Seleccionar
+            </button>
+          </div>
+          <h3>Signos Vitales</h3>
+          <div>
+            <input type="text" name="" ITEM="PESO" placeholder="Peso (Kg)" />
+            <input
+              type="text"
+              name=""
+              ITEM="FC"
+              placeholder="Frecuencia Cardiaca"
+            />
+            <input
+              type="text"
+              name=""
+              ITEM="TA"
+              placeholder="Tension Arterial"
+            />
+            <input
+              type="text"
+              name=""
+              ITEM="ALTURA"
+              placeholder="Talla (Altura)"
+            />
+            <input
+              type="text"
+              name=""
+              ITEM="FR"
+              placeholder="Frecuencia Respiratoria"
+            />
+            <input
+              type="text"
+              name=""
+              ITEM="SO2"
+              placeholder="Oxigeno en sangre"
+            />
+          </div>
+          <h3>Fechas</h3>
+          <div>
+            <input
+              type="text"
+              name=""
+              ITEM="FECHA_1"
+              placeholder="Fecha y Hora de Ingreso"
+            />
+            <input
+              type="text"
+              name=""
+              ITEM="FECHA_2"
+              placeholder="Fecha y Hora de Egreso"
+            />
+            <input
+              type="text"
+              name=""
+              ITEM="DIAS"
+              placeholder="Dias de estancia en la unidad"
+            />
+          </div>
+          <h3>informacion medica</h3>
+          <input
+            type="text"
+            name=""
+            ITEM="MOTIVO"
+            placeholder="Motivo de egreso"
+          />
+          <label
+            ><input type="checkbox" name="" ITEM="REINGRESO" />Reingreso a la
+            unidad por la misma razon</label
+          >
+          <input
+            type="text"
+            name=""
+            ITEM="DIAGNOSTICO"
+            placeholder="Diagnostico(s) de ingreso"
+          />
+          <input
+            type="text"
+            name=""
+            ITEM="EVOLUCION"
+            placeholder="Evolución y estado actual del paciente"
+          />
+          <input
+            type="text"
+            name=""
+            ITEM="MANEJO"
+            placeholder="Manejo durante la estancia hospitalaria"
+          />
+          <input
+            type="text"
+            name=""
+            ITEM="DIAGNOSTICO_2"
+            placeholder="Diagnostico(s) final(es)"
+          />
+          <input
+            type="text"
+            name=""
+            ITEM="FECHA_3"
+            placeholder="Fecha y hora de procedimientos realizados en su caso"
+          />
+          <input
+            type="text"
+            name=""
+            ITEM="PROBLEMAS"
+            placeholder="Problemas clínicos pendientes"
+          />
+          <input
+            type="text"
+            name=""
+            ITEM="PLAN"
+            placeholder="Plan de manejo y tratamiento"
+          />
+          <input
+            type="text"
+            name=""
+            ITEM="RECOMENDACIONES"
+            placeholder="Recomendaciones para la vigilancia ambulatoria"
+          />
+        </div>
+      </div>
+    </div>
+
+    <form
+      class="Mn_Import_File Hiden"
+      id="Mn_Import_File"
+      enctype="multipart/form-data"
+      method="POST"
+    >
+      <div class="Cn_Import_File">
+        <h3>Subir Archivo</h3>
+        <input type="text" ITEM="NOMBRE" placeholder="NOMBRE" />
+        <label
+          ><input
+            type="file"
+            ITEM="ARCHIVO"
+            name="SN_FILE"
+            id="SN_FILE"
+            onchange="Import_File(this)"
+          /><img src="./IMG/Document_Import.svg" alt="" /><span
+            >Seleccionar Archivo</span
+          ></label
+        >
+        <div>
+          <button type="button" class="Btn_Sty_1" onclick="SEND_FILE()">
+            <img src="./IMG/Wifi_Cloud.svg" alt="" />Subir Archivo
+          </button>
+          <button type="button" class="Btn_Sty_4" onclick="Mn_Doc(-1,'IMPORT')">
+            <img src="./IMG/Delete.svg" alt="" />Cancelar
+          </button>
+        </div>
+      </div>
+    </form>
+
+    <div class="Mn_Import_File_R Hiden" id="Mn_Import_File_R">
+      <div class="Cn_Import_File">
+        <h3>Seleccionar Archivo</h3>
+        <input type="text" ITEM="NOMBRE" placeholder="NOMBRE" />
+        <label
+          ><input
+            type="file"
+            ITEM="ARCHIVO"
+            name=""
+            id=""
+            onchange="Import_File(this)"
+          /><img src="./IMG/Document_Import.svg" alt="" /><span
+            >Seleccionar Archivo</span
+          ></label
+        >
+        <div>
+          <button type="button" class="Btn_Sty_1" onclick="Mn_Doc(1,'SELECT')">
+            <img src="./IMG/Add.svg" alt="" />Aceptar
+          </button>
+          <button type="button" class="Btn_Sty_4" onclick="Mn_Doc(-1,'SELECT')">
+            <img src="./IMG/Delete.svg" alt="" />Cancelar
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="Mn_Import_Json Hiden" id="Mn_Import_Json">
+      <div class="Cn_Import_Json">
+        <h3>Importar como Archivo</h3>
+        <textarea
+          name=""
+          id=""
+          cols="30"
+          rows="10"
+          placeholder="Cadena de texto JSON"
+        ></textarea>
+        <div>
+          <button type="button" class="Btn_Sty_1" onclick="Mn_Doc(1,'JSON')">
+            <img src="./IMG/Document.svg" alt="" />Convertir a Archivo
+          </button>
+          <button type="button" class="Btn_Sty_4" onclick="Mn_Doc(-1,'JSON')">
+            <img src="./IMG/Delete.svg" alt="" />Cancelar
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="Mn_Search Hiden" id="Mn_Search">
+      <div class="Cn_Search">
+        <h2>Buscar paciente en la base de datos</h2>
+        <div>
+          <input type="search" placeholder="Buscar..." />
+          <button type="button" class="Btn_Sty_1" onclick="Search_Pacient()">
+            <img src="./IMG/Search.svg" alt="" />Buscar
+          </button>
+        </div>
+        <h3>Buscar por:</h3>
+        <div>
+          <div class="Input_Div">
+            <input type="radio" name="Search_Category" id="SC1" checked />
+            <label for="SC1">ID</label>
+          </div>
+          <div class="Input_Div">
+            <input type="radio" name="Search_Category" id="SC2" />
+            <label for="SC2">Nombre</label>
+          </div>
+          <div class="Input_Div">
+            <input type="radio" name="Search_Category" id="SC4" />
+            <label for="SC4">Fecha</label>
+          </div>
+        </div>
+        <hr />
+        <h3>Lista de Pacientes</h3>
+        <table class="Search_Table">
+          <tr class="Table_UP">
+            <td>ID</td>
+            <td>NOMBRE</td>
+            <td>FECHA</td>
+            <td>ACCIONES</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="Mn_READER Hiden" id="Mn_READER">
+      <div class="Cn_READER">
+        <textarea name="" id="" cols="30" rows="10" readonly></textarea>
+        <button type="button" class="Btn_Sty_4" onclick="READ_TEXT(0,0)">
+          <img src="./IMG/No_select.svg" alt="" />Cerrar
+        </button>
+      </div>
+    </div>
+
+    <div class="Mn_Recipe Hiden" id="Mn_Recipe">
+      <div class="Cn_Recipe">
+        <div class="Cn_Banner_2">
+          <span>
+            <h3>Nota de Receta</h3>
+            <p>Receta general</p>
+          </span>
+          <div>
+            <button
+              type="button"
+              class="Btn_Sty_2"
+              onclick="Mn_Note(1, 'RECIPE')"
+            >
+              <img src="./IMG/Save.svg" alt="" />Guardar
+            </button>
+            <button
+              type="button"
+              class="Btn_Sty_4"
+              onclick="Mn_Note(-1, 'RECIPE')"
+            >
+              <img src="./IMG/Delete.svg" alt="" />Cancelar
+            </button>
+          </div>
+        </div>
+        <div class="data">
+          <input
+            type="text"
+            class="Hiden"
+            ITEM="TYPE"
+            placeholder=" "
+            value="Receta"
+          />
+          <div>
+            <input
+              type="text"
+              class=""
+              ITEM="DOCTOR"
+              placeholder="DOCTOR"
+              readonly
+            />
+            <input type="text" class="" ITEM="ID" placeholder="PACIENTE" />
+            <button type="button" class="Btn_Sty_4" onclick="">
+              <img src="./IMG/Users.svg" alt="" />Seleccionar
+            </button>
+          </div>
+          <div>
+            <textarea
+              name=""
+              item="TEXTO"
+              cols="30"
+              rows="10"
+              placeholder="DESCRIPCION"
+            ></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="Mn_Camara" id="Mn_Camara">
+      <div class="Cn_Camara">
+        <h3 style="text-align: center">CAMARA</h3>
+        <div class="video-wrap" ITEM="VIDEO">
+          <video id="video" playsinline autoplay></video>
+        </div>
+        <div class="controller" ITEM="BUTTONS">
+          <button id="snap" class="Btn_Sty_4">
+            <img src="IMG/Picture_Face.svg" alt="" />Capturar
+          </button>
+          <button id="closesnap" class="Btn_Sty_4">
+            <img src="IMG/Delete.svg" alt="" />Cancelar
+          </button>
+        </div>
+        <canvas id="canvas" width="320" height="320" class="Hiden"></canvas>
+        <img src="" alt="" class="Hiden" id="CAM_IMG" />
+      </div>
+    </div>
+
+    <div class="Mn_Delete Hiden" id="Mn_Delete">
+      <div class="Cn_Delete">
+        <h3>Confirmar Eliminacion</h3>
+        <hr />
+        <button type="button" class="Btn_Sty_3" onclick="">
+          <img src="./IMG/Delete.svg" alt="" />ELIMINAR
+        </button>
+        <hr />
+        <button type="button" class="Btn_Sty_4" onclick="">
+          <img src="./IMG/No_select.svg" alt="" />CANCELAR
+        </button>
+      </div>
+    </div>
+
+    <div class="Mn_Alert Hiden" id="Mn_Alert">
+      <div class="Cn_Alert">
+        <div class="Alert_Top">
+          <img src="./IMG/Shield_Alert.svg" alt="" id="Alert_Icon" />
+          <h1 id="Alert_Title">¡¡¡ Importante !!!</h1>
+        </div>
+        <div id="Alert_Elements">
+          <p id="Alert_Text"></p>
+          <br />
+          <div id="Alert_Buttons">
+            <button type="button" class="Hiden Btn_Sty_0" onclick="">1</button>
+            <button type="button" class="Hiden" onclick="">2</button>
+            <button type="button" class="Hiden" onclick="">3</button>
+            <button type="button" class="Hiden" onclick="">4</button>
+            <button type="button" class="Hiden" onclick="">5</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script type="text/javascript" src="main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,1731 @@
+/* ####### Variables de Estilo ####### */
+:root {
+  --Color_Html: #eee;
+  --Color_Banner: #dadada;
+  --Color_Error: #e03326;
+  --Toolbar_width: 200px;
+  --Principal_left: calc(var(--Toolbar_width) + 40px);
+  --Banner_height: 80px;
+}
+
+/* ####### Elementos Generales #######*/
+html {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 16px;
+  background: #f8f8f8;
+}
+h1,
+h2,
+h3,
+h4 {
+  margin: 0px;
+  padding: 0px;
+}
+p {
+  margin: 2px;
+}
+hr {
+  background: var(--Color_Banner);
+  margin: 8px 20px;
+}
+input,
+textarea {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+/* ####### Clases Complementarias ####### */
+.Hiden {
+  display: none !important;
+}
+.Text_L {
+  text-align: left !important;
+}
+.Center {
+  text-align: center !important;
+}
+.Text_R {
+  text-align: right !important;
+}
+
+/* ####### Clases Diseño ####### */
+.Grid {
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+}
+.Flex_C {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  gap: 5px;
+  justify-content: center;
+}
+.Flex_R {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 5px;
+  justify-content: flex-start;
+}
+.List_None {
+  list-style: none;
+  padding: 0;
+}
+
+/* ####### Estilos Generales #######*/
+/* >>> [ ERROR ] <<<*/
+.ERROR {
+  border: 3px solid #c40707 !important;
+  box-shadow: #ff1717 0 0 3px;
+}
+/* >>> [ Tooltips ] <<<*/
+.Tooltip:hover > .Mn_Tip {
+  display: block;
+}
+
+/* >>> [ Inputs ] <<<*/
+.Input_Div {
+  position: relative;
+  text-align: left;
+}
+.Input_Text {
+  cursor: pointer;
+  position: relative;
+  font-size: 1rem;
+  color: #000;
+  padding: 10px;
+  border: 2px solid #bbb;
+  border-radius: 5px;
+  outline: none;
+}
+.Input_Text:focus + label,
+.Input_Text:not(:placeholder-shown) + label {
+  transform: translateY(3px) translateX(-3px) scale(0.75);
+  transform-origin: left top;
+  color: #355a86;
+}
+.Input_Text + label {
+  position: absolute;
+  top: 0px;
+  left: 12px;
+  transform: translateY(12px);
+  transition: transform 0.5s, color 0.3s;
+  color: #888;
+}
+input[type="radio"] {
+  display: none;
+}
+.Input_Div input[type="radio"] + label {
+  display: block;
+  cursor: pointer;
+  background-color: var(--Color_Html);
+  border: #aaa solid 2px;
+  border-radius: 5px;
+  padding: 5px;
+}
+input[type="radio"]:checked ~ label {
+  color: white;
+  background-color: #aaa;
+}
+
+/* >>> [ Botones ] <<<*/
+button {
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  gap: 10px;
+  justify-content: flex-start;
+  align-items: center;
+  font-size: 1rem;
+  padding: 10px;
+  transition: all 0.25s;
+}
+.Btn_Sty_0,
+.Btn_Sty_1,
+.Btn_Sty_2,
+.Btn_Sty_3,
+.Btn_Sty_4,
+.Btn_Sty_5 {
+  color: #eee;
+  border: 0;
+  border-radius: 5px;
+  box-shadow: #888 0px 0px 3px;
+}
+.Btn_Sty_1 img,
+.Btn_Sty_2 img,
+.Btn_Sty_3 img,
+.Btn_Sty_4 img {
+  filter: invert(100%);
+  width: 25px;
+}
+
+.Btn_Sty_0 {
+  color: #00559e;
+  background-color: transparent;
+  border: 0;
+  padding: 2px;
+}
+.Btn_Sty_1 {
+  background-color: #1f618d;
+}
+.Btn_Sty_2 {
+  background-color: #27ae60;
+}
+.Btn_Sty_3 {
+  background-color: #a93226;
+}
+.Btn_Sty_4 {
+  background-color: #95a5a6;
+}
+.Btn_Sty_5 {
+  font-size: 0.85rem;
+  color: #000;
+  background-color: #eaeaea;
+  min-width: 60px;
+  margin: 0 2px;
+}
+
+button:hover {
+  background-color: #dedede;
+}
+.Btn_Sty_0:hover {
+  background-color: #bababa;
+}
+.Btn_Sty_1:hover {
+  background-color: #114568;
+}
+.Btn_Sty_2:hover {
+  background-color: #1e8449;
+}
+.Btn_Sty_3:hover {
+  background-color: #7b241c;
+}
+.Btn_Sty_4:hover {
+  background-color: #717d7e;
+}
+.Btn_Sty_5:hover {
+  background-color: #c7c7c7;
+}
+
+button[class="CHECKED"] {
+  background-color: #cbcbcb;
+}
+
+/* >>> [ Textos ] <<<*/
+button span {
+  text-align: left;
+}
+/* >>> [ Tabla ] <<<*/
+/* >>> [ Contenedores ] <<<*/
+.Cn_Box_Sty_1 img {
+  border: #aaa solid 3px;
+  width: 165px;
+  height: 165px;
+  margin: auto 5px;
+}
+.Cn_Box_Sty_1 {
+  background: var(--Color_Banner);
+  border: #aaa solid 3px;
+  border-radius: 10px;
+  box-shadow: #888 0 0 8px;
+  padding: 10px;
+}
+
+/* ####### Formatos ####### */
+.Mn_Login,
+.Mn_Recuperar,
+.Mn_Loading,
+.Mn_Toolbar {
+  position: absolute;
+  inset: 0 0 0 0;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  background: var(--Color_Html);
+  z-index: 0;
+}
+.Mn_Login,
+Mn_Toolbar {
+  z-index: 10;
+}
+
+.Mn_Main,
+.Mn_Dates,
+.Mn_Pacientes_Index,
+.New_Date,
+.Mn_Pacientes_Register,
+.Mn_Help,
+.Mn_Terminos,
+.Mn_LegalInfo,
+.Mn_Report,
+.Mn_Config_App,
+.Mn_Delete,
+.Mn_Search,
+.Mn_Pacientes_Data,
+.Mn_NotesDocs,
+.Mn_FNote,
+.Mn_NotesEv,
+.Mn_Note_Consent,
+.Mn_Recipe,
+.Mn_Notes,
+.Mn_Note_Traslado,
+.Mn_Note_Egreso,
+.Mn_Import_File,
+.Mn_Import_File_R,
+.Mn_Import_Json,
+.Mn_READER,
+.Mn_Camara {
+  overflow: auto;
+  position: absolute;
+  inset: var(--Banner_height) 0 0 calc(var(--Toolbar_width) + 20px);
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: stretch;
+  align-items: stretch;
+  background: var(--Color_Html);
+  z-index: 1;
+}
+.Mn_Notes,
+.Mn_Note_Traslado,
+.Mn_NotesEv,
+.Mn_Note_Egreso,
+.Mn_Note_Consent,
+.Mn_Import_File,
+.Mn_Import_File_R,
+.Mn_Import_Json,
+.Mn_Camara,
+.Mn_Report {
+  z-index: 5;
+}
+
+.Mn_Toolbar,
+.Mn_Notes,
+.Mn_Note_Traslado,
+.Mn_Note_Egreso,
+.Mn_Note_Consent,
+.Mn_Import_File,
+.Mn_Import_File_R,
+.Mn_Import_Json,
+.Mn_READER,
+.Mn_Recipe,
+.Mn_Delete {
+  background: none;
+}
+.Mn_Notes > div,
+.Mn_Note_Traslado > div,
+.Mn_Note_Egreso > div,
+.Cn_Recipe,
+.Cn_Delete {
+  background-color: var(--Color_Html);
+}
+
+/* ####### Login y Recuperar ####### */
+.Mn_Login,
+.Mn_Recuperar,
+.Mn_Loading {
+  background: radial-gradient(circle, #375477 60%, #0e345f 100%);
+}
+.Cn_Login form,
+.Cn_Recuperar {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  gap: 5px;
+  justify-content: center;
+  align-items: stretch;
+  text-align: center;
+  background: #ddd;
+  border: #aaa solid 8px;
+  border-radius: 20px;
+  box-shadow: #888 0 0 10px;
+  margin: auto;
+  padding: 20px;
+  min-width: 450px;
+  width: 70vw;
+  max-width: 620px;
+  min-height: 420px;
+  height: auto;
+}
+.Cn_Login form img,
+.Cn_Recuperar img {
+  width: 70%;
+  margin: auto;
+}
+.Cn_Login input,
+.Cn_Recuperar input {
+  font-size: 1.1rem;
+  padding: 15px;
+}
+.Cn_Login button,
+.Cn_Recuperar button {
+  font-size: 1.2rem;
+  justify-content: center;
+  padding: 15px;
+  margin: auto;
+}
+.Cn_Login button img,
+.Cn_Recuperar button img {
+  width: 25px;
+  margin: 0;
+}
+.Cn_Login form button,
+.Cn_Recuperar button {
+  margin: 5px 5px 0;
+}
+
+/* ####### Pantalla de Carga ####### */
+.Cn_Loading {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  gap: 5px;
+  justify-content: center;
+  align-items: stretch;
+  text-align: center;
+  color: white;
+  padding: 20px;
+  width: 450px;
+  height: auto;
+}
+.Cn_Loading .Loading_Bar {
+  overflow: hidden;
+  border: #bbb solid 4px;
+  border-radius: 10px;
+  box-shadow: #888 0 0 5px;
+  margin: 5px 0;
+  padding: 0;
+  width: 100%;
+  height: 20px;
+}
+.Loading_Bar div {
+  background-color: #bbb;
+  margin: 0;
+  width: 0%;
+  height: 100%;
+}
+
+/* ####### Menu lateral y Banner ####### */
+.Mn_Toolbar {
+  overflow: hidden;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+.Cn_Toolbar {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  text-align: center;
+  background-color: #1f618d;
+  color: #f8f8f8;
+  padding: 10px;
+  margin: 0;
+  width: var(--Toolbar_width);
+  height: calc(100% - 10px);
+}
+.Cn_Toolbar .IMG_Logo {
+  background: #f8f8f8;
+  border-radius: 10px;
+  padding: 3px 5px;
+  width: 70%;
+}
+.Cn_Toolbar .Toolbar_User img {
+  border-radius: 50%;
+  max-width: 100px;
+  width: 100%;
+}
+.Toolbar_Buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: stretch;
+  justify-content: space-between;
+  height: calc(100% - 300px);
+}
+.Toolbar_Buttons div {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: stretch;
+  justify-content: center;
+}
+.Toolbar_Buttons button {
+  width: 100%;
+  margin: 0;
+  box-shadow: none;
+}
+
+.Mn_Banner {
+  background-color: var(--Color_Banner);
+  padding: 10px;
+  width: calc(100vw - var(--Principal_left));
+  height: var(--Banner_height);
+}
+.Mn_Banner img {
+  width: 25px;
+}
+
+/* ####### Barra busqueda ####### */
+.Cn_Banner_Pacient_Search {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  width: 100%;
+}
+.Cn_Banner_Pacient_Search input {
+  width: calc(70vw - 180px);
+}
+.Mn_Search_Filter {
+  background-color: #00559e;
+  border: #aaa solid 2px;
+  border-radius: 10px;
+  padding: 5px;
+}
+.Cn_Banner div + div {
+  display: flex;
+  gap: 5px;
+  justify-content: space-between;
+}
+div[class="S_DocNotes"] {
+  display: flex;
+  gap: 5px;
+}
+
+/* ####### Principal ####### */
+.Cn_Main .Cn_Box_Sty_1 {
+  display: flex;
+  flex-direction: row;
+  gap: 15px;
+}
+.Cn_Main .Cn_Box_Sty_1 div {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  width: 100%;
+}
+.Cn_Main {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  gap: 10px;
+  justify-content: flex-start;
+  align-items: stretch;
+  padding: 10px;
+  width: 100%;
+}
+.Cn_Main > h2 {
+  text-align: center;
+}
+.Cn_Main button {
+  padding: 15px;
+  width: calc(50% - 10px);
+}
+.Cn_Main button span {
+  font-size: 0.85rem;
+  text-align: left;
+}
+.Cn_Main .Menu {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+/* ####### Pacientes Lista ####### */
+.Mn_Pacientes_Index {
+  justify-content: center;
+}
+.Mn_Pacientes_Index h3 {
+  text-align: center;
+}
+.Mn_Pacientes_Index ul {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0;
+  margin: 0;
+}
+.Mn_Pacientes_Index a {
+  text-decoration: none;
+  color: #000;
+}
+.Cn_Pacientes_Index {
+  width: 100%;
+  padding: 10px 20px;
+}
+.Mn_Pacientes_Index #TABLE_PACIEENTS_COUNT {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  background: #eaeaea;
+  border: #aaa solid 3px;
+  border-radius: 10px;
+  box-shadow: #aaa 0 0 10px;
+  padding: 20px;
+  margin: auto;
+  width: 60%;
+  max-width: 580px;
+}
+.Mn_Pacientes_Index #TABLE_PACIEENTS_COUNT > div {
+  text-transform: uppercase;
+  display: flex;
+  gap: 10px;
+  text-align: center;
+  justify-content: center;
+  width: 33%;
+}
+.Mn_Pacientes_Index #TABLE_PACIEENTS_COUNT img {
+  width: 50px;
+}
+
+.Pacient_List {
+  list-style: none;
+}
+.Pacient_List li:hover {
+  background-color: #c7c7c7;
+}
+.Pacient_List li {
+  background: var(--Color_Banner);
+  border: #aaa solid 3px;
+  border-radius: 15px;
+  box-shadow: #aaa 0 0 5px;
+  padding: 10px;
+  margin: 6px 0;
+  width: 75%;
+  min-width: 620px;
+  max-width: 720px;
+  transition: all linear 0.1s;
+}
+.Pacient_List img {
+  width: 80px;
+  height: 80px;
+}
+li .Element_Pacient {
+  display: flex;
+  justify-content: flex-start;
+  gap: 10px;
+}
+li .Pacient_List_ID,
+li .Pacient_List_MORE {
+  color: #757575;
+}
+
+.Mn_Banner_Pacient,
+.Mn_Banner_Dates {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+/* ####### Calendario de Citas ####### */
+.Cn_Dates {
+  display: flex;
+  gap: 0px;
+  width: 100%;
+}
+.Cn_Dates #calendar {
+  padding: 10px;
+}
+.Cn_Dates #Calendar_DD {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(7, auto);
+  gap: 3px;
+  align-items: start;
+  justify-content: space-between;
+  justify-items: center;
+  padding: 10px;
+  margin: 0;
+  width: auto;
+}
+.Cn_Dates #Calendar_DD button {
+  width: 40px;
+  height: 40px;
+  justify-content: center;
+  align-items: center;
+}
+.Calendar_MM {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  gap: 20px;
+  text-transform: capitalize;
+  padding: 5px 10px 20px;
+}
+.DATES_1 {
+  background: #eaeaea;
+  border-right: #dadada solid 3px;
+}
+.Dates_List {
+  overflow: auto;
+  text-align: center;
+  border-right: #dadada solid 3px;
+  padding: 10px;
+  width: 220px;
+  height: calc(100vh - var(--Banner_height) - 30px);
+}
+.Cn_Dates ul {
+  list-style: none;
+  padding: 0;
+}
+.Cn_Dates details summary {
+  text-align: left;
+  width: 100%;
+  font-weight: 600;
+  font-size: 1.1rem;
+  padding: 5px;
+}
+.Cn_Dates details li a {
+  overflow: hidden;
+  text-decoration: none;
+  color: #000;
+  text-align: left;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+  background: #eaeaea;
+  border: #bababa solid 2px;
+  border-radius: 10px;
+  padding: 10px;
+  margin: 5px 0 0;
+  transition: all linear 0.1s;
+}
+.Cn_Dates details li a:hover {
+  background-color: #d2d2d2;
+}
+.Dates_Details {
+  text-align: center;
+  width: calc(100% - 600px);
+  max-width: 400px;
+  padding: 10px;
+}
+.New_Date {
+  inset: calc(var(--Banner_height) + 30px) 0 0 var(--Principal_left);
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  gap: 5px;
+  justify-content: flex-start;
+  align-items: stretch;
+  background-color: var(--Color_Html);
+  border: #aaa solid 3px;
+  border-radius: 10px;
+  padding: 10px;
+  width: 450px;
+  height: 320px;
+}
+.New_Date .Cn_Banner_2,
+.Cn_Banner_2 {
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+  justify-content: space-between;
+  align-items: center;
+  margin: -10px;
+  padding: 10px;
+  background-color: #bababa;
+  z-index: 5;
+}
+.New_Date .Cn_Banner_2 div,
+.Cn_Banner_2 div {
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+}
+.New_Date form {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.New_Date form div {
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+}
+.New_Date input {
+  padding: 10px;
+  width: calc(100% - 25px);
+}
+.New_Date div input {
+  padding: 10px;
+  width: 100%;
+}
+#Calendar_DD .DD_Actual button {
+  font-weight: 600;
+  background-color: #1f618d;
+  color: #f8f8f8;
+  border-radius: 5px;
+}
+#Calendar_DD .DD_Actual button:hover {
+  background-color: #114568;
+}
+#MM_Name {
+  margin: auto;
+  width: 140px;
+  text-align: center;
+}
+#Calendar_YY {
+  text-align: center;
+}
+
+/* ####### Registro de Pacientes ####### */
+.Mn_Pacientes_Register {
+  inset: calc(var(--Banner_height) + 20px) 0 0 var(--Principal_left);
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  gap: 5px;
+  border: #aaa solid 3px;
+  border-radius: 10px;
+  padding: 10px;
+  margin: auto;
+  width: 620px;
+  height: 600px;
+}
+.Mn_Pacientes_Register .Input_Div input {
+  width: calc(100% - 30px);
+}
+.REGISTER_FORM .data,
+.REGISTER_FORM .images {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 5px;
+  justify-content: space-around;
+  align-items: stretch;
+}
+.REGISTER_FORM .data input,
+.REGISTER_FORM .data select {
+  width: 270px;
+  padding: 10px;
+}
+.REGISTER_FORM .images button {
+  width: calc(50% - 10px);
+}
+
+/* ####### Informacion Legal ####### */
+.Cn_Help,
+.Cn_Terminos,
+.Cn_LegalInfo,
+.Cn_Report {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 15px 25px;
+  width: 100%;
+}
+.Cn_Help > .Grid {
+  justify-content: center;
+  gap: 60px;
+  width: calc(100% - 20px);
+}
+.Cn_Help > div > div {
+  display: flexbox;
+  flex-direction: column;
+  gap: 5px;
+  align-items: stretch;
+  margin: 0 auto;
+  max-width: 620px;
+}
+.Cn_Help > div > div > div {
+  background: #dadada;
+  border: #bababa solid 3px;
+  border-radius: 15px;
+  padding: 20px;
+  margin: auto;
+  width: 100%;
+}
+.Cn_Help > p,
+.Cn_Terminos > p,
+.Cn_LegalInfo > p {
+  font-size: 1.1rem;
+  text-align: justify;
+  margin-top: 10px;
+  width: auto;
+  max-width: 800px;
+}
+.Cn_Help h1,
+.Cn_Terminos h1,
+.Cn_LegalInfo h1 {
+  text-align: center;
+  text-transform: uppercase;
+}
+.Cn_Help h3 {
+  text-align: center;
+  text-transform: uppercase;
+}
+.Cn_Help h4 {
+  text-transform: uppercase;
+}
+.Cn_Help button,
+.Cn_Report button {
+  padding: 15px;
+  width: 100%;
+  margin: 8px 0;
+}
+.Cn_Help button[item="GITHUB"]{
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #f8f8f8;
+  background-color: #2c3036;
+  padding: 10px;
+}
+.Cn_Help button[item="GITHUB"] img {
+  width: 50px;
+}
+.Cn_Report textarea {
+  font-size: 1.2rem;
+  border-radius: 10px;
+  padding: 10px;
+  margin-bottom: 10px;
+  width: 100%; 
+  height: 100%;
+}
+.Cn_Report {
+  background: #dadada;
+  border: #888 solid 3px;
+  border-radius: 15px;
+  box-shadow: #888 0 0 15px;
+  padding: 20px 30px;
+  margin: auto;
+  width: 600px;
+  height: 80%;
+  max-height: 600px;
+}
+.Cn_Report div {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+}
+
+
+/* ####### Busqueda ####### */
+.Cn_Search {
+  text-align: center;
+  padding: 15px;
+  width: 100%;
+}
+.Cn_Search h3,
+.Cn_Search h2 {
+  padding: 10px;
+  text-transform: uppercase;
+}
+.Cn_Search > div {
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+}
+.Cn_Search div input {
+  padding: 10px;
+  width: 100%;
+  max-width: 680px;
+}
+.Cn_Search div input + label {
+  text-align: center;
+  text-transform: uppercase;
+  width: 130px;
+}
+.Cn_Search div button {
+  width: 180px;
+}
+table {
+  text-transform: uppercase;
+  padding: 15px;
+  margin: auto;
+  width: 100%;
+  max-width: 900px;
+}
+table .Table_UP td {
+  text-align: center;
+  background-color: #dedede;
+  border: #aaa solid 2px;
+  border-radius: 5px;
+  padding: 5px;
+  width: auto;
+}
+.table td {
+  overflow: hidden;
+  border: #aaa solid 2px;
+  border-radius: 5px;
+  max-width: 15vw;
+}
+.table td div {
+  display: flex;
+  gap: 5px;
+}
+.table td div img {
+  width: 25px;
+}
+.Cn_Search table td {
+  overflow: hidden;
+  text-align: left;
+  border: #aaa solid 2px;
+  border-radius: 5px;
+  padding: 5px 10px;
+}
+
+/* ####### Paciente Informacion ####### */
+.Mn_Pacientes_Data {
+  padding: 15px;
+  flex-direction: column;
+  flex-wrap: nowrap;
+}
+#Mn_Banner_Pacientes_Data {
+  display: flex;
+  gap: 5px;
+  max-height: 50px;
+}
+#Mn_Banner_Pacientes_Data img {
+  width: 25px;
+  border: 0;
+  border-radius: 0;
+}
+.Mn_Pacientes_Data .Grid {
+  display: flex;
+  gap: 15px;
+}
+
+.Mn_Pacientes_Info,
+.Mn_Pacientes_History {
+  width: 100%;
+}
+.Mn_Pacientes_Info img {
+  object-fit: cover;
+  border: #c7c7c7 solid 3px;
+  border-radius: 15px;
+  width: 15vw;
+  min-width: 150px;
+  max-width: 210px;
+}
+.Mn_Pacientes_Info button img {
+  width: 35px;
+  border: 0; border-radius: 0;
+  min-width: 0;
+}
+.Mn_Pacientes_Info button{
+  width: 100%;
+}
+#PACIENTE_INFO {
+  width: calc(75vw - 100px);
+  max-width: 600px;
+}
+#PACIENTE_INFO .Cn_Box_Sty_2 p {
+  display: grid;
+  grid-template-columns: 115px auto 35px;
+  gap: 10px;
+  text-align: right;
+  padding: 2px;
+  text-transform: uppercase;
+}
+#PACIENTE_INFO .Cn_Box_Sty_2 p span {
+  text-align: left;
+}
+#PACIENTE_INFO input {
+  width: 100%;
+}
+#PACIENTE_INFO .Grid p[item] {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+#PACIENTE_INFO > .Grid {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 10px;
+}
+#Mn_Pacientes_Info_History {
+  width: calc(28vw - 10px);
+  max-width: 300px;
+  border: #bbb solid 2px;
+  border-radius: 15px;
+  padding: 15px;
+}
+#Mn_Pacientes_Info_History p {
+  cursor: default;
+  text-transform: capitalize;
+  border: #c7c7c7 solid 2px;
+  border-radius: 5px;
+  padding: 4px 10px;
+  width: 75%;
+  transform: translateX(40px);
+}
+
+.Mn_Pacientes_Info .Cn_Box_Sty_0 .Cn_Box_Sty_2,
+.Cn_Pacientes_History .Cn_Box_Sty_2 {
+  border: #c7c7c7 solid 3px;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.Mn_Pacientes_Notes h2,
+.Cn_Pacientes_Estudies h2,
+.Cn_Pacientes_Dates h2,
+.Cn_Pacientes_Docs h2 {
+  text-align: center;
+  margin-bottom: 10px;
+}
+.Mn_Pacientes_Notes .Cn_Box_Sty_0,
+.Cn_Pacientes_Estudies .Cn_Box_Sty_0,
+.Cn_Pacientes_Dates .Cn_Box_Sty_0,
+.Cn_Pacientes_Docs .Cn_Box_Sty_0 {
+  display: flex;
+  gap: 5px;
+  justify-content: center;
+}
+.Mn_Pacientes_Notes .Cn_Box_Sty_0 button,
+.Mn_Pacientes_Dates .Cn_Box_Sty_1 button,
+.Mn_Pacientes_Estudies button,
+#Mn_Pacientes_Notes_B button {
+  flex-direction: column;
+  width: 100px;
+}
+.Mn_Pacientes_Notes .Cn_Box_Sty_0 img,
+.Mn_Pacientes_Dates .Cn_Box_Sty_1 img,
+.Mn_Pacientes_Estudies img,
+#Mn_Pacientes_Notes_B img {
+  width: 40px;
+  border: 0;
+  border-radius: 0;
+  height: auto;
+}
+.Mn_Pacientes_Notes table td,
+#TABLE_Dates td,
+#TABLE_Files td,
+#TABLE_Docs td {
+  overflow: hidden;
+  border: #aaa solid 2px;
+  border-radius: 5px;
+  max-width: 15vw;
+  padding: 5px;
+}
+.Mn_Pacientes_Notes table td div,
+#TABLE_Dates td div,
+#TABLE_Files td div,
+#TABLE_Docs td div {
+  display: flex;
+  gap: 5px;
+  margin: auto;
+  width: 80px;
+}
+.Mn_Pacientes_Notes table td div button,
+#TABLE_Dates td div button,
+#TABLE_Files td div button,
+#TABLE_Docs td div button {
+  padding: 6px;
+}
+.Mn_Pacientes_Notes table td div button img,
+#TABLE_Dates td div button img,
+#TABLE_Files td div button img,
+#TABLE_Docs td div button img {
+  width: 25px;
+}
+.Mn_Pacientes_History table {
+  width: auto;
+  margin: 0;
+}
+.Mn_Pacientes_History .Cn_Box_Sty_2 {
+  display: block;
+}
+.Mn_Pacientes_History .Cn_Box_Sty_2 .Input_Text {
+  width: calc(100% - 30px);
+  max-width: 400px;
+  margin-bottom: 5px;
+}
+.Mn_Pacientes_History table button {
+  justify-content: center;
+  width: 150px;
+  height: 60px;
+  text-transform: capitalize;
+}
+.Mn_Pacientes_History textarea {
+  width: calc(100% - 10px);
+  max-width: 620px;
+  height: 100px;
+  padding: 10px;
+  font-size: 1rem;
+}
+.Mn_Pacientes_History summary {
+  padding: 10px;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.Mn_NotesDocs {
+  justify-content: center;
+}
+.Mn_NotesDocs button img {
+  width: 30px;
+  border: 0;
+  border-radius: 0;
+  height: auto;
+}
+.Mn_NotesDocs h2 {
+  text-align: center;
+  padding: 10px;
+}
+.Mn_NotesDocs .Cn_Box_Sty_1 {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  max-width: 750px;
+}
+.Cn_NotesDocs button {
+  flex-direction: column;
+  width: 100px;
+  height: 100px;
+  margin: 5px;
+}
+.Cn_NotesDocs button img {
+  width: 40px;
+}
+
+.Mn_FNote,
+.Mn_NotesEv,
+.Cn_Notes,
+.Cn_Note_Traslado,
+.Cn_Note_Egreso {
+  overflow: hidden;
+  position: absolute;
+  inset: calc(var(--Banner_height) + 20px) 0 0 calc(var(--Principal_left));
+  display: block;
+  padding: 10px;
+  margin: auto;
+  border: #aaa solid 3px;
+  border-radius: 10px;
+  width: 80%;
+  max-width: 720px;
+  height: 520px;
+  max-height: 80%;
+}
+.Mn_FNote .data,
+.Cn_Note_Conset .data,
+.Mn_NotesEv .data,
+.Cn_Recipe .data {
+  padding: 15px 0px 5px;
+}
+.Mn_FNote .data div,
+.Cn_Note_Conset .data div,
+.Mn_NotesEv .data div,
+.Cn_Recipe .data div {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  padding: 5px 0;
+}
+.Mn_FNote .data div button,
+.Mn_NotesEv .data button,
+.Cn_Recipe .data button {
+  padding: 5px 15px;
+}
+.Mn_FNote .data div input,
+.Mn_NotesEv .data div input,
+.Cn_Recipe .data div input {
+  padding: 10px;
+  width: calc(45% - 20px);
+}
+.Mn_FNote .data input,
+.Mn_NotesEv .data input {
+  padding: 10px;
+  width: calc(100% - 25px);
+}
+.Mn_FNote .data textarea,
+.Cn_Note_Conset textarea,
+.Cn_Recipe textarea {
+  padding: 10px;
+  width: calc(100% - 20px);
+  height: 330px;
+}
+.Mn_NotesEv {
+  height: 510px;
+  margin: auto;
+}
+.Mn_NotesEv .more {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  width: 250px;
+}
+.Cn_Notes .top input {
+  width: calc(50% - 28px);
+  margin: 15px 0 5px;
+}
+.Mn_NotesEv .Grid {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+}
+.Mn_NotesEv .Grid textarea {
+  font-size: 1rem;
+  padding: 10px;
+  width: 460px;
+  height: 320px;
+}
+.Mn_NotesEv .top + input {
+  width: calc(100% - 25px);
+  margin-bottom: 5px;
+}
+
+.Cn_Note_Conset,
+.Cn_Recipe {
+  background: var(--Color_Html);
+  overflow: auto;
+  text-align: left;
+  border: #888 solid 3px;
+  border-radius: 10px;
+  padding: 10px;
+  margin: auto;
+  width: 680px;
+  height: auto;
+  min-height: 500px;
+  max-height: 80%;
+}
+.Cn_Note_Conset textarea {
+  font-size: 1rem;
+  height: calc(100% - 255px);
+  min-height: 250px;
+}
+.Cn_Note_Conset .data {
+  padding: 15px 0 0;
+}
+.Cn_Note_Conset .data input {
+  width: calc(100% - 20px);
+  margin-bottom: 5px;
+}
+.Cn_Note_Conset {
+  height: 80%;
+}
+
+.Cn_Notes,
+.Cn_Note_Traslado,
+.Cn_Note_Egreso {
+  position: absolute;
+  inset: 0 0 0 0;
+  width: 90%;
+  max-width: 800px;
+  height: 580px;
+  min-height: 580px;
+}
+.Cn_Notes .more {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  gap: 10px;
+}
+.Cn_Notes .CNote_1 {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  gap: 5px;
+  width: 40%;
+}
+.Cn_Notes .CNote_1 div {
+  display: flex;
+  gap: 5px;
+}
+.Cn_Notes .CNote_1 div input {
+  width: 100%;
+}
+.Cn_Notes .CNote_1 textarea {
+  font-size: 1rem;
+  height: 340px;
+  padding: 10px;
+}
+.Cn_Notes .CNote_2 {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+.Cn_Notes .CNote_2 button {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  flex-direction: column;
+  width: 100px;
+  height: 70px;
+  padding: 5px 10px;
+  text-align: center;
+  gap: 5px;
+}
+.Cn_Notes .CNote_2 button img {
+  width: 25px;
+}
+.Cn_Notes .CNote_3 h3,
+.Cn_Note_Traslado h3,
+.Cn_Note_Egreso h3 {
+  text-align: center;
+  text-transform: uppercase;
+}
+.Cn_Notes .CNote_3 > div {
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  height: 510px;
+  width: auto;
+  padding: 0 5px;
+}
+.Cn_Notes .CNote_3 input {
+  width: 340px;
+}
+.Cn_Notes .CNote_3 label,
+.Cn_Note_Traslado .more label {
+  display: inline-flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 5px;
+  padding: 5px;
+}
+.Cn_Notes .CNote_3 label:hover,
+.Cn_Note_Traslado .more label:hover {
+  background: #c7c7c7;
+}
+.Cn_Notes .CNote_3 input[type="checkbox"],
+.Cn_Note_Traslado .more input[type="checkbox"] {
+  width: 15px;
+  height: 15px;
+}
+.Cn_Notes .CNote_3 input[type="text"],
+.Cn_Note_Traslado .more input[type="text"] {
+  padding: 15px;
+  margin: 0;
+  width: calc(100% - 35px);
+}
+.Cn_Notes .CNote_3 td input[type="text"] {
+  width: calc(100% - 15px);
+  height: 30px;
+  padding: 5px;
+  margin: 0;
+  border: 0;
+  border-radius: 5px;
+}
+.Cn_Notes .CNote_3 table td {
+  overflow: hidden;
+  font-size: 0.8rem;
+  text-align: center;
+  border: #bababa solid 2px;
+  border-radius: 5px;
+  padding: 3px;
+}
+
+.Cn_Note_Traslado div {
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+}
+.Cn_Note_Traslado div input {
+  width: 100%;
+}
+.Cn_Note_Traslado .data,
+.Cn_Note_Traslado .more {
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  width: 50%;
+  margin-top: 10px;
+  padding: 15px 5px 5px;
+  height: 510px;
+}
+.Cn_Note_Traslado .data textarea {
+  font-size: 1rem;
+  padding: 10px;
+  height: 100%;
+}
+.Cn_Note_Traslado .more label {
+  font-size: 0.8rem;
+}
+
+.Cn_Note_Egreso .data {
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  height: 510px;
+}
+.Cn_Note_Egreso input {
+  font-size: 1rem;
+  padding: 5px 10px;
+}
+.Cn_Note_Egreso .data div {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+.Cn_Note_Egreso .data div input {
+  width: 233px;
+}
+
+.Cn_Import_File,
+.Cn_Import_Json {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background-color: #dadada;
+  border: #888 solid 2px;
+  border-radius: 10px;
+  margin: auto;
+  padding: 15px;
+  width: 400px;
+  min-height: 160px;
+}
+.Cn_Import_File h3,
+.Cn_Import_Json h3 {
+  text-align: center;
+  text-transform: uppercase;
+}
+.Cn_Import_File input[type="text"] {
+  font-size: 1rem;
+  padding: 8px;
+}
+.Cn_Import_File input[type="file"] {
+  display: none;
+}
+.Cn_Import_File label {
+  cursor: pointer;
+  font-size: 1.25rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  background-color: #c7c7c7;
+  border: #aaa solid 2px;
+  border-radius: 10px;
+  padding: 10px;
+}
+.Cn_Import_File label:hover {
+  background-color: #aaa;
+}
+.Cn_Import_File label img {
+  width: 50px;
+}
+.Cn_Import_File div,
+.Cn_Import_Json div {
+  display: flex;
+  gap: 5px;
+}
+.Cn_Import_File div button,
+.Cn_Import_Json div button {
+  width: 100%;
+}
+.Cn_Import_Json textarea {
+  padding: 10px;
+}
+.Cn_Import_Json {
+  height: 280px;
+}
+
+.Cn_Pacientes_Notes h2 + div,
+.Cn_Pacientes_Docs h2 + div {
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+  width: 70%;
+  margin: auto;
+}
+.Cn_Pacientes_Notes h2 + div input,
+.Cn_Pacientes_Docs h2 + div input {
+  width: 100%;
+  padding: 5px;
+  font-size: 1rem;
+}
+
+#Mn_Note_Consent_Templates {
+  overflow: auto;
+  position: absolute;
+  inset: 10vw 80px 0 auto;
+  background-color: var(--Color_Html);
+  border-radius: 10px;
+  border: #888 solid 3px;
+  margin: auto;
+  padding: 10px;
+  width: 620px;
+  height: 70%;
+  min-height: 490px;
+  z-index: 5;
+}
+
+#Mn_Note_Consent_Templates h3 {
+  text-align: center;
+}
+#Mn_Note_Consent_Templates ul {
+  list-style: none;
+  margin: 20px 0 0;
+  padding: 0;
+}
+#Mn_Note_Consent_Templates li {
+  margin: 7px;
+  padding: 0;
+}
+#Mn_Note_Consent_Templates button {
+  font-size: 1rem;
+  font-weight: 600;
+  text-transform: capitalize;
+  padding: 12px;
+  width: 100%;
+}
+#Mn_Note_Consent_Templates .Btn_Sty_0 { 
+  background: #dadada;
+}
+#Mn_Note_Consent_Templates .Btn_Sty_0:focus {
+  background-color: #bababa;
+}
+
+.Cn_READER {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  justify-content: flex-start;
+  align-items: stretch;
+  font-size: 1rem;
+  padding: 15px;
+  margin: auto;
+  background-color: var(--Color_Html);
+  border: #888 solid 3px;
+  border-radius: 15px;
+  width: 680px;
+  height: 480px;
+}
+.Cn_READER textarea {
+  padding: 10px;
+  font-size: 1.1rem;
+  color: #000;
+  height: 100%;
+}
+.Mn_Camara {
+  border: #888 solid 3px;
+  border-radius: 15px;
+  box-shadow: #888 0 0 5px;
+  padding: 15px;
+  margin: auto;
+  width: 360px;
+  height: 360px;
+}
+.Mn_Camara img {
+  width: 80%;
+}
+.Cn_Camara {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.Cn_Camara div {
+  display: flex;
+  gap: 15px;
+  margin: auto;
+  justify-content: center;
+  width: 360px;
+}
+.Cn_Camara div button > img {
+  width: 30px;
+}
+.Mn_Camara div[ITEM="VIDEO"] {
+  overflow: hidden;
+  width: 280px;
+  height: 210px;
+  border: #888 solid 3px;
+  border-radius: 10px;
+  box-shadow: #888 0 0 5px;
+}
+.Mn_Camara div[ITEM="VIDEO"] > video {
+  width: 280px;
+  height: 315px;
+  object-fit: cover;
+  object-position: 0;
+}
+.Mn_Config_App { background: #88888880;}
+.Cn_Config_App { background: var(--Color_Html);}
+.Mn_Config_App .Cn_Config_App {
+  overflow: auto;
+  margin: auto;
+  width: 580px;
+  height: 80%;
+  max-height: 700px;
+  min-height: 520px;
+}
+.Cn_Config_App h3 {
+  text-align: center;
+}
+.Cn_Config_App {
+  border: #888 solid 3px;
+  border-radius: 15px;
+  box-shadow: #888 0 0 10px;
+  padding: 10px;
+}
+.Cn_Config_App > div input {
+  font-size: 1rem;
+  padding: 10px;
+}
+.Cn_Config_App input[type="time"] {
+  width: 45%;
+}
+.Cn_Config_App .Text_L {
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+}
+.Cn_Config_App .Text_L button {
+  width: 100%;
+}
+.Cn_Config_App > .Cn_Box_Sty_0 {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.Cn_Config_App #Config_Menu {
+  display: flex;
+  gap: 2px;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+}
+.Cn_Config_App button img {
+  width: 25px;
+}
+.Cn_Config_App button {
+  border: #888 solid 2px;
+  border-radius: 5px;
+}
+
+.Cn_Delete {
+  text-transform: uppercase;
+  text-align: center;
+  border: #888 solid 3px;
+  border-radius: 15px;
+  box-shadow: #888 0 0 5px;
+  margin: auto;
+  padding: 15px;
+  width: 280px;
+}
+.Cn_Delete button {
+  width: 100%;
+}
+
+#Mn_Pacientes_Docs > div > details summary {
+  cursor: pointer;
+  font-size: 1.5rem;
+  font-weight: 600;
+  padding: 10px;
+}
+
+@media screen and (max-height: 740px) {
+  .Toolbar_Buttons div {
+    gap: 5px;
+  }
+  .Cn_Toolbar .Toolbar_User img {
+    width: 80%;
+    max-width: 100px;
+    max-height: 100px;
+  }
+  .Cn_Box_Sty_1 img {
+    width: 155px;
+    height: 155px;
+  }
+  .Cn_Main .Cn_Box_Sty_1 div {
+    gap: 1px;
+  }
+}
