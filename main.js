@@ -998,7 +998,7 @@ function User_Login(Local = null) {
         };
         SEND_TO_PHP("LOGIN", SEND);
         setTimeout(() => {
-          if (WEB_DATA["USUARIO"]["ID"] == String(USER.value)) {
+          if (WEB_DATA["USUARIO"]?.["ID"] == String(USER.value)) {
             USER.classList.remove("ERROR");
             PASSWORD.classList.remove("ERROR");
             Load_User_Data();
@@ -1268,6 +1268,9 @@ function Load_User_Data() {
   });
 
   if (WEB_DATA["USUARIO"]?.["IMG"] != undefined) {
+    if(WEB_DATA["USUARIO"]["IMG"].length < 128){ 
+      WEB_DATA["USUARIO"]["IMG"] = "IMG/User_Img.jpg";
+    }
     document.querySelector("#Mn_Main > div > div.Cn_Box_Sty_1 > img").src =
       WEB_DATA["USUARIO"]["IMG"];
     document.querySelector(
@@ -1547,7 +1550,7 @@ function Add_New_Date() {
   }
 
   if (WEB_DATA["PACIENTES"]?.["SELECTED"]?.["EDIT"] == "false" || WEB_DATA["PACIENTES"]?.["SELECTED"]?.["EDIT"] == "Add") {
-    let NUM = Object.keys(WEB_DATA["CITAS"][DATA_RAW["ID"]]).length;
+    let NUM = (WEB_DATA["CITAS"]?.[DATA_RAW["ID"]] != undefined) ? Object.keys(WEB_DATA["CITAS"][DATA_RAW["ID"]]).length:[];
     if(WEB_DATA["CITAS"]?.[DATA_RAW["ID"]] == undefined){
       WEB_DATA["CITAS"][DATA_RAW["ID"]] = {};
     }
@@ -1661,41 +1664,41 @@ function load_date(TEXT = "") {
 
 function Pacient_List_History() {
   let Elements1 = [
-    "Diabetes",
-    "Hipertension",
-    "Cardiopatias",
-    "Osteoporosis",
-    "Tuberculusis",
-    "Cacer cervicouterino",
+    "Cancer cervicouterino",
     "Cancer de mama",
-    "Obesisdad",
+    "Cardiopatias",
+    "Diabetes",
     "Dislipidemia",
+    "Distrofia Muscular",
+    "Enfermedades cerebrovasculares",
+    "Epilepsia",
+    "Hipertension",
     "Insuficiencia renal",
     "Muerte cardiovascular",
-    "Enfermedades cerebrovasculares",
+    "Obesidad",
+    "Osteoporosis",
     "Tabaquismo",
     "Tiroides",
-    "Epilepsia",
-    "Distrofia Muscular",
+    "Tuberculosis",
   ];
   let Elements2 = [
     "Obesidad",
-    "Tuberculosis",
-    "Diabetes",
-    "Sarampion",
-    "Rubeola",
-    "Tosferia",
-    "Varicela",
-    "Escarlatina",
     "Amigdalitis",
-    "Hepatitis",
-    "Convulsiones",
-    "Cardiopatias",
-    "Osteoporosis",
-    "Dislipidemia",
-    "Cancer",
     "Artitis",
+    "Cancer",
+    "Cardiopatias",
+    "Convulsiones",
+    "Diabetes",
+    "Dislipidemia",
+    "Escarlatina",
+    "Hepatitis",
+    "Osteoporosis",
+    "Rubeola",
+    "Sarampion",
     "Tiroides",
+    "Tosferia",
+    "Tuberculosis",
+    "Varicela",
   ];
   Elements1.sort();
   Elements2.sort();
