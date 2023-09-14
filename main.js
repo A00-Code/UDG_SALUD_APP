@@ -1292,7 +1292,7 @@ function Load_User_Data() {
 
     let XWHERE = ``;
     let LIST = String(WEB_DATA["USUARIO"]["PACIENTES"]).split(",");
-    if (LIST.length > 0 && LIST[0].length > 3) {
+    if (LIST.length > 0) {
       LIST.forEach((Xtem) => {
         if (Xtem != "") {
           Xtem = String(Xtem).trim();
