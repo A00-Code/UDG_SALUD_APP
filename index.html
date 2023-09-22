@@ -8,7 +8,7 @@
       content="width=device-width, height=device-height, initial-scale=1.0"
     />
     <title>UdG Salud</title>
-    <link rel="stylesheet" href="./Style.css" />
+    <link rel="stylesheet" href="./Style.css" media="all"/>
   </head>
   <body class="Toolbar_Size_L">
     <!-- [ Iniciar Sesion ] -->
@@ -40,7 +40,7 @@
           </button>
         </form>
         <br />
-        <div>
+        <div class="Hiden">
           <button type="button" class="Btn_Sty_4" onclick="User_Login('LOCAL')">
             <img src="./IMG/Computer.svg" alt="" /> Usuario Local
           </button>
@@ -792,7 +792,7 @@
             <h3 class="Text_L Text_Sty_1">Antecedentes 'heredo familiares'</h3>
             <table id="TABLE_Historial_1"></table>
             <details>
-              <summary class="Text_Sty_1">Otros: (Separados por , )</summary>
+              <summary class="Text_Sty_1">Otros: (Separados por - )</summary>
               <textarea
                 name="TABLE_Historial_1More"
                 id="TABLE_Historial_1More"
@@ -808,7 +808,7 @@
             </h3>
             <table id="TABLE_Historial_2"></table>
             <details>
-              <summary class="Text_Sty_1">Otros: (Separados por , )</summary>
+              <summary class="Text_Sty_1">Otros: (Separados por - )</summary>
               <textarea
                 name="TABLE_Historial_1More"
                 id="TABLE_Historial_1More"
@@ -967,10 +967,10 @@
                 </tr>
               </table>
               <details>
-                <summary>Otros:</summary>
+                <summary>Otros: (Separadas por -)</summary>
                 <textarea
-                  name="TABLE_Historial_3c"
-                  id="TABLE_Historial_3c"
+                  name="TABLE_Historial_3c_more"
+                  id="TABLE_Historial_3c_more"
                   cols="30"
                   rows="10"
                 ></textarea>
@@ -1002,7 +1002,7 @@
               </table>
             </div>
             <details>
-              <summary class="Text_Sty_1">Alergias (Separadas por ,)</summary>
+              <summary class="Text_Sty_1">Alergias (Separadas por -)</summary>
               <textarea
                 name="TABLE_Historial_Alergias"
                 id="TABLE_Historial_Alergias"
@@ -1090,7 +1090,7 @@
                       class="NO_CHECKED"
                       onclick="Btn_Togle(this,'Pacient_History')"
                     >
-                      Ex-Fumador
+                      Ex-Alcoholico
                     </button>
                   </td>
                 </tr>
@@ -1799,7 +1799,7 @@
             ITEM="DOCTOR_2"
             placeholder="Atendido por... (Opcional)"
           />
-          <button type="button" class="Btn_Sty_4" onclick="">
+          <button type="button" class="Btn_Sty_4" onclick="DOCTOR_LIST('DOC','NO')">
             <img src="./IMG/Hospital.svg" alt="" />Seleccionar
           </button>
         </div>
@@ -1810,7 +1810,7 @@
             placeholder="Paciente"
             ITEM="ID"
           />
-          <button type="button" class="Btn_Sty_4" onclick="">
+          <button type="button" class="Btn_Sty_4" onclick="DOCTOR_LIST('PAS','NO')">
             <img src="./IMG/Users.svg" alt="" /> Seleccionar
           </button>
         </div>
@@ -1871,7 +1871,7 @@
               readonly
             />
             <input type="text" class="" ITEM="ID" placeholder="PACIENTE" />
-            <button type="button" class="Btn_Sty_4" onclick="">
+            <button type="button" class="Btn_Sty_4" onclick="DOCTOR_LIST('PAS','NO')">
               <img src="./IMG/Users.svg" alt="" />Seleccionar
             </button>
           </div>
@@ -1992,7 +1992,7 @@
                   ITEM="ID"
                   placeholder="Paciente"
                 />
-                <button type="button" class="Btn_Sty_4" onclick="">
+                <button type="button" class="Btn_Sty_4" onclick="DOCTOR_LIST('PAS','NO')">
                   <img src="./IMG/Users.svg" alt="" />
                 </button>
               </div>
@@ -2081,199 +2081,199 @@
                 <h3>Aparatos y Sistemas</h3>
                 <h3>GENERALES</h3>
                 <label
-                  ><input type="checkbox" ITEM="AaS1" />Fiebre recurrente</label
+                  ><input type="checkbox" ITEM="AAS1" />Fiebre recurrente</label
                 >
                 <label
-                  ><input type="checkbox" ITEM="AaS2" />Cansancio todo el
+                  ><input type="checkbox" ITEM="AAS2" />Cansancio todo el
                   tiempo</label
                 >
                 <label
-                  ><input type="checkbox" ITEM="AaS3" />Intolerancia al
+                  ><input type="checkbox" ITEM="AAS3" />Intolerancia al
                   frío/calor</label
                 >
                 <label
-                  ><input type="checkbox" ITEM="AaS4" />Pérdida de peso
+                  ><input type="checkbox" ITEM="AAS4" />Pérdida de peso
                   repentina</label
                 >
                 <label
-                  ><input type="checkbox" ITEM="AaS5" />Debilidad en todo el
+                  ><input type="checkbox" ITEM="AAS5" />Debilidad en todo el
                   cuerpo</label
                 >
                 <h3>OJOS</h3>
                 <label
-                  ><input type="checkbox" ITEM="AaS6" />Frecuente enrojecimiento
+                  ><input type="checkbox" ITEM="AAS6" />Frecuente enrojecimiento
                   de los ojos</label
                 >
                 <label
-                  ><input type="checkbox" ITEM="AaS7" />Resequedad crónica en
+                  ><input type="checkbox" ITEM="AAS7" />Resequedad crónica en
                   los ojos</label
                 >
                 <label
-                  ><input type="checkbox" ITEM="AaS8" />Frecuente dolor en los
+                  ><input type="checkbox" ITEM="AAS8" />Frecuente dolor en los
                   ojos</label
                 >
                 <label
-                  ><input type="checkbox" ITEM="AaS9" />Cambios recientes de la
+                  ><input type="checkbox" ITEM="AAS9" />Cambios recientes de la
                   visión</label
                 >
                 <h3>OIDOS/NARIZ/GARGANTA</h3>
                 <label
-                  ><input type="checkbox" ITEM="AaS10" />Resequedad crónica en
+                  ><input type="checkbox" ITEM="AAS10" />Resequedad crónica en
                   la boca</label
                 >
                 <label
-                  ><input type="checkbox" ITEM="AaS11" />Ronquera crónica</label
+                  ><input type="checkbox" ITEM="AAS11" />Ronquera crónica</label
                 >
                 <label
-                  ><input type="checkbox" ITEM="AaS12" />Frecuentes úlceras en
+                  ><input type="checkbox" ITEM="AAS12" />Frecuentes úlceras en
                   la boca</label
                 >
                 <label
-                  ><input type="checkbox" ITEM="AaS13" />Perdida de la
+                  ><input type="checkbox" ITEM="AAS13" />Perdida de la
                   audición</label
                 >
                 <h3>APARATO RESPIRATORIO</h3>
                 <label
-                  ><input type="checkbox" ITEM="AaS14" />Dolor de pecho al
+                  ><input type="checkbox" ITEM="AAS14" />Dolor de pecho al
                   respirar profundo</label
                 >
                 <label
-                  ><input type="checkbox" ITEM="AaS15" />Tos frecuente</label
+                  ><input type="checkbox" ITEM="AAS15" />Tos frecuente</label
                 >
                 <label
-                  ><input type="checkbox" ITEM="AaS16" />Pulmonía
+                  ><input type="checkbox" ITEM="AAS16" />Pulmonía
                   recurrente</label
                 >
                 <label
-                  ><input type="checkbox" ITEM="AaS17" />Falta la respiración
+                  ><input type="checkbox" ITEM="AAS17" />Falta la respiración
                   frecuentemente</label
                 >
-                <label><input type="checkbox" ITEM="AaS18" />Ronquidos</label>
-                <label><input type="checkbox" ITEM="AaS19" />Asma</label>
+                <label><input type="checkbox" ITEM="AAS18" />Ronquidos</label>
+                <label><input type="checkbox" ITEM="AAS19" />Asma</label>
                 <h3>SISTEMA CARDIOVASCULAR</h3>
                 <label
-                  ><input type="checkbox" ITEM="AaS20" />Dolor en el pecho
+                  ><input type="checkbox" ITEM="AAS20" />Dolor en el pecho
                   cuando se esfuerza</label
                 >
                 <label
-                  ><input type="checkbox" ITEM="AaS21" />Desmayos
+                  ><input type="checkbox" ITEM="AAS21" />Desmayos
                   recientes</label
                 >
                 <label
-                  ><input type="checkbox" ITEM="AaS22" />Esforzarse levemente
-                  resulta en una falta de aire?</label
+                  ><input type="checkbox" ITEM="AAS22" />Esforzarse levemente
+                  resulta en una falta de aire</label
                 >
                 <label
-                  ><input type="checkbox" ITEM="AaS23" />Inflamación recurrente
+                  ><input type="checkbox" ITEM="AAS23" />Inflamación recurrente
                   en los tobillos</label
                 >
                 <h3>SISTEMA GASTROINTESTINAL</h3>
-                <label><input type="checkbox" ITEM="AaS24" />Acidez</label>
+                <label><input type="checkbox" ITEM="AAS24" />Acidez</label>
                 <label
-                  ><input type="checkbox" ITEM="AaS25" />Síndrome de intestino
+                  ><input type="checkbox" ITEM="AAS25" />Síndrome de intestino
                   irritable</label
                 >
                 <label
-                  ><input type="checkbox" ITEM="AaS26" />Estreñimiento</label
+                  ><input type="checkbox" ITEM="AAS26" />Estreñimiento</label
                 >
                 <label
-                  ><input type="checkbox" ITEM="AaS27" />Incontinencia
+                  ><input type="checkbox" ITEM="AAS27" />Incontinencia
                   fecal</label
                 >
                 <label
-                  ><input type="checkbox" ITEM="AaS28" />Nausea frecuente</label
+                  ><input type="checkbox" ITEM="AAS28" />Nausea frecuente</label
                 >
                 <label
-                  ><input type="checkbox" ITEM="AaS29" />Sangre en las
+                  ><input type="checkbox" ITEM="AAS29" />Sangre en las
                   heces</label
                 >
                 <h3>SISTEMA URINARIO</h3>
                 <label
-                  ><input type="checkbox" ITEM="AaS30" />Dolor al orinar</label
+                  ><input type="checkbox" ITEM="AAS30" />Dolor al orinar</label
                 >
                 <label
-                  ><input type="checkbox" ITEM="AaS31" />Cálculos en los
+                  ><input type="checkbox" ITEM="AAS31" />Cálculos en los
                   riñones</label
                 >
                 <label
-                  ><input type="checkbox" ITEM="AaS32" />Incontinencia
+                  ><input type="checkbox" ITEM="AAS32" />Incontinencia
                   urinaria</label
                 >
                 <label
-                  ><input type="checkbox" ITEM="AaS33" />Sangre en la
+                  ><input type="checkbox" ITEM="AAS33" />Sangre en la
                   orina</label
                 >
                 <label
-                  ><input type="checkbox" ITEM="AaS34" />Úlceras genitales
+                  ><input type="checkbox" ITEM="AAS34" />Úlceras genitales
                   frecuentes</label
                 >
                 <h3>SISTEMA MÚSCULO ESQUELÉTICO</h3>
                 <label
-                  ><input type="checkbox" ITEM="AaS35" />Dolor en todo el
+                  ><input type="checkbox" ITEM="AAS35" />Dolor en todo el
                   cuerpo</label
                 >
                 <label
-                  ><input type="checkbox" ITEM="AaS36" />Dolor en las
+                  ><input type="checkbox" ITEM="AAS36" />Dolor en las
                   articulaciones</label
                 >
                 <label
-                  ><input type="text" placeholder="Cuales" ITEM="AaS37"
+                  ><input type="text" placeholder="Cuales" ITEM="AAS37"
                 /></label>
                 <label
-                  ><input type="checkbox" ITEM="AaS38" />Dolores
+                  ><input type="checkbox" ITEM="AAS38" />Dolores
                   musculares</label
                 >
                 <label
-                  ><input type="text" placeholder="Donde" ITEM="AaS39"
+                  ><input type="text" placeholder="Donde" ITEM="AAS39"
                 /></label>
                 <label
-                  ><input type="checkbox" ITEM="AaS40" />Rigidez corporal al
+                  ><input type="checkbox" ITEM="AAS40" />Rigidez corporal al
                   despertarse</label
                 >
                 <label
-                  ><input type="text" placeholder="Duracion" ITEM="AaS41"
+                  ><input type="text" placeholder="Duracion" ITEM="AAS41"
                 /></label>
                 <label
-                  ><input type="checkbox" ITEM="AaS42" />Limitación del
+                  ><input type="checkbox" ITEM="AAS42" />Limitación del
                   movimiento</label
                 >
                 <h3>NEUROLOGICO</h3>
                 <label
-                  ><input type="checkbox" ITEM="AaS43" />Dolores de
+                  ><input type="checkbox" ITEM="AAS43" />Dolores de
                   cabeza</label
                 >
                 <label
-                  ><input type="checkbox" ITEM="AaS44" />Convulsiones</label
+                  ><input type="checkbox" ITEM="AAS44" />Convulsiones</label
                 >
                 <label
-                  ><input type="checkbox" ITEM="AaS45" />Entumecimiento</label
+                  ><input type="checkbox" ITEM="AAS45" />Entumecimiento</label
                 >
-                <label><input type="checkbox" ITEM="AaS46" />Ardor</label>
+                <label><input type="checkbox" ITEM="AAS46" />Ardor</label>
                 <label
-                  ><input type="checkbox" ITEM="AaS47" />Sensación de
+                  ><input type="checkbox" ITEM="AAS47" />Sensación de
                   hormigueo</label
                 >
                 <label
-                  ><input type="checkbox" ITEM="AaS48" />Debilidad en alguna
+                  ><input type="checkbox" ITEM="AAS48" />Debilidad en alguna
                   parte del cuerpo</label
                 >
                 <h3>PSIQUIATRICO</h3>
-                <label><input type="checkbox" ITEM="AaS49" />Depresión</label>
-                <label><input type="checkbox" ITEM="AaS50" />Ansiedad</label>
+                <label><input type="checkbox" ITEM="AAS49" />Depresión</label>
+                <label><input type="checkbox" ITEM="AAS50" />Ansiedad</label>
                 <label
-                  ><input type="checkbox" ITEM="AaS51" />Problemas al
+                  ><input type="checkbox" ITEM="AAS51" />Problemas al
                   dormir</label
                 >
                 <label
-                  ><input type="checkbox" ITEM="AaS52" />Para quedarse
+                  ><input type="checkbox" ITEM="AAS52" />Para quedarse
                   dormido</label
                 >
                 <label
-                  ><input type="checkbox" ITEM="AaS53" />Para mantenerse
+                  ><input type="checkbox" ITEM="AAS53" />Para mantenerse
                   dormido</label
                 >
                 <label
-                  ><input type="checkbox" ITEM="AaS54" />Problemas para poder
+                  ><input type="checkbox" ITEM="AAS54" />Problemas para poder
                   despertar</label
                 >
               </div>
@@ -2287,68 +2287,68 @@
                   </tr>
                   <tr>
                     <td>HOMBROS</td>
-                    <td><input type="text" ITEM="SaA_L1" /></td>
-                    <td><input type="text" ITEM="SaA_R1" /></td>
+                    <td><input type="text" ITEM="SAA_L1" /></td>
+                    <td><input type="text" ITEM="SAA_R1" /></td>
                   </tr>
                   <tr>
                     <td>PECHO</td>
-                    <td><input type="text" ITEM="SaA_L2" /></td>
-                    <td><input type="text" ITEM="SaA_R2" /></td>
+                    <td><input type="text" ITEM="SAA_L2" /></td>
+                    <td><input type="text" ITEM="SAA_R2" /></td>
                   </tr>
                   <tr>
                     <td>BICEPS RELAJADO</td>
-                    <td><input type="text" ITEM="SaA_L3" /></td>
-                    <td><input type="text" ITEM="SaA_R3" /></td>
+                    <td><input type="text" ITEM="SAA_L3" /></td>
+                    <td><input type="text" ITEM="SAA_R3" /></td>
                   </tr>
                   <tr>
                     <td>BICEPS CONTRAÍDO</td>
-                    <td><input type="text" ITEM="SaA_L4" /></td>
-                    <td><input type="text" ITEM="SaA_R4" /></td>
+                    <td><input type="text" ITEM="SAA_L4" /></td>
+                    <td><input type="text" ITEM="SAA_R4" /></td>
                   </tr>
                   <tr>
                     <td>ANTEBRAZO</td>
-                    <td><input type="text" ITEM="SaA_L5" /></td>
-                    <td><input type="text" ITEM="SaA_R5" /></td>
+                    <td><input type="text" ITEM="SAA_L5" /></td>
+                    <td><input type="text" ITEM="SAA_R5" /></td>
                   </tr>
                   <tr>
                     <td>MUÑECA</td>
-                    <td><input type="text" ITEM="SaA_L6" /></td>
-                    <td><input type="text" ITEM="SaA_R6" /></td>
+                    <td><input type="text" ITEM="SAA_L6" /></td>
+                    <td><input type="text" ITEM="SAA_R6" /></td>
                   </tr>
                   <tr>
                     <td>ABDOMEN</td>
-                    <td><input type="text" ITEM="SaA_L7" /></td>
-                    <td><input type="text" ITEM="SaA_R7" /></td>
+                    <td><input type="text" ITEM="SAA_L7" /></td>
+                    <td><input type="text" ITEM="SAA_R7" /></td>
                   </tr>
                   <tr>
                     <td>CINTURA</td>
-                    <td><input type="text" ITEM="SaA_L8" /></td>
-                    <td><input type="text" ITEM="SaA_R8" /></td>
+                    <td><input type="text" ITEM="SAA_L8" /></td>
+                    <td><input type="text" ITEM="SAA_R8" /></td>
                   </tr>
                   <tr>
                     <td>CADERA</td>
-                    <td><input type="text" ITEM="SaA_L9" /></td>
-                    <td><input type="text" ITEM="SaA_R9" /></td>
+                    <td><input type="text" ITEM="SAA_L9" /></td>
+                    <td><input type="text" ITEM="SAA_R9" /></td>
                   </tr>
                   <tr>
                     <td>MUSLO</td>
-                    <td><input type="text" ITEM="SaA_L10" /></td>
-                    <td><input type="text" ITEM="SaA_R10" /></td>
+                    <td><input type="text" ITEM="SAA_L10" /></td>
+                    <td><input type="text" ITEM="SAA_R10" /></td>
                   </tr>
                   <tr>
                     <td>RODILLA</td>
-                    <td><input type="text" ITEM="SaA_L11" /></td>
-                    <td><input type="text" ITEM="SaA_R11" /></td>
+                    <td><input type="text" ITEM="SAA_L11" /></td>
+                    <td><input type="text" ITEM="SAA_R11" /></td>
                   </tr>
                   <tr>
                     <td>GEMELOS</td>
-                    <td><input type="text" ITEM="SaA_L12" /></td>
-                    <td><input type="text" ITEM="SaA_R12" /></td>
+                    <td><input type="text" ITEM="SAA_L12" /></td>
+                    <td><input type="text" ITEM="SAA_R12" /></td>
                   </tr>
                   <tr>
                     <td>TOBILLO</td>
-                    <td><input type="text" ITEM="SaA_L13" /></td>
-                    <td><input type="text" ITEM="SaA_R13" /></td>
+                    <td><input type="text" ITEM="SAA_L13" /></td>
+                    <td><input type="text" ITEM="SAA_R13" /></td>
                   </tr>
                 </table>
               </div>
@@ -2944,7 +2944,7 @@
               ITEM="ID"
               placeholder="PACIENTE"
             />
-            <button type="button" class="Btn_Sty_4" onclick="">
+            <button type="button" class="Btn_Sty_4" onclick="DOCTOR_LIST('PAS','NO')">
               <img src="./IMG/Users.svg" alt="" />
             </button>
           </div>
@@ -3405,7 +3405,7 @@
             readonly
           />
           <input type="text" class="" ITEM="ID" placeholder="PACIENTE" />
-          <button type="button" class="Btn_Sty_4" onclick="">
+          <button type="button" class="Btn_Sty_4" onclick="DOCTOR_LIST('PAS','NO')">
             <img src="./IMG/Users.svg" alt="" />Seleccionar
           </button>
         </div>
@@ -3775,325 +3775,6 @@
       </div>
     </div>
 
-    <div class="Mn_Notes_IAS Hiden" id="Mn_Notes_IAS">
-      <div class="Cn_Notes_IAS">
-        <h3>GENERALES</h3>
-        <p>Fiebre recurrente</p>
-        <p>Cansancio todo el tiempo</p>
-        <p>Intolerancia al frío/calor</p>
-        <p>Pérdida de peso repentina</p>
-        <p>Debilidad en todo el cuerpo</p>
-        <h3>OJOS</h3>
-        <p>Frecuente enrojecimiento de los ojos</p>
-        <p>Resequedad crónica en los ojos</p>
-        <p>Frecuente dolor en los ojos</p>
-        <p>Cambios recientes de la visión</p>
-        <h3>OIDOS/NARIZ/GARGANTA</h3>
-        <p>Resequedad crónica en la boca</p>
-        <p>Ronquera crónica</p>
-        <p>Frecuentes úlceras en la boca</p>
-        <p>Perdida de la audición</p>
-        <h3>APARATO RESPIRATORIO</h3>
-        <p>¿El pecho le duele cuando respira profundo?</p>
-        <p>Tos frecuente</p>
-        <p>Pulmonía recurrente</p>
-        <p>¿Siente que le falta la respiración frecuentemente?</p>
-        <p>Ronquidos</p>
-        <p>Asma</p>
-        <h3>SISTEMA CARDIOVASCULAR</h3>
-        <p>Dolor en el pecho cuando se esfuerza</p>
-        <p>Desmayos recientes</p>
-        <p>Esforzarse levemente resulta en una falta de aire?</p>
-        <p>Inflamación recurrente en los tobillos</p>
-        <h3>SISTEMA GASTROINTESTINAL</h3>
-        <p>Acidez</p>
-        <p>Síndrome de intestino irritable</p>
-        <p>Estreñimiento</p>
-        <p>Incontinencia fecal</p>
-        <p>Nausea frecuente</p>
-        <p>Sangre en las heces</p>
-        <p>¿Cuántas veces al día va a defecar?</p>
-        <h3>SISTEMA URINARIO</h3>
-        <p>Dolor al orinar</p>
-        <p>Cálculos en los riñones</p>
-        <p>Incontinencia urinaria</p>
-        <p>Sangre en la orina</p>
-        <p>Úlceras genitales frecuentes</p>
-        <h3>SISTEMA MÚSCULO ESQUELÉTICO</h3>
-        <p>¿Dolor en todo el cuerpo?</p>
-        <p>¿Dolor en las articulaciones?</p>
-        <p>¿Cuáles?</p>
-        <p>¿Dolores musculares?</p>
-        <p>¿Dónde?</p>
-        <p>¿Rigidez corporal al despertarse?</p>
-        <p>¿Cuánto tiempo dura?</p>
-        <p>¿Limitación del movimiento?</p>
-        <h3>NEUROLOGICO</h3>
-        <p>Dolores de cabeza</p>
-        <p>Convulsiones</p>
-        <p>Entumecimiento</p>
-        <p>Ardor</p>
-        <p>Sensación de hormigueo</p>
-        <p>¿Debilidad reciente en alguna parte del cuerpo?</p>
-        <h3>PSIQUIATRICO</h3>
-        <p>Depresión</p>
-        <p>Ansiedad</p>
-        <p>Problemas al dormir</p>
-        <p>Para quedarse dormido</p>
-        <p>Para mantenerse dormido</p>
-        <p>Problemas para poder despertar</p>
-      </div>
-    </div>
-
-    <div class="Mn_Notes_Perimeter Hiden" id="Mn_Notes_Perimeter">
-      <div class="Cn_Notes_Perimeter">
-        <div class="Cn_Banner_2 Grid">
-          <div>
-            <h3>Perimetros</h3>
-            <p></p>
-          </div>
-          <div class="Text_R">
-            <button type="button" class="Btn_Sty_2" onclick="">Guardar</button>
-            <button type="button" class="Btn_Sty_4" onclick="">Cancelar</button>
-          </div>
-        </div>
-        <br />
-        <table>
-          <tr>
-            <td></td>
-            <td>IZQUIERDA</td>
-            <td>DERECHA</td>
-          </tr>
-          <tr>
-            <td>HOMBROS</td>
-            <td></td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>PECHO</td>
-            <td></td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>BICEPS RELAJADO</td>
-            <td></td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>BICEPS CONTRAÍDO</td>
-            <td></td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>ANTEBRAZO</td>
-            <td></td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>MUÑECA</td>
-            <td></td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>ABDOMEN</td>
-            <td></td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>CINTURA</td>
-            <td></td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>CADERA</td>
-            <td></td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>MUSLO</td>
-            <td></td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>RODILLA</td>
-            <td></td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>GEMELOS</td>
-            <td></td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>TOBILLO</td>
-            <td></td>
-            <td></td>
-          </tr>
-        </table>
-      </div>
-    </div>
-
-    <div class="Mn_Notes_MovArticular Hiden" id="Mn_Notes_MovArticular">
-      <div class="Cn_Notes_MovArticular">
-        <div class="Cn_Banner_2 Grid">
-          <div>
-            <h3>Movimiento Articular</h3>
-            <p></p>
-          </div>
-          <div class="Text_R">
-            <button type="button" class="Btn_Sty_2" onclick="">Guardar</button>
-            <button type="button" class="Btn_Sty_4" onclick="">Cancelar</button>
-          </div>
-        </div>
-        <br />
-        <table>
-          <tr>
-            <td>Movimiento</td>
-            <td>Extremidad</td>
-            <td>Arco IZQUIERDA</td>
-            <td>Arco DERECHA</td>
-          </tr>
-          <tr>
-            <td>Flexion 0-150/170</td>
-            <td rowspan="6">Hombro</td>
-            <td></td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>Extencion 0-40</td>
-            <td></td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>Abduccion 0-160/180</td>
-            <td></td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>Aduccion 0-30</td>
-            <td></td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>Rotacion interna 0-70</td>
-            <td></td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>Rotacion externa 0-70</td>
-            <td></td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>Flexion 0-150</td>
-            <td rowspan="2">Codo</td>
-            <td></td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>Extencion 0-10</td>
-            <td></td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>Pronacion 0-90</td>
-            <td rowspan="2">Antebrazo</td>
-            <td></td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>Supinacion 0-90</td>
-            <td></td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>Flexion 0-50/60</td>
-            <td rowspan="4">Muñeca</td>
-            <td></td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>Extencion 0-35/60</td>
-            <td></td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>Desviacion radial 0-50/60</td>
-            <td></td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>Desviacion cubital 0-30/40</td>
-            <td></td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>Flexion 0-140</td>
-            <td rowspan="6">Cadera</td>
-            <td></td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>Extencion 0-20</td>
-            <td></td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>Abduccion 0-50</td>
-            <td></td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>Aduccion 0-30</td>
-            <td></td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>Rotacion interna 0-40</td>
-            <td></td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>Rotacion externa 0-50</td>
-            <td></td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>Flexion 0-150</td>
-            <td rowspan="2">Rodilla</td>
-            <td></td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>Extencion 0-10</td>
-            <td></td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>Flexion plantar 0-50</td>
-            <td rowspan="4">Tobillo</td>
-            <td></td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>Dorsiflexion 0-30</td>
-            <td></td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>Eversion 0-30</td>
-            <td></td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>Inversion 0-60</td>
-            <td></td>
-            <td></td>
-          </tr>
-        </table>
-      </div>
-    </div>
-
     <div class="Mn_Note_Traslado Hiden" id="Mn_Note_Traslado">
       <div class="Cn_Note_Traslado">
         <div class="Cn_Banner_2">
@@ -4148,9 +3829,6 @@
                 ITEM="DOCTOR_2"
                 placeholder="Medico Reseptor"
               />
-              <button type="button" class="Btn_Sty_4" onclick="">
-                <img src="./IMG/Hospital.svg" alt="" />Seleccionar
-              </button>
             </div>
             <div>
               <input
@@ -4159,9 +3837,6 @@
                 ITEM="DIRECCION"
                 placeholder="Domicilio"
               />
-              <button type="button" class="Btn_Sty_4" onclick="">
-                <img src="./IMG/Hospital.svg" alt="" />Seleccionar
-              </button>
             </div>
             <div>
               <input
@@ -4170,7 +3845,7 @@
                 ITEM="ID"
                 placeholder="Paciente"
               />
-              <button type="button" class="Btn_Sty_4" onclick="">
+              <button type="button" class="Btn_Sty_4" onclick="DOCTOR_LIST('PAS','NO')">
                 <img src="./IMG/Users.svg" alt="" />Seleccionar
               </button>
             </div>
@@ -4186,39 +3861,38 @@
           <div class="more">
             <h3>indicaciones</h3>
             <label
-              ><input type="checkbox" name="" ITEM="ToR1" />Verifica indicación
-              destino del traslado</label
+              ><input type="checkbox" name="" ITEM="ToR1" />Verificar destino del traslado</label
             >
             <label
-              ><input type="checkbox" name="" ITEM="ToR2" />Informa al paciente
+              ><input type="checkbox" name="" ITEM="ToR2" />Informar al paciente
               y/o a la familia</label
             >
             <label
-              ><input type="checkbox" name="" ITEM="ToR3" />Evalúa que
+              ><input type="checkbox" name="" ITEM="ToR3" />Evalúar que
               integrante del equipo realiza el traslado</label
             >
             <label
-              ><input type="checkbox" name="" ITEM="ToR4" />Realiza informa del
+              ><input type="checkbox" name="" ITEM="ToR4" />Realizar informe del
               traslado</label
             >
             <label
-              ><input type="checkbox" name="" ITEM="ToR5" />Entrega al paciente
+              ><input type="checkbox" name="" ITEM="ToR5" />Entregar al paciente
               telefónicamente y/o personalmente</label
             >
             <label
-              ><input type="checkbox" name="" ITEM="ToR6" />Entregan las
+              ><input type="checkbox" name="" ITEM="ToR6" />Entregar las
               indicaciones del traslado.</label
             >
             <label
-              ><input type="checkbox" name="" ITEM="ToR7" />Verifica
+              ><input type="checkbox" name="" ITEM="ToR7" />Verificar
               permeabilidad de las vías venosa</label
             >
             <label
-              ><input type="checkbox" name="" ITEM="ToR8" />Verifica higiene del
+              ><input type="checkbox" name="" ITEM="ToR8" />Verificar higiene del
               paciente</label
             >
             <label
-              ><input type="checkbox" name="" ITEM="ToR9" />Verifica que la
+              ><input type="checkbox" name="" ITEM="ToR9" />Verificar que la
               historia clínica este completa</label
             >
             <label
@@ -4281,7 +3955,7 @@
               placeholder="Medico Responsable"
             />
             <input type="text" name="" ITEM="ID" placeholder="Paciente" />
-            <button type="button" class="Btn_Sty_4" onclick="">
+            <button type="button" class="Btn_Sty_4" onclick="DOCTOR_LIST('PAS','NO')">
               <img src="./IMG/Users.svg" alt="" />Seleccionar
             </button>
           </div>
@@ -4574,7 +4248,7 @@
               readonly
             />
             <input type="text" class="" ITEM="ID" placeholder="PACIENTE" />
-            <button type="button" class="Btn_Sty_4" onclick="">
+            <button type="button" class="Btn_Sty_4" onclick="DOCTOR_LIST('PAS','NO')">
               <img src="./IMG/Users.svg" alt="" />Seleccionar
             </button>
           </div>
@@ -4641,6 +4315,17 @@
             <button type="button" class="Hiden" onclick="">5</button>
           </div>
         </div>
+      </div>
+    </div>
+
+    <div class="Mn_DoctorList Hiden" id="Mn_DoctorList">
+      <div class="Cn_DoctorList">
+        <ul>
+        </ul>
+        <button type="button" class="Btn_Sty_4" onclick="DOCTOR_LIST('NO')">
+        <img src="IMG/Delete.svg" alt="">
+        Cancelar
+        </button>
       </div>
     </div>
 

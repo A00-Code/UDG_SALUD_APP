@@ -2,9 +2,9 @@
 //use function PHPSTORM_META\type;
 
 $DEF_HOST = "localhost";
-$DEF_DB = "id21247664_udg_salud";
-$DEF_USER = "id21247664_udg_admin";
-$DEF_PASSWORD = "UDG_Salud_App1";
+$DEF_DB = "udg_salud";
+$DEF_USER = "root";
+$DEF_PASSWORD = "";
 
 if (isset($_FILES['xfile'])) {
    $RAW = $_POST['JSON'];
@@ -103,6 +103,8 @@ function Diferenciador($PHP_Function, $DB_DATA, $_DB_CONEXION)
       DOWNLOAD_FILE($DB_DATA, $_DB_CONEXION);
    } else if ($PHP_Function == "DELETE_FILE") {
       DELETE_FILE($DB_DATA, $_DB_CONEXION);
+   } else if ($PHP_Function == "DOCTOR_LIST"){
+      DOCTOR_LIST($DB_DATA, $_DB_CONEXION);
    }
 }
 
@@ -764,6 +766,30 @@ function DELETE_FILE($DB_DATA, $_DB_CONEXION)
          }
       } else {
          echo json_encode(array("RESULT" => "ERROR", "NONE"));
+      }
+   }
+}
+
+function DOCTOR_LIST($DB_DATA, $_DB_CONEXION){
+   if ($DB_DATA == "ERROR") {
+      echo json_encode(array("RESULT" => "ERROR"));
+      return "ERROR";
+   } else {
+      $SQL = "SELECT " . $DB_DATA["KEYS"] . " FROM " . $DB_DATA["DB_TABLE"] . " WHERE " . $DB_DATA['WHERE'] .  " ORDER BY 'ID' ASC";
+      $stmt = $_DB_CONEXION->prepare($SQL);
+      $stmt->execute();
+      try {
+         $Result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+         if (count($Result) > 0) {
+            echo json_encode(array("RESULT" => "SUCCESS", $Result));
+            return "SUCCESS";
+         } else {
+            echo json_encode(array("RESULT" => "NO RESULT", ""));
+            return "SUCCESS";
+         }
+      } catch (PDOException $e) {
+         echo json_encode(array("RESULT" => "ERROR", $e));
+         return "ERROR";
       }
    }
 }

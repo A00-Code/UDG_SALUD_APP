@@ -684,6 +684,9 @@ function SEND_TO_PHP(Funcion, Data, File = "") {
           } else {
             WEB_DATA["DOCUMENTOS"]["TEMP"]["ARCHIVOS"] = {};
           }
+        } else if (Funcion == "DOCTOR_LIST"){
+          if(WEB_DATA?.['LIST'] == undefined){WEB_DATA['LIST'] = {};}
+          WEB_DATA['LIST']['DOCTORS'] = JRes[0];
         }
       })
       .catch((Err) => {
@@ -1075,9 +1078,11 @@ function TOOLBAR_ALT_SIZE() {
   if (Items[0].style.fontSize == "0px") {
     Root.style.setProperty("--Toolbar_width", "50px");
     DOM.style.fontSize = "12px";
+    document.querySelector('.USER_DB_NAME').classList.add('Hiden');
   } else {
     Root.style.setProperty("--Toolbar_width", "200px");
     DOM.style.fontSize = "1rem";
+    document.querySelector('.USER_DB_NAME').classList.remove('Hiden');
   }
 }
 
@@ -1267,6 +1272,9 @@ function Load_User_Data() {
     }
   });
 
+  document.querySelector('.USER_DB_NAME').innerHTML = WEB_DATA['USUARIO']['NOMBRE'];
+  document.querySelector('.USER_DB_ID').innerHTML = WEB_DATA['USUARIO']['ID'];
+
   if (WEB_DATA["USUARIO"]?.["IMG"] != undefined) {
     if(WEB_DATA["USUARIO"]["IMG"].length < 128){ 
       WEB_DATA["USUARIO"]["IMG"] = "IMG/User_Img.jpg";
@@ -1312,6 +1320,18 @@ function Load_User_Data() {
       };
       SEND_TO_PHP("LOAD_PACIENT_LIST", SEND);
     }
+
+
+    let SEND = {
+      DB_HOST: WEB_CONFIG["DATABASE"]["HOST"],
+      DB_USER: WEB_CONFIG["DATABASE"]["USER"],
+      DB_PASSWORD: WEB_CONFIG["DATABASE"]["PASSWORD"],
+      DB_NAME: WEB_CONFIG["DATABASE"]["NOMBRE"],
+      DB_TABLE: "USER_DATA",
+      KEYS: `ID,NOMBRE`,
+      WHERE: `CONSULTORIO='${WEB_DATA['USUARIO']['CONSULTORIO']}'`
+    }
+    SEND_TO_PHP('DOCTOR_LIST', SEND);
   }
 
   setTimeout(() => {
@@ -1336,6 +1356,8 @@ function Load_User_Data() {
         }
       }
     }
+    if(WEB_DATA?.['LIST'] == undefined){ WEB_DATA['LIST'] = {};}
+    WEB_DATA['LIST']['PACIENTES'] = WEB_DATA["PACIENTES"];
   }, 1550);
   return true;
 }
@@ -1512,7 +1534,7 @@ function Add_New_Date() {
   let XWHERE = "";
   let SET = "";
   if (WEB_DATA["PACIENTES"]?.["SELECTED"]?.["EDIT"] != "false") {
-    if (WEB_DATA["PACIENTES"]?.["SELECTED"]?.["EDIT"] == true) {
+    if (WEB_DATA["PACIENTES"]?.["SELECTED"]?.["EDIT"] == 'true') {
       let DATA =
         WEB_DATA["CITAS"][WEB_DATA["PACIENTES"]["SELECTED"]["ID"]][
           WEB_DATA["PACIENTES"]["SELECTED"]["EDIT_INDEX"]
@@ -1988,17 +2010,40 @@ function Pacient_Load(Pacient, Force=false) {
             try {
               let Values = String(HIST[x]).split(":");
               Values[1] = String(Values[1]).toUpperCase();
+              Values[0] = Values[0].trim();
               Values[1] = Values[1].trim();
 
               let Buttons = TABLES[x].querySelectorAll("button");
               if (Values[1].length > 1) {
-                Buttons.forEach((Xtem) => {
-                  let VAL = String(Xtem.textContent).toLocaleUpperCase();
-                  VAL = VAL.trim();
-                  if (VAL == Values[1]) {
-                    Xtem.setAttribute("class", "CHECKED");
+                if(Values[0] == 'SERVICIOS' || Values[0] == 'FAUNA'){
+                  let XLIST = String(Values[1]).split('-');
+                  for(let x=0; x<XLIST.length; x++){
+                    XLIST[x] = XLIST[x].trim();
                   }
-                });
+                  Buttons.forEach((Xtem) => {  
+                    let VAL = String(Xtem.textContent).toLocaleUpperCase();
+                    VAL = VAL.trim();
+                    if (XLIST.includes(VAL)){
+                      Xtem.setAttribute("class", "CHECKED");
+                      if(Values[0] == 'FAUNA'){
+                        Values[1].replace(`${VAL} -`, '');
+                      }
+                    }
+                  });
+                  if(Values[0] == 'FAUNA'){
+                    document.querySelector('#TABLE_Historial_3c_more').value = Values[1];
+                  }
+                } else if(Values[0] == 'ALERGIAS'){
+                  document.querySelector('#TABLE_Historial_Alergias').value = Values[1];
+                } else{  
+                  Buttons.forEach((Xtem) => {
+                    let VAL = String(Xtem.textContent).toLocaleUpperCase();
+                    VAL = VAL.trim();
+                    if (VAL == Values[1]) {
+                      Xtem.setAttribute("class", "CHECKED");
+                    }
+                  });
+                }
               }
             } catch (err) {}
           }
@@ -2031,7 +2076,7 @@ function Pacient_Load(Pacient, Force=false) {
           let Rest = document.querySelector("#Info_History_5");
           for (let x = 0; x < HIST.length; x++) {
             let Add = document.createElement("p");
-            Add.innerHTML = HIST[x];
+            Add.innerHTML = String(HIST[x]).toLocaleUpperCase();
             Rest.appendChild(Add);
 
             let Values = String(HIST[x]).split(":");
@@ -2357,7 +2402,15 @@ function Search_Doc() {
 }
 
 function Save_Pacient() {
+  let TIME = GET_TIME();
   let DATA = WEB_DATA["PACIENTES"]["SELECTED"];
+
+  try{
+    let N1 = document.querySelector('#PACIENTE_INFO input[item="PESO"]').value;
+    let N2 = Number(document.querySelector('#PACIENTE_INFO input[item="ALTURA"]').value) / 100;
+    let VAL = (Number(N1) / (N2 * N2)); 
+    document.querySelector('#PACIENTE_INFO input[item="IMC"]').value = VAL.toFixed(2);
+  } catch(e){ console.log(e);}
 
   let INFO1 = document.querySelectorAll("#PACIENTE_INFO input[item]");
   let PResp = ["R_NOMBRE", "R_TEL", "R_CORREO"];
@@ -2374,6 +2427,15 @@ function Save_Pacient() {
     }
   });
   DATA["RESPONSABLE"] = `{${DATA["RESPONSABLE"]}}`;
+
+  //let ED1 = Number((WEB_DATA['PACIENTES']['SELECTED']['FECHA']).split('-')[0]); 
+  //let ED2 = Number(TIME['YEAR']); 
+  //let XEdad = ED1 - ED2;
+  //DATA['EDAD'] = `(${XEdad})`;
+
+
+  let Ale = document.querySelectorAll('#Info_History_3 > p')[5];
+  Ale.innerText = `ALERGIAS: ${document.querySelector('#TABLE_Historial_Alergias').value}`;
 
   let Hist1 = document.querySelectorAll("#Info_History_1 p");
   let Hist2 = document.querySelectorAll("#Info_History_2 p");
@@ -2563,6 +2625,7 @@ function Add_Notelist(Type, DATA, sub = "") {
   if (Type != "Archivo") {
     Cell4.innerHTML = `
     <div>
+    <button type="button" class="Btn_Sty_1" onclick="TO_PRINT('${Type}',${sub})"><img src="./IMG/Print.svg" alt=""></button>
     <button type="button" class="Btn_Sty_4" onclick="READ_TEXT('${Type}',${sub})"><img src="./IMG/eye-solid.svg" alt=""></button>
     <button type="button" class="Btn_Sty_4" onclick="EDIT_TEXT('${Type}',${sub})"><img src="./IMG/Edit.svg" alt=""></button>
     <button type="button" class="Btn_Sty_3" onclick="DELETE_FILE(${sub}, '${Type.toUpperCase()}')"><img src="./IMG/Delete.svg" alt=""></button>
@@ -2720,6 +2783,11 @@ function Load_NoteList(ID, ReloadAll = true) {
 
 function Btn_Togle(Btn, Menu = "") {
   let Btn_State = Btn.getAttribute("class");
+  if (Btn_State == "NO_CHECKED") {
+    Btn.classList.replace("NO_CHECKED", "CHECKED");
+  } else {
+    Btn.classList.replace("CHECKED", "NO_CHECKED");
+  }
   let Elements = [];
 
   if (Menu == "Pacient_History") {
@@ -2804,24 +2872,28 @@ function Btn_Togle(Btn, Menu = "") {
       let text = "";
       let Xtem = document.querySelectorAll(
         '#TABLE_Historial_3b button[class="CHECKED"]'
-      );
+      ); 
       let Item = History_3.querySelectorAll("p");
       Xtem.forEach((x) => {
         text += `${x.textContent} - `;
-      });
-      text = text.substring(0, -2);
-      Item[2].innerHTML = "Servicios: " + text;
+      }); 
+      text = text.substring(0, text.length - 2);
+      Item[2].innerHTML = "SERVICIOS: " + text;
     } else if (Table_Name == "TABLE_Historial_3c") {
       let text = "";
       let Xtem = document.querySelectorAll(
-        '#TABLE_Historial_3b button[class="CHECKED"]'
+        '#TABLE_Historial_3c button[class="CHECKED"]'
       );
       let Item = History_3.querySelectorAll("p");
       Xtem.forEach((x) => {
         text += `${x.textContent} - `;
       });
-      text = text.substring(0, -2);
-      Item[3].innerHTML = "Fauna: " + text;
+      let MORE = document.querySelector('#TABLE_Historial_3c_more').value;
+      if(MORE.length > 1){
+        text += `${MORE} - `;
+      }
+      text = text.substring(0, text.length - 2);
+      Item[3].innerHTML = "FAUNA: " + text;
     } else if (Table_Name == "TABLE_Historial_3d") {
       Elements = Table.querySelectorAll("button");
       let Item = History_3.querySelectorAll("p");
@@ -2973,7 +3045,7 @@ function Mn_Note(ACCION, TIPO) {
     NOTE.querySelector("input[ITEM='DOCTOR']").value =
       WEB_DATA["USUARIO"]["ID"];
     NOTE.querySelector("input[ITEM='ID']").value =
-      WEB_DATA["PACIENTES"]["SELECTED"]["ID"] ?? "";
+      WEB_DATA["PACIENTES"]?.["SELECTED"]?.["ID"] ?? "";
   } else if (ACCION == -1) {
     DOM.forEach((Xtem) => {
       if (Xtem.getAttribute("type") == "checkbox") {
@@ -2983,7 +3055,8 @@ function Mn_Note(ACCION, TIPO) {
       }
     });
     NOTE.classList.add("Hiden");
-
+    
+    if(WEB_DATA["PACIENTES"]?.["SELECTED"] == undefined){ WEB_DATA["PACIENTES"]["SELECTED"] = {};}
     WEB_DATA["PACIENTES"]["SELECTED"]["EDIT"] = "false";
     WEB_DATA["PACIENTES"]["SELECTED"]["EDIT_INDEX"] = undefined;
   } else if (ACCION == 1) {
@@ -3023,7 +3096,7 @@ function Mn_Note(ACCION, TIPO) {
     let VALUES = ``;
 
     if (WEB_DATA["PACIENTES"]?.["SELECTED"]?.["EDIT"] != "false") {
-      if (WEB_DATA["PACIENTES"]["SELECTED"]["EDIT"] == true) {
+      if (WEB_DATA["PACIENTES"]?.["SELECTED"]?.["EDIT"] == 'true') {
         let XDATA =
           WEB_DATA["NOTAS"][WEB_DATA["PACIENTES"]["SELECTED"]["ID"]][
             WEB_DATA["PACIENTES"]["SELECTED"]["EDIT_INDEX"]
@@ -3160,6 +3233,7 @@ function Mn_Doc(ACCION, TIPO) {
       Import_File(SELECT);
     }
 
+    if(WEB_DATA["PACIENTES"]?.["SELECTED"] == undefined){ WEB_DATA["PACIENTES"]["SELECTED"] = {};}
     WEB_DATA["PACIENTES"]["SELECTED"]["EDIT"] = "false";
     WEB_DATA["PACIENTES"]["SELECTED"]["EDIT_INDEX"] = undefined;
   } else if (ACCION == 1) {
@@ -3255,7 +3329,7 @@ function Mn_Doc(ACCION, TIPO) {
           WEB_DATA["DOCUMENTOS"][DATA.ID]["CARTAS"] = {};
         }
         try {
-          if (WEB_DATA["PACIENTES"]?.["SELECTED"]?.["EDIT"] == true) {
+          if (WEB_DATA["PACIENTES"]?.["SELECTED"]?.["EDIT"] == 'true') {
             WEB_DATA["DOCUMENTOS"][DATA.ID]["CARTAS"][
               WEB_DATA["PACIENTES"]["SELECTED"]["EDIT_ID"]
             ] = DATA;
@@ -3564,7 +3638,7 @@ function READ_TEXT(Menu, ID) {
 }
 
 function EDIT_TEXT(Menu, ID) {
-  WEB_DATA["PACIENTES"]["SELECTED"]["EDIT"] = true;
+  WEB_DATA["PACIENTES"]["SELECTED"]["EDIT"] = 'true';
   WEB_DATA["PACIENTES"]["SELECTED"]["EDIT_ID"] = ID;
   let DOM = undefined;
   let ITEMS = undefined;
@@ -3599,7 +3673,7 @@ function EDIT_TEXT(Menu, ID) {
     }
     ITEMS = DOM.querySelectorAll("*[ITEM]");
 
-    WEB_DATA["PACIENTES"]["SELECTED"]["EDIT"] = true;
+    WEB_DATA["PACIENTES"]["SELECTED"]["EDIT"] = 'true';
     WEB_DATA["PACIENTES"]["SELECTED"]["EDIT_INDEX"] = ID;
   } else if (Menu == "Carta") {
     DOM = document.querySelector("#Mn_Note_Consent");
@@ -3610,7 +3684,7 @@ function EDIT_TEXT(Menu, ID) {
       ];
     KEYS = Object.keys(SET);
 
-    WEB_DATA["PACIENTES"]["SELECTED"]["EDIT"] = true;
+    WEB_DATA["PACIENTES"]["SELECTED"]["EDIT"] = 'true';
     WEB_DATA["PACIENTES"]["SELECTED"]["EDIT_INDEX"] = ID;
   } else if (Menu == "Date") {
     DOM = document.querySelector("#NEW_DATE");
@@ -3621,7 +3695,7 @@ function EDIT_TEXT(Menu, ID) {
     SET = WEB_DATA["CITAS"][WEB_DATA["PACIENTES"]["SELECTED"]["ID"]][ID];
     KEYS = Object.keys(SET);
 
-    WEB_DATA["PACIENTES"]["SELECTED"]["EDIT"] = true;
+    WEB_DATA["PACIENTES"]["SELECTED"]["EDIT"] = 'true';
     WEB_DATA["PACIENTES"]["SELECTED"]["EDIT_INDEX"] = ID;
   }
 
@@ -4042,6 +4116,378 @@ function SEND_REPORT(Close = false){
   }
 }
 
+function TO_PRINT(Menu, ID) {
+  let TIME= GET_TIME();
+  let DOM_PRINT = document.createElement('iframe');
+  
+  
+  let LOGO = "",
+  FOLIO = "",
+  CONSULTORIO = "TERAPIA",
+  TIPO = "",
+  NOMBRE = `${WEB_DATA['PACIENTES']['SELECTED']['NOMBRE']} ${WEB_DATA['PACIENTES']['SELECTED']['APELLIDO_1']} ${WEB_DATA['PACIENTES']['SELECTED']['APELLIDO_2']}`,
+  SEXO = WEB_DATA['PACIENTES']['SELECTED']['GENERO'],
+  FECHA_HORA = `${TIME['DATE']} ${TIME['TIME']}`,
+  DOMICILIO = WEB_DATA['CONSULTORIO']['DIRECCION'],
+  EDAD = WEB_DATA['PACIENTES']['SELECTED']['EDAD'],
+  DOCTOR_ID = "",
+  ESPECIALIDAD = WEB_DATA['USUARIO']['ESPECIALIDAD'] ?? "#",
+  CLINICA = WEB_DATA['USUARIO']['CONSULTORIO_ID'],
+  RH = WEB_DATA['PACIENTES']['SELECTED']['RH'];
+
+  let TEXT = "";
+  let PREPARE = `
+  <head>
+  <link rel="stylesheet" href="./Style.css" media="all"/>
+  </head>
+  <body class="TO_PRINT">
+  `;
+
+  if (Menu == "Note") {
+    let SET = WEB_DATA["NOTAS"]?.[WEB_DATA["PACIENTES"]["SELECTED"]["ID"]]?.[ID];
+    if(SET == undefined){ return false;}
+    DOCTOR_ID = SET['DOCTOR'];
+    
+    let OTROS = JSON.parse(SET['OTROS']);
+    TIPO = (OTROS['TYPE'] == "RECETA" || OTROS['TYPE'] == "REFERENCIA")? OTROS['TYPE']:"NOTA";
+    
+    PREPARE += `
+    <div>
+    <table>
+    <tr>
+      <td><img src="${LOGO}" alt="" ITEM="LOGO"></td>
+      <td>
+        <h1>${CONSULTORIO}</h1>
+        <h3>${TIPO}</h3>
+        <br>
+      </td>
+      <td></td>
+    </tr>
+    </table>
+    </div>
+    <div>
+      <p>DOCTOR: ${DOCTOR_ID} || ESPECIALIDAD: ${ESPECIALIDAD}</p>
+    </div>
+    <div>
+    <p>FECHA DE IMPRESION: ${FECHA_HORA} || FECHA DE LA NOTA: ${SET["FECHA"]}</p>    
+    </div>
+    <div class="Flex">
+      <p>NOMBRE: ${NOMBRE}</p>
+      <p>CURP: ${SET["ID"]}</p>
+      <p>EDAD: ${EDAD}</p>
+      <p>SEXO: ${SEXO}</p>
+      <p>GRUPO/RH: ${RH}</p>
+    </div>
+    `;
+    
+    if(OTROS['TYPE'] != "SIMPLE" && OTROS['TYPE'] != "RECETA" && OTROS['TYPE'] != "REFERENCIA"){
+      PREPARE += `
+      <div class="Flex">
+      <p>PESO: ${OTROS?.["PESO"]}</p>
+      <p>ALTURA: ${OTROS?.["ALTURA"]}</p>
+      <p>TENCION ARTERIAL: ${OTROS?.["TA"]}</p>
+      <p>FREC.CARDIACA: ${OTROS?.["FC"]}</p>
+      <p>FREC.RESPIRATORIA: ${OTROS?.["FR"]}</p>
+      <p>TEMPERATURA: ${OTROS?.["TEMPERATURA"]}</p>
+      <p>SATURACION OXIGENO: ${OTROS?.["SO2"]}</p>
+      </div> 
+      `;
+    }
+
+    PREPARE += `
+    <hr><br>    
+    <p ITEM="TEXTO">${SET['TEXTO']}</p>
+    `;
+
+    if(OTROS['TYPE'] == "COMPLETA"){
+      let PRE_KEYS = Object.keys(OTROS);
+      let KEYS = {
+        TB1: [],
+        TB2: [],
+        TB3: [],
+        TB4: [],
+        TB5: [],
+      };
+
+      PRE_KEYS.forEach((Xtem) => {
+        let VAL = String(Xtem).substring(0,3);
+        if(VAL == "AAS"){
+          KEYS['TB1'].push(Xtem);
+        } else if(VAL == "SAA"){
+          KEYS['TB2'].push(Xtem);
+        } else if(VAL == "MA_"){
+          KEYS['TB3'].push(Xtem);
+        } else if(VAL == "FE_"){
+          KEYS['TB4'].push(Xtem);
+        } else if(VAL == "SNP"){
+          KEYS['TB5'].push(Xtem);
+        }
+      })
+
+      if(KEYS['TB1'].length > 0){
+        let NUM = ((KEYS['TB1'].length) / 2);
+        let Count = 0;
+
+        PREPARE += `<br><h4>APARATOS Y SISTEMAS GENERALES</h4><div class="Flex"><div class="NoLine">`;
+
+        KEYS['TB1'].forEach((Xtem) => {
+          let VAL = document.querySelector(`#Mn_Notes > div > div > div.more > div.CNote_3 *[item="${Xtem}"]`)
+          if(VAL.getAttribute('type') == "checkbox"){ 
+            VAL = VAL.parentElement.textContent;
+            PREPARE += `<p>${VAL}</p>`;
+          }
+          else { 
+            let Temp = VAL.getAttribute('placeholder')
+            PREPARE += `<p>${Temp}: `;
+            VAL = VAL.value;
+            PREPARE += `${OTROS[Xtem]}</p>`;
+          }
+          if(Count == parseInt(NUM)){
+            PREPARE += `</div><div class="NoLine">`
+          }
+          Count += 1;
+        })
+        PREPARE += "</div></div>"
+      }
+
+      if(KEYS['TB2'].length > 0){
+        PREPARE += `<br><h4>SOMATOMETRIA Y ANTROPOMETRÍA</h4>`;        
+        let Temp_DOM = document.querySelector('#Mn_Notes div.more > div.CNote_3 > div:nth-child(3) > table');
+        let Temp = Temp_DOM.cloneNode(true);
+
+        KEYS['TB2'].forEach((Xtem) => {
+          let Xa = Temp.querySelector(`*[item="${Xtem}"]`);
+          Xa.outerHTML = `${OTROS[Xtem]}`;
+        })
+
+        let Xa = Temp.querySelectorAll(`input[item]`);
+        Xa.forEach((X) => { X.outerHTML = "";})
+
+        PREPARE += `${Temp.outerHTML}`;
+      }
+
+      if(KEYS['TB3'].length > 0){
+        PREPARE += `<br><h4>MOVIMIENTO ARTICULAR</h4>`;
+        let Temp_DOM = document.querySelector('#Mn_Notes div.more > div.CNote_3 > div:nth-child(4) > table');
+        let Temp = Temp_DOM.cloneNode(true);
+
+        KEYS['TB3'].forEach((Xtem) => {
+          let Xa = Temp.querySelector(`*[item="${Xtem}"]`);
+          Xa.outerHTML = `${OTROS[Xtem]}`;
+        })
+        let Xa = Temp.querySelectorAll(`input[item]`);
+        Xa.forEach((X) => { X.outerHTML = "";})
+
+        PREPARE += `${Temp.outerHTML}`;
+      }
+
+      if(KEYS['TB4'].length > 0){
+        PREPARE += `<br><h4>FUERZA ESTIMADA</h4>`;
+        let Temp_DOM = document.querySelector('#Mn_Notes div.more > div.CNote_3 > div:nth-child(5) > table');
+        let Temp = Temp_DOM.cloneNode(true);
+
+        KEYS['TB4'].forEach((Xtem) => {
+          let Xa = Temp.querySelector(`*[item="${Xtem}"]`);
+          Xa.outerHTML = `${OTROS[Xtem]}`;
+        })
+        let Xa = Temp.querySelectorAll(`input[item]`);
+        Xa.forEach((X) => { X.outerHTML = "";})
+
+        PREPARE += `${Temp.outerHTML}`;
+      }
+
+      if(KEYS['TB5'].length > 0){
+        PREPARE += `<br><h4>EVALUACIÓN DEL SNP</h4>`;
+        let Temp_DOM = document.querySelector('#Mn_Notes > div > div > div.more > div.CNote_3 > div:nth-child(6) > table');
+        let Temp = Temp_DOM.cloneNode(true);
+
+        KEYS['TB5'].forEach((Xtem) => {
+          let Xa = Temp.querySelector(`*[item="${Xtem}"]`);
+          Xa.outerHTML = `${OTROS[Xtem]}`;
+        })
+        let Xa = Temp.querySelectorAll(`input[item]`);
+        Xa.forEach((X) => { X.outerHTML = "";})
+
+        PREPARE += `${Temp.outerHTML}`;
+      }
+      
+    }
+
+    if(OTROS['TYPE'] == "REFERENCIA"){
+      let PRE_KEYS = Object.keys(OTROS);
+      let KEYS = [];
+      let TOKEY = {
+        TOR1: "Verificar destino del traslado",
+        TOR2: "Informar al paciente y/o familiares",
+        TOR3: "Evaluar integrante que realiza el traslado",
+        TOR4: "Realizar informe del traslado",
+        TOR5: "Entregar al paciente",
+        TOR6: "Entregar indicaciones del traslado",
+        TOR7: "Verificar permeabilidad de las vias venosas",
+        TOR8: "Verificar higiene del paciente",
+        TOR9: "Verificar historia clinica completa",
+        TOR10:"Indicaciones de seguridad",
+        TOR11:"Recomendaciones de traslado",
+      };
+
+      PRE_KEYS.forEach((Xtem) => {
+        if(String(Xtem).substring(0,3) == "TOR"){
+          KEYS.push(Xtem);
+        }
+      })
+
+      PREPARE += `<br><h4>INDICACIONES</h4>`;
+
+      KEYS.forEach((Xtem) => {
+        let VAL = (OTROS[Xtem].length > 1)? `: ${OTROS[Xtem]}`:"";
+        PREPARE += `<p>${TOKEY[Xtem]}${VAL}</p>`;
+      })
+    }
+
+  } else if (Menu == "Date") {
+    let SET = WEB_DATA["CITAS"]?.[WEB_DATA["PACIENTES"]["SELECTED"]["ID"]]?.[ID];
+    if(SET == undefined){ return false;}
+
+    PREPARE += `
+    <div>
+    <table>
+    <tr>
+      <td><img src="${LOGO}" alt="" ITEM="LOGO"></td>
+      <td>
+        <h1>${CONSULTORIO}</h1>
+        <h3>CITA</h3>
+        <br>
+      </td>
+      <td></td>
+    </tr>
+    </table>
+    </div>
+    <div class="Flex">
+      <p>REGISTRADO POR: ${SET['DOCTOR_1']}</p>
+      <p>ATENDIDO POR: ${SET['DOCTOR_2']}</p>
+    </div>
+    <p>FECHA DE LA CITA: ${SET["FECHA"]} - ${SET['HORA']}</p>
+    <div class="Flex">
+      <p>NOMBRE: ${NOMBRE}</p>
+      <p>CURP: ${SET["ID"]}</p>
+      <p>EDAD: ${EDAD}</p>
+      <p>SEXO: ${SEXO}</p>
+      <p>GRUPO/RH: ${RH}</p>
+    </div><hr><br>
+    <p>MOTIVO: ${SET['MOTIVO']}</p>
+    `;
+
+  } else if (Menu == "Carta") {
+    let XMENU = "CARTAS";
+    if(WEB_DATA["DOCUMENTOS"][WEB_DATA["PACIENTES"]["SELECTED"]["ID"]][XMENU][ID] == undefined){
+      return false;
+    }
+    let SET = WEB_DATA["DOCUMENTOS"][WEB_DATA["PACIENTES"]["SELECTED"]["ID"]][XMENU][ID];
+    DOCTOR_ID = SET['DOCTOR'];
+
+    PREPARE += `
+    <div>
+    <table>
+    <tr>
+      <td><img src="${LOGO}" alt="" ITEM="LOGO"></td>
+      <td>
+        <h1>${CONSULTORIO}</h1>
+        <h3>${String(Menu).toUpperCase()}</h3>
+        <br>
+      </td>
+      <td></td>
+    </tr>
+    </table>
+    </div>
+    <div class="Flex">
+      <p>DOCTOR: ${DOCTOR_ID}</p>
+      <p>ESPECIALIDAD: ${ESPECIALIDAD}</p>
+    </div>
+    <p>FECHA DE IMPRESION: ${FECHA_HORA} || FECHA DE LA CARTA: ${SET["FECHA"]}</p>
+    <div class="Flex">
+      <p>NOMBRE: ${NOMBRE}</p>
+      <p>CURP: ${SET["ID"]}</p>
+      <p>EDAD: ${EDAD}</p>
+      <p>SEXO: ${SEXO}</p>
+      <p>GRUPO/RH: ${RH}</p>
+    </div><hr><br>
+    <h2>${SET['NOMBRE']}</h2>
+    <h3>${SET['MOTIVO']}</h3><br>
+    <p>${SET['TEXTO']}</p>
+    `;
+
+  }
+
+  let NWin = window.open("")
+  NWin.document.write(PREPARE)
+  NWin.document.close()
+  NWin.print();
+  setTimeout(() => { 
+    NWin.close();
+  }, 350)
+
+}
+
+function DOCTOR_LIST(Menu, id){
+  Menu = String(Menu).toUpperCase();
+  let DOM = document.querySelector('#Mn_DoctorList');
+
+  if(Menu == 'NO'){ DOM.classList.add('Hiden');}
+  else { DOM.classList.remove('Hiden');}
+
+  let XUL = DOM.querySelector('ul');
+  let XLI = XUL.querySelectorAll('li');
+  XLI.forEach((X) => {X.remove();})
+
+  if(id == "NO"){
+    let Count = 0;
+    let Xkey = undefined;
+    if(Menu == "DOC"){
+      Count = Object.keys(WEB_DATA['LIST']['DOCTORS']).length;
+    } else if(Menu == "PAS"){
+      Xkey = Object.keys(WEB_DATA['LIST']['PACIENTES']);
+      Count = Xkey.length;
+    
+    } 
+
+    for(let X=0; X<Count; X++){
+      let Item = document.createElement('li');
+      let HText = `<div class="Flex_R"><div>`
+      if(Menu == 'DOC'){
+        HText += `
+        <p>#${WEB_DATA['LIST']['DOCTORS'][X]['ID']}</p>
+        <p>${WEB_DATA['LIST']['DOCTORS'][X]['NOMBRE']}</p>
+        </div><div>
+        <button type="button" class="Btn_Sty_1" onclick="DOCTOR_LIST('DOC',${X})">Seleccionar</button>
+        </div></div>`;
+      } else if(Menu == 'PAS'){
+        HText += `
+        <p>#${WEB_DATA['LIST']['PACIENTES'][Xkey[X]]['ID']}</p>
+        <p>${WEB_DATA['LIST']['PACIENTES'][Xkey[X]]['NOMBRE']}</p>
+        </div><div>
+          <button type="button" class="Btn_Sty_1" onclick="DOCTOR_LIST('PAS',${X})">Seleccionar</button>
+        </div></div>`;
+      }
+      Item.innerHTML = HText;
+      XUL.appendChild(Item);
+    }
+  } else {
+    if(Menu == "DOC"){
+      let IDS = document.querySelectorAll('#NEW_DATE input[item="DOCTOR_2"]');
+      IDS.forEach((X) => {
+        X.value = WEB_DATA['LIST']['DOCTORS'][id]['ID'];
+      })
+    } else if(Menu == "PAS"){
+      let IDS = document.querySelectorAll('input[item="ID"]');
+      let KEYS = Object.keys(WEB_DATA['LIST']['PACIENTES']);
+      IDS.forEach((X) => {
+        X.value = WEB_DATA['LIST']['PACIENTES'][KEYS[id]]['ID'];
+      })
+    }
+    DOM.classList.add('Hiden');
+  }
+}
+
 window.addEventListener("DOMContentLoaded", () => {
   GOTO_MENU("Login");
 
@@ -4077,3 +4523,8 @@ window.addEventListener("DOMContentLoaded", () => {
     }
   }, 1250);
 });
+
+setTimeout(() => {
+  document.querySelector('#LOGIN_USER').value = "00"
+  document.querySelector('#LOGIN_PASSWORD').value = "admin"
+}, 500)

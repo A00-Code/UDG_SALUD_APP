@@ -275,6 +275,7 @@ Mn_Toolbar {
 .Mn_Import_File_R,
 .Mn_Import_Json,
 .Mn_READER,
+.Mn_DoctorList,
 .Mn_Camara {
   overflow: auto;
   position: absolute;
@@ -1108,6 +1109,7 @@ table .Table_UP td {
 #TABLE_Files td div,
 #TABLE_Docs td div {
   display: flex;
+  justify-content: center;
   gap: 5px;
   margin: auto;
   width: 80px;
@@ -1712,6 +1714,43 @@ table .Table_UP td {
   padding: 10px;
 }
 
+.Mn_DoctorList {
+  background-color: transparent;
+  z-index: 8;
+}
+
+.Cn_DoctorList {
+  background-color: #f8f8f8;
+  border: #888 solid 3px;
+  border-radius: 10px;
+  padding: 10px;
+  margin: auto;
+  width: 400px;
+}
+
+.Cn_DoctorList ul {
+  overflow: auto;
+  list-style: none;
+  padding: 10px;
+  height: 380px;
+}
+
+.Cn_DoctorList .Flex_R {
+  justify-content: space-between;
+  align-items: center;
+}
+
+.Cn_DoctorList ul > li {
+  padding: 10px;
+  border: #c7c7c7 solid 2px;
+  border-radius: 10px;
+  width: calc(100% - 20px)
+}
+
+.Cn_DoctorList > button {
+  width: 100%;
+}
+
 @media screen and (max-height: 740px) {
   .Toolbar_Buttons div {
     gap: 5px;
@@ -1728,4 +1767,35 @@ table .Table_UP td {
   .Cn_Main .Cn_Box_Sty_1 div {
     gap: 1px;
   }
+}
+
+.TO_PRINT {
+  font-size: 14px;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  
+  & .Flex {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 15px;
+    justify-content: space-between;
+
+    & p {
+      display: inline;
+    }
+
+    & .NoLine p {
+      display: block;
+    }
+  }
+  & table { 
+    padding: 5px;
+    width: 100%;
+  }
+  & td { 
+    font-weight: 1rem;
+    text-align: center;
+    padding: 0;
+    border-bottom: #cbcbcb solid 2px;
+  }
+  & h1,& h2,& h3,& h4 { text-align: center;}
 }
