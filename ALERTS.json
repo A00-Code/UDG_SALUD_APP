@@ -1,0 +1,102 @@
+{
+  "ICONS":{
+    "NO_ADS": "./IMG/Ads_No.svg",
+    "CALENDAR": "./IMG/Calendar.svg",
+    "CALENDAR_ALERT": "./IMG/Calendar_Alert.svg",
+    "COMPUTER": "./IMG/Computer.svg",
+    "CONFIG": "./IMG/Config.svg",
+    "CURSOR": "./IMG/cursor.svg",
+    "DATA_TRANSFER": "./IMG/Data_Transfer.svg",
+    "DOC_IMPORT": "./IMG/Document_Import.svg",
+    "DOWLOAD": "./IMG/Download.svg",
+    "ESTETOSCOPIE": "./IMG/Estetoscopio.svg",
+    "HELP": "./IMG/Help.svg",
+    "HISTORY": "./IMG/History.svg",
+    "INFO": "./IMG/Info.svg",
+    "MICROPHONE": "./IMG/Microphone.svg",
+    "ERROR": "./IMG/No_select.svg",
+    "RESICLE": "./IMG/Resicle.svg",
+    "DELETE": "./IMG/Delete.svg",
+    "SHARE": "./IMG/Share.svg",
+    "SHIELD": "./IMG/Shield.svg",
+    "SHIELD_ACCEPT": "./IMG/Shield_Accept.svg",
+    "SHIELD_ALERT": "./IMG/Shield_Alert.svg",
+    "UPDATE": "./IMG/Update.svg",
+    "USER_NONE": "./IMG/User_None.svg",
+    "USER_WAIT": "./IMG/User_Time.svg",
+    "WIFI_CLOUD": "./IMG/Wifi_Cloud.svg",
+    "WIFI_NO": "./IMG/Wifi_No.svg"
+  },
+  "MESSAGE":{
+    "LOCAL": {
+      "0": {
+        "Icon": "Alert_Icon['COMPUTER']",
+        "Title": "¡¡¡ Importante !!!",
+        "Text": "Esta opcion utiliza como almacenamiento el cache del propio navegador, por lo que este puede ser borrado por aplicaciones externas o el porpio navegador, se recomienda precaucion.</p><p>(La informacion puede sincronizarse con una base de datos en la configuracion.)"
+      },
+      "1": {
+        "Icon": "Alert_Icon['USER_NONE']",
+        "Title": "Advertencia",
+        "Text": "No se ha detectado ningun usuario local existente.</p><p class='Text_Sty_1'>Desea configurar un nuevo usaurio?"
+      }
+    },
+    "LOGIN": {
+      "0": {
+        "Title": "Usuario no encontrado",
+        "Icon": "",
+        "Text": "El usuario no esta registrado.",
+        "Buttons": {
+          "Text": {
+            "0": "Entendido"
+          },
+          "Style":{},
+          "Function":{
+            "0": "APP_ALERT(0,0)"
+          }
+        }
+      },
+      "1": {
+        "Title": "Usuario o Contraseña incorrecta",
+        "Icon": "",
+        "Text": "La contraseña no coincide con la correspondiente al usuario.",
+        "Buttons": {
+          "Text": {
+            "0": "Entendido"
+          },
+          "Style":{},
+          "Function":{
+            "0": "APP_ALERT(0,0)"
+          }
+        }
+      },
+      "2": {
+        "Title": "Solicitud Enviada",
+        "Icon": "CURSOR",
+        "Text": "Se ha enviado una solicitud de recuperacion de contraseña al correo registrado del usuario, esto puede tomar varios minutos, si aun no resive la solicitud contacte con un administrativo para solucionar el problema.",
+        "Buttons": {
+          "Text": {
+            "0": "Entendido"
+          },
+          "Style":{},
+          "Function":{
+            "0": "APP_ALERT(0,0)"
+          }
+        }
+      }
+    },
+    "INFO": { 
+      "0": { "Title": "", "Icon": "", "Text": "", "Buttons": {"Text": {}, "Style":{}, "Function":{}}}
+    },
+    "ALERT": { 
+      "0": { "Title": "", "Icon": "", "Text": "", "Buttons": {"Text": {}, "Style":{}, "Function":{}}}
+    },
+    "CRITIC": { 
+      "0": { "Title": "", "Icon": "", "Text": "", "Buttons": {"Text": {}, "Style":{}, "Function":{}}}
+    },
+    "ERROR": {
+      "0": { "Title": "", "Icon": "", "Text": "", "Buttons": {"Text": {}, "Style":{}, "Function":{}}},
+      "1": { "Title": "ERROR - PACIENTE", "Icon": "", "Text": "No se ha podido cargar correctamente la informacion del paciente, porfavor reinicie la pagina y vuelva a intenrarlo.", "Buttons": {"Text": {}, "Style":{}, "Function":{}} },
+      "2": { "Title": "ERROR - PACIENTE", "Icon": "", "Text": "No se ha podido cargar correctamente la informacion del paciente, porfavor reinicie la pagina y vuelva a intenrarlo.", "Buttons": {"Text": {}, "Style":{}, "Function":{}} }
+    }
+  }
+}

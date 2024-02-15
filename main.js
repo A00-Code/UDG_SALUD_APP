@@ -1,14 +1,6 @@
 // >>> [ Variables Generales ] >>>
-var WEB_DATA_EMPY = {
-  CONSULTORIO: {
-    ID: "",
-    CONSULTORIO: "",
-    CLUES: "",
-    DIRECCION: "",
-    COLONIA: "",
-    NUMERO: "",
-    HORARIO: { 0: [], 1: [], 2: [], 3: [], 4: [], 5: [], 6: [] },
-  },
+var _Data_EMPY = {
+  CONSULTORIO: {},
   USUARIO: {
     ID: "",
     PREFIJO: "",
@@ -60,71 +52,34 @@ var WEB_DATA_EMPY = {
       DOCUMENTOS: [],
       EDIT: "false",
       EDIT_INDEX: undefined,
-    },
-    BLANK: {
-      ID: "",
-      NOMBRE: "",
-      APELLIDO_1: "",
-      APELLIDO_2: "",
-      CURP: "",
-      FECHA: "",
-      EDAD: "",
-      GENERO: "",
-      RH: "",
-      OCUPACION: "",
-      CORREO: "",
-      TELEFONO_1: "",
-      TELEFONO_2: "",
-      DIRECCION: "",
-      CIUDAD: "",
-      ENTIDAD: "",
-      RELIGION: "",
-      DETALLES: "",
-      PESO: "",
-      ALTURA: "",
-      RESPONSABLE: { NOMBRE: "", TELEFONO_1: "", TELEFONO_2: "", CORREO: "" },
-      HISTORIAL_1: "",
-      HISTORIAL_2: "",
-      HISTORIAL_3: "",
-      HISTORIAL_4: "",
-      HISTORIAL_5: "",
-      NOTAS: [],
-      CITAS: [],
-      ESTUDIOS: [],
-      DOCUMENTOS: [],
-    },
+    }
   },
   NOTAS: {
-    BLANK: { ID: "", MOTIVO: "", DOCTOR: "", INFORMACION: { TEXTO: "" } },
     TEMP: {},
   },
   DOCUMENTOS: {
-    BLANK: { ID: "", DOCTOR: "", NOMBRE: "", INFORMACION: {} },
     TEMP: {
       ARCHIVOS: {},
       CARTAS: {},
     },
   },
-  HISTORIAL: {
-    BLANK: { TOTAL: 0 },
-  },
-  CITAS: {
-    BLANK: {},
-  },
+  HISTORIAL: {  },
+  CITAS: {  },
   PLANTILLAS: {
     LINEA: {},
     LOCAL: {},
   },
   CALENDAR: {},
 };
-var WEB_DATA = { ...WEB_DATA_EMPY };
-var WEB_CONFIG = {
+var _Data = { ..._Data_EMPY };
+var _Config = {
   DATABASE: {
-    USER: "root",
+    USER: "",
     PASSWORD: "",
-    HOST: "127.0.0.1",
-    NOMBRE: "UDG_SALUD",
+    HOST: "",
+    NOMBRE: "",
     TABLA: {
+      USER_DATA: "USER_DATA",
       CITAS: "CITAS",
       PACIENTES: "PACIENTES",
       NOTAS: "NOTAS",
@@ -141,458 +96,170 @@ var WEB_CONFIG = {
   NOTIFICACIONES: { ACTIVE: "", EMAIL: "", SMS: "" },
   DATES: { LAST_LOAD: "", LAST_SAVE: "" },
 };
-var WEB_USERS = {
-  USERS: {
-    BLANK: { PASSWORD: "" },
+var WEB_DATA = {
+  DATE: {
+    FULL: "",
+    YY: 0,
+    MM: [0,""],
+    DD: [0,""],
+    F_DD: 0
   },
-  DATA: {
-    BLANK: {
-      ID: "",
-      PREFIJO: "",
-      NOMBRE: "",
-      APELLIDO_1: "",
-      APELLIDO_2: "",
-      CURP: "",
-      GENERO: "",
-      FECHA: "",
-      SSA: "",
-      ESPECIALIDAD: "",
-      CEDULA: "",
-      TELEFONO_1: "",
-      CORREO: "",
-      CONSULTORIO_ID: "",
-      HORARIO: { 0: [], 1: [], 2: [], 3: [], 4: [], 5: [], 6: [] },
-      PACIENTES: [],
+  TIME: {
+    FULL:"",
+    HH:"",
+    MM:"",
+    SS:""
+  },
+  ALERTS: {},
+  WEB_PRINT: {
+    HEADER: "",
+    STYLE_FONT: "",
+    STYLE_FILE: "",
+    TEMPLATES: {
+      NOTE: {
+        SIMPLE: "",
+        EVOLUTION: "",
+        COMPLETE: "",
+        EGRESO: "",
+        REFERENCE:""
+      },
+      CART: {
+        DEF: ""
+      },
+      DATE: {
+        SIMPLE: ""
+      },
+      PERFIL: {
+        DOCTOR: "",
+        PACIENT: "",
+      },
     },
-  },
-  CONSULTORIO: {
-    BLANK: {
-      CONSULTORIO: "",
-      CLUES: "",
-      DIRECCION: "",
-      COLONIA: "",
-      NUMERO: "",
-      HORARIO: { 0: [], 1: [], 2: [], 3: [], 4: [], 5: [], 6: [] },
-    },
-  },
-};
-const All_Menus = {
-  All: [
-    "Mn_Camara",
-    "Mn_Loading",
-    "Mn_Login",
-    "Mn_Import_Json",
-    "Mn_Import_File",
-    "Mn_Import_File_R",
-    "Mn_Note_Egreso",
-    "Mn_Recipe",
-    "Mn_Note_Traslado",
-    "Mn_Pacientes_Index",
-    "Mn_Pacientes_Register",
-    "Mn_Banner_Pacient_Estudies",
-    "Mn_Pacientes_Data",
-    "Mn_Pacientes_Info",
-    "Mn_Pacientes_Note_Simple",
-    "Mn_Pacientes_Notes",
-    "Mn_Pacientes_Dates",
-    "Mn_Pacientes_Estudies",
-    "Mn_Pacientes_Recipes",
-    "Mn_Pacientes_Docs",
-    "Mn_Dates",
-    "Mn_Notes",
-    "Mn_Main",
-    "Mn_Help",
-    "Mn_Terminos",
-    "Mn_LegalInfo",
-    "Mn_Report",
-    "Mn_Recuperar",
-    "Mn_Adv_Search",
-    "New_Date",
-    "Mn_Banner_Pacient",
-    "Mn_Banner_Pacient_Data",
-    "Mn_Search_Filter",
-    "Mn_Banner_Main",
-    "Mn_Banner_Help",
-    "Mn_Banner_Adv_Search",
-    "Mn_Pacientes_History",
-    "Mn_Banner_Pacientes_Data",
-    "Mn_Banner_Dates",
-    "Mn_Banner_Pacient_History",
-    "Mn_Banner_Pacient_Notes",
-    "Mn_Banner_Pacient_Dates",
-    "Mn_Banner_Pacient_Docs",
-    "Mn_FNote",
-    "Mn_NotesDocs",
-    "Mn_UpDoc",
-    "Mn_Note_Consent",
-    "Mn_Note_Consent_Templates",
-    "Mn_Banner_NotesDocs",
-    "Mn_NotesEv",
-    "Mn_Config_App",
-    "NEW_DATE",
-    "Mn_Search",
-    "Mn_Banner_SEARCH",
-    "Mn_Banner_PAGEINFO",
-  ],
-  Keys: [
-    "Loading",
-    "Login",
-    "Import_File",
-    "Import_File_R",
-    "Import_Json",
-    "Mn_Import_Json",
-    "TrNote",
-    "EgNote",
-    "Recuperar",
-    "Main",
-    "Pacient_Select",
-    "Pacient_Register",
-    "Pacient_Data",
-    "Pacient_Notes",
-    "Pacient_History",
-    "Pacient_Dates",
-    "Pacient_Estudies",
-    "Pacient_Recipes ",
-    "Pacient_Docs",
-    "Notes",
-    "Search",
-    "Dates",
-    "Dates_New",
-    "Help",
-    "FNote",
-    "Dates_New2",
-    "Cart",
-    "Cart2",
-    "UpDoc",
-    "Help",
-    "CNote",
-    "ENote",
-    "Config",
-    "Camara",
-    "Recipe",
-    "Terminos",
-    "LegalInfo",
-    "Report",
-  ],
+    SIZE: ""
+  }
+}
 
-  Loading: ["Mn_Loading"],
-  Login: ["Mn_Login"],
-  Recuperar: ["Mn_Recuperar"],
-  Main: ["Mn_Main", "Mn_Banner_Main"],
-  Pacient_Select: [
-    "Mn_Pacientes_Index",
-    "Mn_Banner_Pacient",
-    "Mn_Search_Filter",
-  ],
-  Pacient_Register: [
-    "Mn_Pacientes_Register",
-    "Mn_Pacientes_Index",
-    "Mn_Banner_Pacient",
-    "Mn_Search_Filter",
-  ],
-  Pacient_Data: [
-    "Mn_Pacientes_Data",
-    "Mn_Banner_Pacient_Data",
-    "Mn_Banner_Pacientes_Data",
-    "Mn_Pacientes_Info",
-  ],
-  Pacient_Notes: [
-    "Mn_Pacientes_Data",
-    "Mn_Pacientes_Notes",
-    "Mn_Banner_Pacientes_Data",
-    "Mn_Banner_Pacient_Notes",
-  ],
-  Pacient_History: [
-    "Mn_Pacientes_Data",
-    "Mn_Pacientes_History",
-    "Mn_Banner_Pacientes_Data",
-    "Mn_Banner_Pacient_History",
-  ],
-  Pacient_Dates: [
-    "Mn_Pacientes_Data",
-    "Mn_Pacientes_Dates",
-    "Mn_Banner_Pacientes_Data",
-    "Mn_Banner_Pacient_Dates",
-  ],
-  Pacient_Estudies: [
-    "Mn_Pacientes_Data",
-    "Mn_Pacientes_Estudies",
-    "Mn_Banner_Pacientes_Data",
-    "Mn_Banner_Pacient_Estudies",
-  ],
-  Pacient_Recipes: [
-    "Mn_Pacientes_Data",
-    "Mn_Pacientes_Recipes",
-    "Mn_Banner_Pacientes_Data",
-  ],
-  Pacient_Docs: [
-    "Mn_Pacientes_Data",
-    "Mn_Pacientes_Docs",
-    "Mn_Banner_Pacientes_Data",
-    "Mn_Banner_Pacient_Docs",
-  ],
-  Notes: ["Mn_NotesDocs", "Mn_Banner_NotesDocs"],
-  Search: ["Mn_Search", "Mn_Banner_SEARCH"],
-  Cart: ["Mn_Note_Consent"],
-  Cart2: ["Mn_Note_Consent_Templates"],
-  Dates: ["Mn_Dates", "Mn_Banner_Dates"],
-  Dates_New: ["Mn_Dates", "Mn_Banner_Dates", "NEW_DATE"],
-  Dates_New2: ["NEW_DATE"],
-  UpDoc: ["Mn_UpDoc"],
-  Help: ["Mn_Help", "Mn_Banner_PAGEINFO"],
-  FNote: ["Mn_FNote"],
-  ENote: ["Mn_NotesEv"],
-  CNote: ["Mn_Notes"],
-  TrNote: ["Mn_Note_Traslado"],
-  EgNote: ["Mn_Note_Egreso"],
-  Import_File: ["Mn_Import_File"],
-  Import_File_R: ["Mn_Import_File_R"],
-  Import_Json: ["Mn_Import_Json"],
-  Config: ["Mn_Config_App"],
-  Camara: ["Mn_Camara"],
-  Recipe: ["Mn_Recipe"],
-  Terminos: ["Mn_Terminos", "Mn_Banner_PAGEINFO"],
-  LegalInfo: ["Mn_LegalInfo", "Mn_Banner_PAGEINFO"],
-  Report: ["Mn_Report"],
-};
 
 //! ===== >>> [ FUNCIONES -> CONTROL]
 // >>> Cambiar de Pagina
 function GOTO_MENU(Menu, Sub = 0) {
-  if (WEB_DATA["USUARIO"]["ID"] == "" && Menu != "Loading") {
-    Menu = "Login";
+  let BLACKLIST = ["LOGIN","LOADING","RECUPERAR"];
+  Menu = String(Menu).toUpperCase()
+  Menu = (String(_Data["USUARIO"]?.["ID"]).length > 3 && !BLACKLIST.includes(Menu)) ? "LOGIN":Menu;
+  if(Sub == 0){
+    let DOMS = document.querySelectorAll('body > *');
+    DOMS.forEach((Xtem) => {
+      Xtem.classList.add('Hiden');
+    })
   }
-  if (Sub == 0) {
-    for (let x of All_Menus.All) {
-      try {
-        document.getElementById(x).classList.add("Hiden");
-      } catch (err) {}
+
+  let KEY = "";
+  let DLIST = [];
+  let EDOM = document.querySelector(`*[id="${Menu}"]`);
+  do {
+    try {
+      KEY = String(EDOM.nodeName).toUpperCase()
+      DLIST.push(EDOM);
+      EDOM = EDOM.parentElement;
+    } catch {
+      break;
     }
+  } while (KEY != "HTML" && KEY != "BODY");
+  DLIST.reverse()
+
+  if(Sub == 3){
+    let PREDOM = document.querySelector(`*[id="${Menu}"]`).parentElement.querySelectorAll("*[id]")
+    PREDOM.forEach((X)=>{
+      X.classList.add("Hiden")
+    })
   }
-  for (let x of All_Menus.Keys) {
-    if (Menu == x) {
-      for (let y of All_Menus[Menu]) {
-        try {
-          document.getElementById(y).classList.remove("Hiden");
-        } catch (err) {}
-      }
-      if (Menu != "Login" && Menu != "Recuperar" && Menu != "Loading") {
-        document.getElementById("Mn_Toolbar").classList.remove("Hiden");
-      } else {
-        document.getElementById("Mn_Toolbar").classList.add("Hiden");
-      }
-    }
-  }
-  let TIME = GET_TIME();
-  document.getElementById("TBar_Date").innerHTML = TIME["DATE"];
-  document.getElementById("TBar_Hour").innerHTML = TIME["TIME"];
-  WEB_DATA["SEARCH"] = {};
-  if (Menu == "Dates") {
-    WEB_DATA["FECHA"]["DIA"] = Number(TIME["DAY"]);
-    WEB_DATA["FECHA"]["MES"] = Number(TIME["MOUNT"]) - 1;
-    WEB_DATA["FECHA"]["AÑO"] = Number(TIME["YEAR"]);
+
+  DLIST.forEach((Xtem) => {
+    let ToHide = Xtem.querySelectorAll("& > *[id]")
+    ToHide.forEach((Ytem) => { if(Sub == 0) Ytem.classList.add("Hiden") })
+    Xtem.classList.remove("Hiden");
+  })
+
+  if(!BLACKLIST.includes(Menu)) if(Menu != "ALERT") document.querySelector('#TOOLBAR').classList.remove('Hiden');
+  else document.querySelector('#TOOLBAR').classList.add('Hiden');
+  
+  // ** // ######################################
+  document.getElementById("TBar_Date").innerHTML = WEB_DATA['DATE']['FULL'][1];
+  _Data["SEARCH"] = {};
+  if (Menu == "Dates") {;
     Calendar_Update();
   } else if (Menu == "Camara") {
     CAMARA();
   }
-
   if (window.innerWidth < 860) {
-    if (
-      document.querySelector("html").getAttribute("style") ==
-      "--Toolbar_width: 200px;"
-    ) {
-      document
-        .querySelector(
-          "#Mn_Toolbar > div.Cn_Toolbar > div.Toolbar_Buttons > div:nth-child(3) > button:nth-child(1)"
-        )
-        .click();
+    if (document.querySelector("html").getAttribute("style") == "--Toolbar_width: 200px;") {
+      document.querySelector("#TOOLBAR > div.Cn_Toolbar > div.Toolbar_Buttons > div:nth-child(3) > button:nth-child(1)").click();
     }
   }
+  // ** // ######################################
 }
 
 //! ===== >>> [ FUNCIONES -> DEV]
 // OBTENER - FECHA Y HORA
 function GET_TIME() {
   let DATE = new Date();
-  let TIME = {
-    DATE: "",
-    TIME: "",
-    DAY_ONE: 0,
-    YEAR: DATE.getFullYear(),
-    MOUNT: DATE.getMonth() + 1,
-    DAY: DATE.getDate(),
-    HOUR: DATE.getHours(),
-    MINUT: DATE.getMinutes(),
-    SECOND: DATE.getSeconds(),
-  };
+  let TEMP = String(DATE.toDateString().toUpperCase()).split(" ")
+  
+  WEB_DATA['DATE']['YY'] = TEMP[3];
+  WEB_DATA['DATE']['MM'] = [DATE.getMonth() + 1, TEMP[1]];
+  WEB_DATA['DATE']["DD"] = [TEMP[2],TEMP[0]];
 
-  if (TIME["MOUNT"] < 10) {
-    TIME["MOUNT"] = `0${TIME["MOUNT"]}`;
-  }
-  if (TIME["DAY"] < 10) {
-    TIME["DAY"] = `0${TIME["DAY"]}`;
-  }
+  WEB_DATA['TIME']['HH'] = DATE.getHours();
+  WEB_DATA['TIME']['MM'] = DATE.getMinutes();
+  WEB_DATA['TIME']['SS'] = DATE.getSeconds();
 
-  if (TIME["HOUR"] < 10) {
-    TIME["HOUR"] = `0${TIME["HOUR"]}`;
-  }
-  if (TIME["MINUT"] < 10) {
-    TIME["MINUT"] = `0${TIME["MINUT"]}`;
-  }
-  if (TIME["SECOND"] < 10) {
-    TIME["SECOND"] = `0${TIME["SECOND"]}`;
-  }
+  let DATE_START = new Date(TEMP[3], WEB_DATA['DATE']['MM'][0] - 1, 1);
+  WEB_DATA["DATE"]['F_DD'] = DATE_START.getDay();
+  WEB_DATA['DATE']['MM'][0] = (WEB_DATA['DATE']['MM'][0] < 10) ? `0${WEB_DATA['DATE']['MM'][0]}`:WEB_DATA['DATE']['MM'][0]; 
+  
+  if(WEB_DATA["DATE"]['FULL'] == []){
+    WEB_DATA["DATE"]['FULL'] = [`${TEMP[3]}/${WEB_DATA['DATE']['MM'][0]}/${TEMP[2]}`,`${TEMP[2]}/${WEB_DATA['DATE']['MM'][0]}/${TEMP[3]}`];
 
-  let DATE_START = new Date(TIME["YEAR"], TIME["MOUNT"] - 1, 1);
-  TIME["DAY_ONE"] = DATE_START.getDay();
-  TIME["TIME"] = `${TIME["HOUR"]}:${TIME["MINUT"]}:${TIME["SECOND"]}`;
-  TIME["DATE"] = `${TIME["YEAR"]}-${TIME["MOUNT"]}-${TIME["DAY"]}`;
-  return TIME;
+    var DOM_TIME = setInterval(() => {
+      WEB_DATA['TIME']['SS'] = Number(WEB_DATA['TIME']['SS']) + 1;
+      WEB_DATA['TIME']['MM'] = Number(WEB_DATA['TIME']['MM']);
+
+      if(WEB_DATA['TIME']['SS'] >= 60){
+        WEB_DATA['TIME']['SS'] = WEB_DATA['TIME']['SS'] - 60;
+        WEB_DATA['TIME']['MM'] = WEB_DATA['TIME']['MM'] + 1;
+      }
+      if(WEB_DATA['TIME']['MM'] >= 60){
+        WEB_DATA['TIME']['MM'] = WEB_DATA['TIME']['MM'] - 60;
+        WEB_DATA['TIME']['HH'] = Number(WEB_DATA['TIME']['HH']) + 1;
+      }
+      if(WEB_DATA['TIME']['HH'] >= 24){
+        WEB_DATA['TIME']['HH'] = WEB_DATA['TIME']['HH'] - 24;
+        clearInterval(DOM_TIME);
+        setTimeout(() => {
+          WEB_DATA["DATE"]['FULL'] == []
+          GET_TIME()
+        }, 50)
+      }
+      WEB_DATA['TIME']['SS'] = (WEB_DATA['TIME']['SS'] < 10) ? `0${WEB_DATA['TIME']['SS']}`:WEB_DATA['TIME']['SS'];
+      WEB_DATA['TIME']['MM'] = (WEB_DATA['TIME']['MM'] < 10) ? `0${WEB_DATA['TIME']['MM']}`:WEB_DATA['TIME']['MM'];
+      WEB_DATA['TIME']['FULL'] = `${WEB_DATA['TIME']['HH']}:${WEB_DATA['TIME']['MM']}:${WEB_DATA['TIME']['SS']}`
+      document.getElementById("TBar_Hour").innerHTML = WEB_DATA['TIME']['FULL'];
+    }, 1000)
+  }
 }
 
 //! ===== >>> [ FUNCIONES -> CONFIGURACION]
-// >>> REMOVER -> LOCAL JSON
-function REMOVE_LOCAL_JSON(Name) {
-  Name = String(Name).toUpperCase();
-  if (Name == "ALL" || Name == "CONFIG") {
-    localStorage.removeItem("UDG_CONFIG_S");
-  }
-  if (Name == "ALL" || Name == "DATA") {
-    localStorage.removeItem("UDG_DATA_S");
-  } else {
-    console.log(`'${Name}' No es una Configuracion.`);
-  }
-}
-
-// >>> Cargar Configuracion DB
-function LOAD_LOCAL() {
-  let Config_JSON1 = localStorage.getItem("UDG_CONFIG_S");
-  let DATA_CONFIG1 = JSON.parse(Config_JSON1);
-  if (DATA_CONFIG1 != null) {
-    WEB_CONFIG = DATA_CONFIG1;
-  }
-
-  if (WEB_CONFIG["CONEXION"]["METHOD"] == "LOCAL") {
-    let Config_JSON2 = localStorage.getItem("UDG_DATABASE_S");
-    let DATA_CONFIG2 = JSON.parse(Config_JSON2);
-    if (DATA_CONFIG2 != null) {
-      WEB_USERS = DATA_CONFIG2;
-    }
-  }
-
-  if (
-    WEB_CONFIG["CONEXION"]["METHOD"] == "LOCAL" ||
-    WEB_CONFIG["CONEXION"]["SEGURITY"] != "REALTIME"
-  ) {
-    let Data_JSON3 = localStorage.getItem("UDG_DATA_S");
-    let DATA_DATA3 = JSON.parse(Data_JSON3);
-    if (DATA_DATA3 != null) {
-      WEB_DATA = DATA_DATA3;
-    }
-  }
-
-  let TIME = GET_TIME();
-  WEB_CONFIG["DATES"]["LAST_LOAD"] = TIME["DATE"];
-
-  return true;
-}
-
-function SAVE_LOCAL_ALL() {
-  let TIME = GET_TIME();
-  WEB_CONFIG["DATES"]["LAST_SAVE"] = TIME["DATE"];
-
-  if (
-    WEB_CONFIG["CONEXION"]["METHOD"] == "LOCAL" ||
-    WEB_CONFIG["CONEXION"]["MODE"] != "REALTIME"
-  ) {
-    localStorage.setItem("UDG_DATABASE_S", JSON.stringify(WEB_USERS));
-    localStorage.setItem("UDG_DATA_S", JSON.stringify(WEB_DATA));
-  }
-  localStorage.setItem("UDG_CONFIG_S", JSON.stringify(WEB_CONFIG));
-}
-
-function SAVE_LOCAL_CONFIG() {
-  let IMAGE_DOM = document.querySelector("#Mn_Camara #CAM_IMG");
-  if (IMAGE_DOM.src.length > 128) {
-    WEB_DATA["USUARIO"]["IMG"] = String(IMAGE_DOM.src);
-    setTimeout(() => {
-      IMAGE_DOM.src = "";
-    }, 500);
-  }
-
-  try {
-    let DOM = document.querySelector("#Mn_Config_App #Config_User");
-    let ITEMS = DOM.querySelectorAll("*[ITEM]");
-    ITEMS.forEach((Xtem) => {
-      let KEY = Xtem.getAttribute("ITEM");
-      if (Xtem.nodeName == "BUTTON") {
-        if (Xtem.getAttribute("class") == "CHECKED") {
-          WEB_DATA["USUARIO"][KEY] = String(Xtem.textContent).toUpperCase();
-        }
-      } else {
-        WEB_DATA["USUARIO"][KEY] = String(Xtem.value).toUpperCase();
-      }
-    });
-  } catch (err) {
-    console.warn(err);
-  }
-
-  try {
-    DOM = document.querySelector("#Mn_Config_App #Config_Consultory");
-    ITEMS = DOM.querySelectorAll("*[ITEM]");
-    ITEMS.forEach((Xtem) => {
-      let KEY = Xtem.getAttribute("ITEM");
-      if (Xtem.nodeName == "BUTTON") {
-        if (Xtem.getAttribute("class") == "CHECKED") {
-          WEB_DATA["CONSULTORIO"][KEY] = String(Xtem.textContent).toUpperCase();
-        }
-      } else {
-        WEB_DATA["CONSULTORIO"][KEY] = String(Xtem.value).toUpperCase();
-      }
-    });
-  } catch (err) {
-    console.warn(err);
-  }
-
-  try {
-    DOM = document.querySelector("#Mn_Config_App #Config_Time");
-    ITEMS = DOM.querySelectorAll("div");
-
-    for (let Xtem = 0; Xtem < ITEMS.length; Xtem++) {
-      let HOURS = Xtem.querySelectorAll("input");
-      WEB_DATA["CONSULTORIO"]["HORARIO"][Xtem] = [
-        HOURS[0].value,
-        HOURS[1].value,
-      ];
-    }
-  } catch (err) {
-    console.warn(err);
-  }
-
-  try {
-    DOM = document.querySelector("#Mn_Config_App #Config_DB");
-    WEB_CONFIG["DATABASE"] = {
-      HOST: DOM.querySelector('*[ITEM="HOST"]').value,
-      USER: DOM.querySelector('*[ITEM="USER"]').value,
-      NOMBRE: DOM.querySelector('*[ITEM="NOMBRE"]').value,
-      PASSWORD: DOM.querySelector('*[ITEM="PASSWORD"]').value,
-    };
-    WEB_CONFIG["CONEXION"]["TIPO"] = DOM.querySelector(
-      '#Config_DB_Type *[class="CHECKED"]'
-    );
-    WEB_CONFIG["CONEXION"]["MODE"] = DOM.querySelector(
-      '#Config_DB_Storage *[class="CHECKED"]'
-    );
-  } catch (err) {
-    console.warn(err);
-  }
-}
-
 //! ===== >>> [ FUNCIONES -> ALMACENAMIENTO -> CACHE]
 
 //! ===== >>> [ FUNCIONES -> ALMACENAMIENTO -> BASE DE DATOS]
 // >>> Enviar Comando a PHP
 function SEND_TO_PHP(Funcion, Data, File = "") {
+  Data = {
+    ...Data, 
+    DB_HOST: _Config["DATABASE"]["HOST"] ?? "",
+    DB_USER: _Config["DATABASE"]["USER"] ?? "",
+    DB_PASSWORD: _Config["DATABASE"]["PASSWORD"] ?? "",
+    DB_NAME: _Config["DATABASE"]["NOMBRE"] ?? ""
+  }
   let Send = { EXECUTE: Funcion, JSON: JSON.stringify(Data) };
   let Xheaders = "";
   let XBody = null;
@@ -604,13 +271,12 @@ function SEND_TO_PHP(Funcion, Data, File = "") {
     XBody = new FormData();
     XBody.append("JSON", JSON.stringify(Send));
     XBody.append("xfile", File);
-    CONFIG["body"] = XBody;
   } else {
     XBody = JSON.stringify(Send);
     Xheaders = "application/json";
     CONFIG["headers"] = { "Content-Type": Xheaders };
-    CONFIG["body"] = XBody;
   }
+  CONFIG["body"] = XBody;
 
   if (Funcion != "DOWNLOAD_FILE") {
     fetch("./conexion.php", CONFIG)
@@ -622,71 +288,49 @@ function SEND_TO_PHP(Funcion, Data, File = "") {
       })
       .then((JRes) => {
         if (Funcion == "LOGIN") {
-          WEB_DATA["USUARIO"] = JRes[0];
+          _Data["USUARIO"] = JRes[0][0];
         } else if (Funcion == "IMPORT_PACIENT") {
-          WEB_DATA["PACIENTES"][JRes[0][0]["ID"]] = JRes[0][0];
+          let KEYS = Object.keys(JRes[0]);
+          KEYS.forEach((X)=>{
+            _Data["PACIENTES"][JRes[0][X]['ID']] = JRes[0][X];
+          })
         } else if (Funcion == "LOAD_PACIENT") {
-          WEB_DATA["PACIENTES"]["SELECTED"] = JRes[0];
-          WEB_DATA["CITAS"][JRes[0]["ID"]] = JRes[1];
-          WEB_DATA["NOTAS"][JRes[0]["ID"]] = JRes[2];
-          WEB_DATA["DOCUMENTOS"][JRes[0]["ID"]] = JRes[3];
+          _Data["PACIENTES"]["SELECTED"] = JRes[0];
+          _Data["CITAS"][JRes[0]["ID"]] = JRes[1];
+          _Data["NOTAS"][JRes[0]["ID"]] = JRes[2];
+          _Data["DOCUMENTOS"][JRes[0]["ID"]] = JRes[3];
         } else if (Funcion == "LOAD_PACIENT_LIST") {
-          if (JRes[0] != "") {
-            WEB_DATA["PACIENTES"] = JRes[0];
-          }
+          if (JRes[0] != "") _Data["PACIENTES"] = JRes[0];
         } else if (Funcion == "LOAD_DATES") {
-          if (JRes[0] != "") {
-            WEB_DATA["CITAS"] = JRes[0];
-          }
+          if (JRes[0] != "") _Data["CITAS"] = JRes[0];
         } else if (Funcion == "LOAD_TEMPLATES") {
-          if (JRes[0] != "") {
-            WEB_DATA["PLANTILLAS"]["LINEA"] = JRes[0];
-          }
-          if (JRes[1] != "") {
-            WEB_DATA["PLANTILLAS"]["LOCAL"] = JRes[1];
-          }
+          if (JRes[0] != "") _Data["PLANTILLAS"]["LINEA"] = JRes[0];
+          if (JRes[1] != "") _Data["PLANTILLAS"]["LOCAL"] = JRes[1];
         } else if (Funcion == "SEARCH") {
-          if (JRes[0] != "undefined") {
-            WEB_DATA["SEARCH"] = JRes[0];
-          } else {
-            WEB_DATA["SEARCH"] = undefined;
-          }
+          if (JRes[0] != "undefined") _Data["SEARCH"] = JRes[0];
+          else _Data["SEARCH"] = undefined;
         } else if (Funcion == "LOAD_NOTES") {
           if (JRes[0] != "") {
-            if (WEB_DATA["NOTAS"]?.["TEMP"] == undefined) {
-              WEB_DATA["NOTAS"]["TEMP"] = {};
-            }
-            WEB_DATA["NOTAS"]["TEMP"] = JRes[0];
-          } else {
-            WEB_DATA["NOTAS"]["TEMP"] = {};
-          }
+            if (_Data["NOTAS"]?.["TEMP"] == undefined) _Data["NOTAS"]["TEMP"] = {};
+            _Data["NOTAS"]["TEMP"] = JRes[0];
+          } else _Data["NOTAS"]["TEMP"] = {};
           if (JRes[1] != "") {
-            if (WEB_DATA["CITAS"]?.["TEMP"] == undefined) {
-              WEB_DATA["CITAS"]["TEMP"] = {};
-            }
-            WEB_DATA["CITAS"]["TEMP"] = JRes[1];
-          } else {
-            WEB_DATA["CITAS"]["TEMP"] = {};
-          }
+            if (_Data["CITAS"]?.["TEMP"] == undefined) _Data["CITAS"]["TEMP"] = {};
+            _Data["CITAS"]["TEMP"] = JRes[1];
+          } else _Data["CITAS"]["TEMP"] = {};
           if (JRes[2] != "") {
-            if (WEB_DATA["DOCUMENTOS"]?.["TEMP"] == undefined) {
-              WEB_DATA["DOCUMENTOS"]["TEMP"] = {};
-            }
-            WEB_DATA["DOCUMENTOS"]["TEMP"]["CARTAS"] = JRes[2];
-          } else {
-            WEB_DATA["DOCUMENTOS"]["TEMP"]["CARTAS"] = {};
-          }
+            if (_Data["DOCUMENTOS"]?.["TEMP"] == undefined) _Data["DOCUMENTOS"]["TEMP"] = {};
+            _Data["DOCUMENTOS"]["TEMP"]["CARTAS"] = JRes[2];
+          } else _Data["DOCUMENTOS"]["TEMP"]["CARTAS"] = {};
           if (JRes[3] != "") {
-            if (WEB_DATA["DOCUMENTOS"]?.["TEMP"] == undefined) {
-              WEB_DATA["DOCUMENTOS"]["TEMP"] = {};
-            }
-            WEB_DATA["DOCUMENTOS"]["TEMP"]["ARCHIVOS"] = JRes[3];
-          } else {
-            WEB_DATA["DOCUMENTOS"]["TEMP"]["ARCHIVOS"] = {};
-          }
+            if (_Data["DOCUMENTOS"]?.["TEMP"] == undefined) _Data["DOCUMENTOS"]["TEMP"] = {};
+            _Data["DOCUMENTOS"]["TEMP"]["ARCHIVOS"] = JRes[3];
+          } else _Data["DOCUMENTOS"]["TEMP"]["ARCHIVOS"] = {};
         } else if (Funcion == "DOCTOR_LIST"){
-          if(WEB_DATA?.['LIST'] == undefined){WEB_DATA['LIST'] = {};}
-          WEB_DATA['LIST']['DOCTORS'] = JRes[0];
+          if(_Data?.['LIST'] == undefined) _Data['LIST'] = {};
+          _Data['LIST']['DOCTORS'] = JRes[0];
+        } else if (Funcion == "LOAD_CONSULTORIO"){
+          _Data['CONSULTORIO'] = JRes[0][0];
         }
       })
       .catch((Err) => {
@@ -699,7 +343,7 @@ function SEND_TO_PHP(Funcion, Data, File = "") {
         return Res.blob();
       })
       .then((XRes) => {
-        WEB_DATA["DOWNLOAD"] = XRes;
+        _Data["DOWNLOAD"] = XRes;
       })
       .catch((Err) => {
         console.error(Err);
@@ -708,365 +352,138 @@ function SEND_TO_PHP(Funcion, Data, File = "") {
   }
 }
 
+async function LOAD_JSON(Rute,Name){
+  Rute = String(Rute).toUpperCase();
+  Name = String(Name).toUpperCase() + ".json";
+
+  let RESULT = undefined;
+  await fetch(`${Rute}/${Name}`)
+  .then((RES) => RES.json())
+  .then((RESS) => {RESULT = RESS;})
+  .catch((ERR) => {RESULT = {}; console.error(ERR);})
+
+  return RESULT;
+}
+
 //! ===== >>> [ FUNCIONES -> ESPECIFICAS]
 // >>> Mostrar Alerta
 function APP_ALERT(Menu, N_Alet) {
+  let APP_ALERT = document.querySelector("#ALERT");
   Menu = String(Menu).toUpperCase();
-  let APP_ALERT = document.getElementById("Mn_Alert");
   if (Menu == 0) {
     APP_ALERT.classList.add("Hiden");
     return null;
-  } else {
-    APP_ALERT.classList.remove("Hiden");
-  }
-
-  let Alert_Icon = {
-    NO_ADS: "./IMG/Ads_No.svg",
-    CALENDAR: "./IMG/Calendar.svg",
-    CALENDAR_ALERT: "./IMG/Calendar_Alert.svg",
-    COMPUTER: "./IMG/Computer.svg",
-    CONFIG: "./IMG/Config.svg",
-    CURSOR: "./IMG/cursor.svg",
-    DATA_TRANSFER: "./IMG/Data_Transfer.svg",
-    DOC_IMPORT: "./IMG/Document_Import.svg",
-    DOWLOAD: "./IMG/Download.svg",
-    ESTETOSCOPIE: "./IMG/Estetoscopio.svg",
-    HELP: "./IMG/Help.svg",
-    HISTORY: "./IMG/History.svg",
-    INFO: "./IMG/Info.svg",
-    MICROPHONE: "./IMG/Microphone.svg",
-    ERROR: "./IMG/No_select.svg",
-    RESICLE: "./IMG/Resicle.svg",
-    DELETE: "./IMG/Delete.svg",
-    SHARE: "./IMG/Share.svg",
-    SHIELD: "./IMG/Shield.svg",
-    SHIELD_ACCEPT: "./IMG/Shield_Accept.svg",
-    SHIELD_ALERT: "./IMG/Shield_Alert.svg",
-    UPDATE: "./IMG/Update.svg",
-    USER_NONE: "./IMG/User_None.svg",
-    USER_WAIT: "./IMG/User_Time.svg",
-    WIFI_CLOUD: "./IMG/Wifi_Cloud.svg",
-    WIFI_NO: "./IMG/Wifi_No.svg",
-  };
-  let Alert_Message = {
-    LOCAL: {
-      0: {
-        Icon: Alert_Icon["COMPUTER"],
-        Title: "¡¡¡ Importante !!!",
-        Text: "Esta opcion utiliza como almacenamiento el cache del propio navegador, por lo que este puede ser borrado por aplicaciones externas o el porpio navegador, se recomienda precaucion.</p><p>(La informacion puede sincronizarse con una base de datos en la configuracion.)",
-      },
-      1: {
-        Icon: Alert_Icon["USER_NONE"],
-        Title: "Advertencia",
-        Text: 'No se ha detectado ningun usuario local existente.</p><p class="Text_Sty_1">Desea configurar un nuevo usaurio?',
-      },
-    },
-    LOGIN: {
-      0: {
-        Title: "Usuario no encontrado",
-        Icon: "",
-        Text: "El usuario no esta registrado.",
-      },
-      1: {
-        Title: "Contraseña incorrecta",
-        Icon: "",
-        Text: "El usuario no coinside con la contraseña.",
-      },
-    },
-    INFO: {
-      0: { Title: "", Icon: "", Text: "" },
-    },
-    ALERT: {
-      0: { Title: "", Icon: "", Text: "" },
-    },
-    CRITIC: {
-      0: { Title: "", Icon: "", Text: "" },
-    },
-    ERROR: {
-      0: { Title: "", Icon: "", Text: "" },
-      1: { Title: "ERROR - PACIENTE", Icon: "", Text: "No se ha podido cargar correctamente la informacion del paciente, porfavor reinicie la pagina y vuelva a intenrarlo." },
-      2: { Title: "ERROR - PACIENTE", Icon: "", Text: "No se ha podido cargar correctamente la informacion del paciente, porfavor reinicie la pagina y vuelva a intenrarlo." },
-
-    },
-  };
-
-  try {
-    let New_Icon = document.createElement("img");
-    if (Alert_Message[Menu][N_Alet]["Icon"] != null) {
-      New_Icon.src = Alert_Message[Menu][N_Alet]["Icon"];
-    } else {
-      New_Icon.src = Alert_Icon["ERROR"];
-    }
-    APP_ALERT.querySelector("img").replaceWith(New_Icon);
-  } catch {
-    let New_Icon = document.createElement("img");
-    New_Icon.src = Alert_Icon["ERROR"];
-    APP_ALERT.querySelector("img").replaceWith(New_Icon);
-  }
+  } else APP_ALERT.classList.remove("Hiden");  
+  APP_ALERT.querySelector("img").src = WEB_DATA['ALERTS']?.['ICONS']?.[Menu] ?? WEB_DATA['ALERTS']['ICONS']['ERROR'];
 
   let Alert_Title = APP_ALERT.querySelector("#Alert_Title");
-  try {
-    if (Alert_Message[Menu][N_Alet]["Title"] != null) {
-      Alert_Title.innerHTML = Alert_Message[Menu][N_Alet]["Title"];
-    } else {
-      Alert_Title.innerHTML = "";
-    }
-  } catch (err) {
-    console.warn(err);
-  }
+  Alert_Title.innerHTML = WEB_DATA['ALERTS']?.['MESSAGE']?.[Menu]?.[N_Alet]?.["Title"] ?? "";
 
   let Alert_Text = APP_ALERT.querySelector("#Alert_Text");
-  try {
-    Alert_Text.innerHTML = Alert_Message[Menu][N_Alet]["Text"];
-    if (Alert_Message[Menu][N_Alet]["Text"] == null) {
-      Alert_Text.innerHTML = `#ERROR - Mensaje no encontrado [ ${Menu} => ${N_Alet} ]`;
-    }
-  } catch {
-    Alert_Text.innerHTML = `#ERROR - Mensaje no encontrado [ ${Menu} => ${N_Alet} ]`;
-  }
+  Alert_Text.innerHTML = WEB_DATA['ALERTS']?.['MESSAGE']?.[Menu]?.[N_Alet]?.['Text'] ?? `#ERROR - Mensaje no encontrado [ ${Menu} => ${N_Alet} ]`;
 
-  let Alert_Buttons =
-    APP_ALERT.querySelector("#Alert_Buttons").querySelectorAll("button");
-  for (let x = 0; x < 5; x++) {
-    Alert_Buttons[x].setAttribute("class", "Hiden");
-  }
-  if (Menu == "LOCAL") {
-    let Btn_Show = 0;
-    let Btn_Text = [];
-    let Btn_Sty = [];
-    let Btn_Actions = [];
-
-    if (N_Alet == 0) {
-      Btn_Show = 3;
-      Btn_Text = ["X Cancelar", ">> No volver a Mostrar", ">> Continuar"];
-      Btn_Sty = [4, 3, 2];
-      Btn_Actions = ["", "", "User_Login('LOCAL')"];
-    }
-
-    if (N_Alet == 1) {
-      Btn_Show = 2;
-      Btn_Text = ["Autogenerar", ">> Si"];
-      Btn_Sty = [4, 2];
-      Btn_Actions = ["APP_ALERT(0,0)", ""];
-    }
-
-    for (let x = 0; x < Btn_Show; x++) {
-      Alert_Buttons[x].classList.remove("Hiden");
-      Alert_Buttons[x].innerText = Btn_Text[x];
-      Alert_Buttons[x].classList.add(`Btn_Sty_${Btn_Sty[x]}`);
-      Alert_Buttons[x].setAttribute("onclick", Btn_Actions[x]);
+  let Alert_Buttons = APP_ALERT.querySelectorAll("button");
+  for (let x in Alert_Buttons) {
+    if(WEB_DATA['ALERTS']?.['MESSAGE']?.[Menu]?.[N_Alet]?.['Buttons']?.["Text"]?.[x] != undefined){
+      Alert_Buttons[x].setAttribute('class',"");
+      Alert_Buttons[x].innerText = WEB_DATA['ALERTS']['MESSAGE'][Menu][N_Alet]['Buttons']["Text"][x];
+      if(WEB_DATA['ALERTS']?.['MESSAGE']?.[Menu]?.[N_Alet]?.['Buttons']?.["Style"]?.[x] != undefined) Alert_Buttons[x].classList.add(`Btn_Stl_${WEB_DATA['ALERTS']['MESSAGE'][Menu][N_Alet]['Buttons']["Style"][x]}`);
+      if(WEB_DATA['ALERTS']?.['MESSAGE']?.[Menu]?.[N_Alet]?.['Buttons']?.["Function"]?.[x] != undefined) Alert_Buttons[x].setAttribute("onclick",`${WEB_DATA['ALERTS']['MESSAGE'][Menu][N_Alet]['Buttons']["Function"][x]}`);
+      if(WEB_DATA['ALERTS']?.['MESSAGE']?.[Menu]?.[N_Alet]?.['Buttons']?.["Icon"] != "") APP_ALERT.querySelector("img").src = WEB_DATA['ALERTS']?.['ICONS']?.[WEB_DATA['ALERTS']?.['MESSAGE']?.[Menu]?.[N_Alet]?.["Icon"]]  ?? WEB_DATA['ALERTS']['ICONS']['ERROR'];
+      
+    } else {
+      if(x < 5) Alert_Buttons[x].setAttribute('class',"Hiden");
     }
   }
 }
 
 // >>> Iniciar Sesion (User)
-function User_Login(Local = null) {
-  let USER = document.getElementById("LOGIN_USER");
-  let PASSWORD = document.getElementById("LOGIN_PASSWORD");
-
-  let Loading_Bar = document.getElementById("Loading_Bar");
-  let Loading_Text = document.getElementById("Loading_Text");
-  document.getElementById("Mn_Alert").classList.add("Hiden");
-
-  if (Local == "LOCAL") {
+function User_Login() {
+  let DOMS = document.querySelectorAll('#LOGIN input[ITEM]');
+  let DOM = {}
+  let TEMP = {}
+  DOMS.forEach((X) => {
+    DOM[String(X.getAttribute('ITEM')).toUpperCase()] = X;
+    TEMP[String(X.getAttribute('ITEM')).toUpperCase()] = (X.getAttribute('type') != 'checkbox') ? X.value:X.checked;
+  })
+  if (String(TEMP['USER']).length > 1 && String(TEMP['PASSWORD']).length > 1){
+    GET_TIME()
+    let ALERT = document.querySelector("#ALERT");
+    ALERT.classList.add('Hiden');
     GOTO_MENU("Loading");
 
-    if (LOAD_LOCAL() == true) {
-      WEB_CONFIG["CONEXION"] = {
-        METHOD: "LOCAL",
-        MODE: "LOCAL",
-        SEGURITY: false,
-      };
+    let SEND = {
+      WHERE: `ID='${TEMP['USER']}' AND USER_PASSWORD='${TEMP['PASSWORD']}'`,
+      WHERE_2: `ID='${TEMP['USER']}'`,
+    };
+    SEND_TO_PHP("LOGIN", SEND);
 
-      WEB_DATA["USUARIO"] =
-        WEB_DATA["USUARIO"]["ID"] == "LOCAL"
-          ? WEB_DATA["USUARIO"]
-          : {
-              ID: "LOCAL",
-              PREFIJO: "",
-              NOMBRE: "",
-              APELLIDO_1: "",
-              APELLIDO_2: "",
-              CURP: "",
-              GENERO: "",
-              FECHA: "",
-              SSA: "",
-              ESPECIALIDAD: "",
-              CEDULA: "",
-              TELEFONO_1: "",
-              CORREO: "",
-              CONSULTORIO_ID: "",
-              HORARIO: { 0: [], 1: [], 2: [], 3: [], 4: [], 5: [], 6: [] },
-            };
-      if (Load_User_Data() == true) {
-        Load_Calendar();
-        GOTO_MENU("Main");
-
-        setTimeout(() => {
-          let CONFIG_1 = document.querySelectorAll("#Config_User *[ITEM]");
-          let CONFIG_2 = document.querySelectorAll(
-            "#Config_Consultory *[ITEM]"
-          );
-          let CONFIG_3 = document.querySelectorAll("#Config_Time div");
-          let CONFIG_4 = document.querySelectorAll("#Config_DB *[ITEM]");
-
-          CONFIG_1.forEach((Xtem) => {
-            let KEY = Xtem.getAttribute("ITEM");
-            try {
-              Xtem.value = WEB_DATA["USUARIO"]?.[KEY];
-            } catch (err) {
-              console.warn(err);
-            }
-          });
-          CONFIG_2.forEach((Xtem) => {
-            let KEY = Xtem.getAttribute("ITEM");
-            try {
-              Xtem.value = WEB_DATA["CONSULTORIO"]?.[KEY];
-            } catch (err) {
-              console.warn(err);
-            }
-          });
-          for (let Xtem = 0; Xtem < CONFIG_3.length; Xtem++) {
-            let HOURS = CONFIG_3[Xtem].querySelectorAll("input");
-            try {
-              WEB_DATA["CONSULTORIO"]["HORARIO"][Xtem] = [
-                HOURS[0].value,
-                HOURS[1].value,
-              ];
-            } catch (err) {
-              console.warn(err);
-            }
-          }
-        }, 1250);
-        setTimeout(() => {
+    let DELAY = 200;
+    let COUNT = 5 * (1000 / DELAY);
+    let INTERVAL1 = setInterval(() => {
+      if(_Data["USUARIO"] == null) COUNT = 0;
+      if (_Data["USUARIO"]?.["ID"].length > 1 ) {
+        clearInterval(INTERVAL1);
+        if(_Data["USUARIO"]?.["ID"] == TEMP['USER']){
+          if(TEMP['REMEMBER'] == true) localStorage.setItem('UDG_S_LOGIN',JSON.stringify(TEMP));
+          DOM['USER'].classList.remove('ERROR');
+          DOM['PASSWORD'].classList.remove('ERROR');
+          Load_User_Data();
+          let TB1 = document.querySelectorAll("#TABLE_Historial_1 tr");
+          if (TB1.length < 2) Pacient_List_History();
           Load_Plantillas_List();
-        }, 1400);
-      }
-    }
-    return true;
-  } else {
-    if (USER.value != "" && PASSWORD.value != "") {
-      if (WEB_CONFIG["CONEXION"]["METHOD"] == "LOCAL") {
-        if (String(USER.value) in WEB_USERS["USERS"]) {
-          if (
-            WEB_USERS["USERS"][String(USER.value)]["PASSWORD"] ==
-            String(PASSWORD.value)
-          ) {
-            WEB_DATA["USUARIO"] = WEB_USERS["DATA"][String(USER.value)];
-            USER.classList.remove("ERROR");
-            PASSWORD.classList.remove("ERROR");
-            GOTO_MENU("Loading");
-            Loading_Text.innerText = "Informacion del usuario.";
-            Loading_Bar.style.width = "30%";
-            if (Load_User_Data() == true) {
-              Loading_Text.innerText = "Calendario del usuario.";
-              Loading_Bar.style.width = "60%";
-              if (Load_Calendar() == true) {
-                Loading_Text.innerText = "Lista de pacientes.";
-                Loading_Bar.style.width = "80%";
-                let TB1 = document
-                  .getElementById("TABLE_Historial_1")
-                  .querySelectorAll("tr");
-                if (TB1.length() < 2) {
-                  Pacient_List_History();
-                }
-                Loading_Text.innerText = "Iniciando.";
-                Loading_Bar.style.width = "100%";
-                Load_Plantillas_List();
-                GOTO_MENU("Main");
-              }
-            }
-          } else {
-            USER.classList.add("ERROR");
-            PASSWORD.classList.add("ERROR");
-            APP_ALERT("LOGIN", 1);
-          }
+          Load_Calendar();
+          setTimeout(() => { GOTO_MENU("Main") }, 1750)
         } else {
-          USER.classList.add("ERROR");
-          PASSWORD.classList.add("ERROR");
-          APP_ALERT("LOGIN", 0);
+          DOM['USER'].classList.add('ERROR');
+          DOM['PASSWORD'].classList.add('ERROR');
+          GOTO_MENU("Login");
+          APP_ALERT("LOGIN", 1);
         }
-      } else if (WEB_CONFIG["CONEXION"]["METHOD"] == "SERVER") {
-        GOTO_MENU("Loading");
-        let SEND = {
-          DB_HOST: WEB_CONFIG["DATABASE"]["HOST"],
-          DB_USER: WEB_CONFIG["DATABASE"]["USER"],
-          DB_PASSWORD: WEB_CONFIG["DATABASE"]["PASSWORD"],
-          DB_NAME: WEB_CONFIG["DATABASE"]["NOMBRE"],
-          WHERE_KEY: "ID",
-          WHERE_VALUE: `'${String(USER.value)}'`,
-          USER_ID: String(USER.value),
-          USER_PASSWORD: PASSWORD.value,
-          LIMIT: 1,
-        };
-        SEND_TO_PHP("LOGIN", SEND);
-        setTimeout(() => {
-          if (WEB_DATA["USUARIO"]?.["ID"] == String(USER.value)) {
-            USER.classList.remove("ERROR");
-            PASSWORD.classList.remove("ERROR");
-            Load_User_Data();
-            Load_Calendar();
-            let TB1 = document
-              .getElementById("TABLE_Historial_1")
-              .querySelectorAll("tr");
-            if (TB1.length < 2) {
-              Pacient_List_History();
-            }
-            setTimeout(() => {
-              Load_Plantillas_List();
-              GOTO_MENU("Main");
-            }, 200);
-          } else {
-            USER.classList.add("ERROR");
-            PASSWORD.classList.add("ERROR");
-            GOTO_MENU("Login");
-            APP_ALERT("LOGIN", 1);
-          }
-        }, 1350);
+      } else {
+        COUNT -= 1;
+        if (COUNT < 0) {
+          clearInterval(INTERVAL1);
+          DOM['USER'].classList.add('ERROR');
+          DOM['PASSWORD'].classList.add('ERROR');
+          GOTO_MENU("Login");
+          APP_ALERT("LOGIN", 1);
+          _Data['USUARIO'] = _Data_EMPY['USUARIO'];
+        }
       }
-    }
+    }, DELAY)
   }
 }
 
 function End_Sesion() {
-  if (WEB_CONFIG["CONEXION"]["METHOD"] == "LOCAL") {
-    WEB_CONFIG["CONEXION"]["METHOD"] = "SERVER";
-    SAVE_LOCAL_ALL();
-  } else {
-    let XPACIENTES = String(WEB_DATA["USUARIO"]["PACIENTES"]).split(",");
-    let XPACIENTES2 = "";
+  let XPACIENTES = Object.keys(_Data['PACIENTES']);
+  let XPACIENTES2 = "";
 
-    XPACIENTES = new Set(XPACIENTES);
-    XPACIENTES.forEach((Xtem) => {
-      if (Xtem.length > 2) {
-        if (XPACIENTES2.length > 2) {
-          XPACIENTES2 += `,`;
-        }
-        XPACIENTES2 += `${Xtem}`;
-      }
-    });
+  XPACIENTES = new Set(XPACIENTES);
+  XPACIENTES.forEach((Xtem) => {
+    if (Xtem.length > 2) {
+      if(Xtem != "SELECTED") XPACIENTES2 += (XPACIENTES2.length > 2)?  `,${Xtem}`:`${Xtem}`;
+    }
+  });
 
-    let XSET = `PACIENTES='${XPACIENTES2}'`;
-
-    let SEND = {
-      DB_HOST: WEB_CONFIG["DATABASE"]["HOST"],
-      DB_USER: WEB_CONFIG["DATABASE"]["USER"],
-      DB_PASSWORD: WEB_CONFIG["DATABASE"]["PASSWORD"],
-      DB_NAME: WEB_CONFIG["DATABASE"]["NOMBRE"],
-      DB_TABLE: "USER_DATA",
-      WHERE_KEY: "ID",
-      WHERE_VALUE: `${WEB_DATA["USUARIO"]["ID"]}`,
-      SET: XSET,
-    };
-    SEND_TO_PHP("END_SESION", SEND);
-  }
+  let XSET = `PACIENTES='${XPACIENTES2}'`;
+  let SEND = {
+    DB_TABLE: _Config['DATABASE']['TABLA']['USER_DATA'],
+    WHERE_KEY: "ID",
+    WHERE_VALUE: `${_Data["USUARIO"]["ID"]}`,
+    SET: XSET,
+  };
+  localStorage.removeItem('UDG_S_LOGIN');
+  document.querySelector("#TOOLBAR").classList.add("Hiden");
+  SEND_TO_PHP("END_SESION", SEND);
   GOTO_MENU("Login", 0);
+  _Data = {..._Data_EMPY};
 }
 
 // >>> [ Funciones del Toolbar ] >>>
 function TOOLBAR_ALT_SIZE() {
   let Root = document.querySelector(":root");
-  let DOM = document.querySelector("#Mn_Toolbar .Cn_Toolbar");
+  let DOM = document.querySelector("#TOOLBAR");
   let Items = DOM.querySelectorAll("button");
   Items.forEach((Xtem) => {
     if (Xtem.style.fontSize != "0px") {
@@ -1087,151 +504,82 @@ function TOOLBAR_ALT_SIZE() {
 }
 
 function Load_Calendar() {
-  let TIME = GET_TIME();
+  let Mes = ["","Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
   try {
-    let Mes = [
-      "Enero",
-      "Febrero",
-      "Marzo",
-      "Abril",
-      "Mayo",
-      "Junio",
-      "Julio",
-      "Agosto",
-      "Septiembre",
-      "Octubre",
-      "Noviembre",
-      "Diciembre",
-    ];
-    document.getElementById("MM_Name").innerHTML =
-      Mes[Number(TIME["MOUNT"]) - 1];
-    document
-      .getElementById(`DD_S_${Number(TIME["DAY"])}`)
-      .classList.add("DD_Actual");
-    document.getElementById("DD_S_1").style.gridColumnStart = Number(
-      TIME["DAY_ONE"]
-    );
-    WEB_DATA["FECHA"] = {};
-    WEB_DATA["FECHA"]["DIA"] = Number(TIME["DAY"]);
-    WEB_DATA["FECHA"]["MES"] = Number(TIME["MOUNT"]) - 1;
-    WEB_DATA["FECHA"]["AÑO"] = Number(TIME["YEAR"]);
+    document.querySelector("#MM_Name").innerHTML = `${Mes[Number(WEB_DATA['DATE']['MM'][0])]} - ${WEB_DATA['DATE']['YY']}`;
+    document.querySelector(`#DD_S_${Number(WEB_DATA['DATE']['DD'][0])}`).classList.add("DD_Actual");
+    document.querySelector("#DD_S_1").style.gridColumnStart = WEB_DATA['DATE']['F_DD'];
+  } catch { return false;}
 
-    document.querySelector("#Calendar_YY").innerHTML = WEB_DATA["FECHA"]["AÑO"];
-  } catch {
-    return false;
-  }
-
-  if (WEB_CONFIG["CONEXION"]["METHOD"] != "LOCAL") {
-    if (WEB_DATA["USUARIO"]["ID"] != "") {
-      let SEND = {
-        DB_HOST: WEB_CONFIG["DATABASE"]["HOST"],
-        DB_USER: WEB_CONFIG["DATABASE"]["USER"],
-        DB_PASSWORD: WEB_CONFIG["DATABASE"]["PASSWORD"],
-        DB_NAME: WEB_CONFIG["DATABASE"]["NOMBRE"],
-        DB_TABLE: WEB_CONFIG["DATABASE"]["TABLA"]["CITAS"],
-        WHERE_KEY: "DOCTOR_1",
-        WHERE_VALUE: WEB_DATA["USUARIO"]["ID"],
-      };
-      SEND_TO_PHP("LOAD_DATES", SEND);
-    }
+  if (_Data["USUARIO"]["ID"] != "") {
+    let SEND = {
+      DB_TABLE: _Config["DATABASE"]["TABLA"]["CITAS"],
+      WHERE: `DOCTOR_1='${_Data["USUARIO"]["ID"]}' OR DOCTOR_2='${_Data["USUARIO"]["ID"]}'`,
+    };
+    SEND_TO_PHP("LOAD_DATES", SEND);
   }
 
   setTimeout(() => {
-    if (WEB_CONFIG["CONEXION"]["METHOD"] != "LOCAL") {
-      let Temp_C = { ...WEB_DATA["CITAS"] };
-      let KEYS = Object.keys(WEB_DATA["CITAS"]);
-      if (KEYS.includes("0")) {
-        WEB_DATA["CITAS"] = {};
-        KEYS.forEach((X) => {
-          let ID = Temp_C[X]["ID"];
-          if (WEB_DATA["CITAS"]?.[ID] == undefined) {
-            WEB_DATA["CITAS"][ID] = {};
-          }
-          WEB_DATA["CITAS"][ID][Object.keys(WEB_DATA["CITAS"][ID]).length] =
-            Temp_C[X];
-        });
-      }
+    let Temp_C = { ..._Data["CITAS"] };
+    let KEYS = Object.keys(_Data["CITAS"]);
+    if (KEYS.includes("0")) {
+      _Data["CITAS"] = {};
+      KEYS.forEach((X) => {
+        let ID = Temp_C[X]["ID"];
+        if (_Data["CITAS"]?.[ID] == undefined) _Data["CITAS"][ID] = {};
+        _Data["CITAS"][ID][Object.keys(_Data["CITAS"][ID]).length] = Temp_C[X];
+      });
     }
 
-    WEB_DATA["CALENDAR"] = {};
-    let IDS = Object.keys(WEB_DATA["CITAS"]);
+    _Data["CALENDAR"] = {};
+    let IDS = Object.keys(_Data["CITAS"]);
 
+    let Today = Date.parse(WEB_DATA['DATE']['FULL'][0]);
     IDS.forEach((ID) => {
-      let LAST = Object.keys(WEB_DATA["CITAS"][ID]).length - 1;
-      if (LAST >= 0) {
-        for (let x = LAST; x >= 0; x--) {
-          let XDate = WEB_DATA["CITAS"][ID][x]["FECHA"];
-          if (Date.parse(XDate) >= Date.parse(TIME["DATE"])) {
-            if (WEB_DATA["CALENDAR"]?.[XDate] == undefined) {
-              WEB_DATA["CALENDAR"][XDate] = {};
-            }
-            WEB_DATA["CALENDAR"][XDate][
-              Object.keys(WEB_DATA["CALENDAR"][XDate]).length
-            ] = WEB_DATA["CITAS"][ID][x];
-          } else {
-          }
+      let LAST = Object.keys(_Data["CITAS"][ID]);
+      LAST.forEach((x)=> {
+        let XDate = _Data["CITAS"][ID][x]["FECHA"]; 
+        if(Date.parse(XDate) >= Today) {
+          if (_Data["CALENDAR"]?.[XDate] == undefined) _Data["CALENDAR"][XDate] = {};
+          _Data["CALENDAR"][XDate][Object.keys(_Data["CALENDAR"][XDate]).length] = _Data["CITAS"][ID][x];
         }
-      }
+      })
     });
 
-    IDS = Object.keys(WEB_DATA["CALENDAR"]);
+    IDS = Object.keys(_Data["CALENDAR"]);
     IDS = IDS.sort();
 
-    let DOM2 = document.querySelector("#Mn_Dates .Dates_List ul");
+    let DOM2 = document.querySelector("#DATES .Dates_List ul");
     DOM2.innerHTML = "";
-    let MES = [
-      "",
-      "Enero",
-      "Febrero",
-      "Marzo",
-      "Abril",
-      "Mayo",
-      "Junio",
-      "Julio",
-      "Agosto",
-      "Septiembre",
-      "Octubre",
-      "Noviembre",
-      "Diciembre",
-    ];
-
+    let ACTDATE = "";
+    let ACTDATE2 = [];
     IDS.forEach((XDate) => {
-      let SubIDS = Object.keys(WEB_DATA["CALENDAR"][XDate]);
+      let SubIDS = Object.keys(_Data["CALENDAR"][XDate]);
       let XTIME = String(XDate).split("-");
       let NTEM = ``;
+      if(ACTDATE != XDate) {
+        ACTDATE = XDate;
+        ACTDATE2 = [];
+      }
 
       SubIDS.forEach((Xtem) => {
-        DOM2 = document.querySelector("#Mn_Dates .Dates_List ul");
+        DOM2 = document.querySelector("#DATES .Dates_List ul");
 
-        if (
-          document.querySelector(
-            `#Mn_Dates .Dates_List ul li details[date="${XDate}"]`
-          ) != null
-        ) {
-          DOM2 = document.querySelector(
-            `#Mn_Dates .Dates_List ul details[date="${XDate}"] ul`
-          );
+        if (document.querySelector(`#DATES .Dates_List ul li details[date="${XDate}"]`) != null) {
+          DOM2 = document.querySelector(`#DATES .Dates_List ul details[date="${XDate}"] ul`);
           NTEM = `<li><a href="#" onclick="load_date(this)">
-          <p class="Hiden">${JSON.stringify(
-            WEB_DATA["CALENDAR"][XDate][Xtem]
-          )}</p>
-          <h4>${WEB_DATA["CALENDAR"][XDate][Xtem]["HORA"]}</h4>
-          <div><p>#${WEB_DATA["CALENDAR"][XDate][Xtem]["ID"]}</p>
-          <p>${String(WEB_DATA["CALENDAR"][XDate][Xtem]["MOTIVO"]).substring(
-            0,
-            15
-          )}</p>
+          <p class="Hiden">${JSON.stringify(_Data["CALENDAR"][XDate][Xtem])}</p>
+          <h4>${_Data["CALENDAR"][XDate][Xtem]["HORA"]}</h4>
+          <div><p>#${_Data["CALENDAR"][XDate][Xtem]["ID"]}</p>
+          <p>${String(_Data["CALENDAR"][XDate][Xtem]["MOTIVO"]).substring(0,15)}</p>
           </div></a></li>`;
+          ACTDATE2.push(_Data["CALENDAR"][XDate][Xtem]["HORA"]);
         } else {
-          NTEM = `<details date="${WEB_DATA["CALENDAR"][XDate][Xtem]["FECHA"]}">
-          <summary>${XTIME[2]} de ${MES[Number(XTIME[1])]} ${XTIME[0]}</summary>
+          NTEM = `<details date="${_Data["CALENDAR"][XDate][Xtem]["FECHA"]}">
+          <summary>${XTIME[2]} de ${Mes[Number(XTIME[1])]} ${XTIME[0]}</summary>
           <ul><li><a href="#" onclick="load_date(this)">
-          <p class="Hiden">${JSON.stringify(
-            WEB_DATA["CALENDAR"][XDate][Xtem]
-          )}</p><h4>${WEB_DATA["CALENDAR"][XDate][Xtem]["HORA"]}</h4>
-          <div><p>#${WEB_DATA["CALENDAR"][XDate][Xtem]["ID"]}</p><p>${String(
-            WEB_DATA["CALENDAR"][XDate][Xtem]["MOTIVO"]
-          ).substring(0, 15)}</p>
+          <p class="Hiden">${JSON.stringify( _Data["CALENDAR"][XDate][Xtem])}</p><h4>${_Data["CALENDAR"][XDate][Xtem]["HORA"]}</h4>
+          <div><p>#${_Data["CALENDAR"][XDate][Xtem]["ID"]}</p><p>${String(_Data["CALENDAR"][XDate][Xtem]["MOTIVO"]).substring(0, 15)}</p>
           </div></a></li></ul></details>`;
         }
 
@@ -1240,282 +588,254 @@ function Load_Calendar() {
         DOM2.appendChild(CITEM);
       });
     });
-  }, 2500);
+  }, 3000);
 
+  Calendar_Update()
   return true;
 }
 
 function Load_User_Data() {
-  let Elements = document.querySelectorAll("#Mn_Main .Cn_Box_Sty_1 *[ITEM]");
-
-  let Consultorio_Keys = ["CON_NOMBRE", "CON_DIRECCION"];
-  Elements.forEach((Xtem) => {
-    let KEY = Xtem.getAttribute("ITEM");
+  let ELEMENTS = document.querySelectorAll('#MAIN .User_Info *[ITEM]')
+  let CON_KEYS = ["CON_NOMBRE", "CON_DIRECCION"];
+  ELEMENTS.forEach((X)=>{
     try {
-      if (Consultorio_Keys.includes(KEY)) {
-        KEY = String(KEY).substring(4);
-        if (WEB_DATA["CONSULTORIO"]?.[KEY]) {
-          Xtem.innerHTML =
-            "<b>" + KEY + ":</b> " + WEB_DATA["CONSULTORIO"][KEY];
-        } else {
-          Xtem.innerHTML = "<b>" + KEY + ":</b> ";
-        }
-      } else {
-        if (WEB_DATA["USUARIO"]?.[KEY]) {
-          Xtem.innerHTML = "<b>" + KEY + ":</b> " + WEB_DATA["USUARIO"][KEY];
-        } else {
-          Xtem.innerHTML = "<b>" + KEY + ":</b> ";
-        }
+      let KEY = X.getAttribute('ITEM');
+      let LANG = X.getAttribute('LG');
+      LANG = (LANG == null) ? 0:LANG.length;
+      if(!CON_KEYS.includes(KEY) && LANG == 0) X.innerHTML = _Data['USUARIO']?.[KEY];
+    } catch (ERR) {
+      console.error(ERR)
+    }
+  })
+
+  let TOOLBAR = document.querySelectorAll('#TOOLBAR *[ITEM]');
+  TOOLBAR.forEach((X)=>{
+    if(X.getAttribute('ITEM') != "IMG"){
+      X.innerHTML = _Data['USUARIO'][X.getAttribute('ITEM')];
+    } else {
+      if(_Data["USUARIO"]?.["IMG"] != undefined) {
+        X.src = (_Data["USUARIO"]["IMG"].length > 128) ? _Data["USUARIO"]["IMG"]:"IMG/User_Img.jpg";
+        document.querySelector('#MAIN .User_Info img').scr = X.src;
       }
-    } catch (err) {
-      console.warn(err);
     }
-  });
-
-  document.querySelector('.USER_DB_NAME').innerHTML = WEB_DATA['USUARIO']['NOMBRE'];
-  document.querySelector('.USER_DB_ID').innerHTML = WEB_DATA['USUARIO']['ID'];
-
-  if (WEB_DATA["USUARIO"]?.["IMG"] != undefined) {
-    if(WEB_DATA["USUARIO"]["IMG"].length < 128){ 
-      WEB_DATA["USUARIO"]["IMG"] = "IMG/User_Img.jpg";
-    }
-    document.querySelector("#Mn_Main > div > div.Cn_Box_Sty_1 > img").src =
-      WEB_DATA["USUARIO"]["IMG"];
-    document.querySelector(
-      "#Mn_Toolbar > div.Cn_Toolbar > div:nth-child(1) > div > img"
-    ).src = WEB_DATA["USUARIO"]["IMG"];
-  }
-
-  document.querySelector('#NEW_DATE input[ITEM="DOCTOR_1"]').value =
-    WEB_DATA["USUARIO"]["ID"];
-  document.querySelector("#Cn_Pacientes_List ul").innerHTML = "";
+  })
+  document.querySelector('#DATES_NEW input[ITEM="DOCTOR_1"]').value =_Data["USUARIO"]["ID"];
+  document.querySelector("#Cn_Pacientes_List table").innerHTML = `<tr class="Table_Up"><td>ID</td><td>INFORMACION</td><td>ACCIONES</td></tr>`;
   document.getElementById("TABLE_PACIEENTS_COUNT_T").innerText = "0";
   document.getElementById("TABLE_PACIEENTS_COUNT_M").innerText = "0";
   document.getElementById("TABLE_PACIEENTS_COUNT_F").innerText = "0";
 
-  if (WEB_CONFIG["CONEXION"]["METHOD"] != "LOCAL") {
-    document
-      .querySelector("#Mn_Main > div > div.Menu > button:nth-child(6)")
-      .classList.add("Hiden");
+  ELEMENTS = document.querySelectorAll('#CONFIG #CONFIG_USER *[ITEM]')
+  ELEMENTS.forEach((X)=> {
+    let KEY = X.getAttribute('ITEM');
+    if(_Data['USUARIO']?.[KEY] != undefined) X.value = _Data['USUARIO'][KEY];
+  })
 
-    let XWHERE = ``;
-    let LIST = String(WEB_DATA["USUARIO"]["PACIENTES"]).split(",");
-    if (LIST.length > 0) {
-      LIST.forEach((Xtem) => {
-        if (Xtem != "") {
-          Xtem = String(Xtem).trim();
-          if(XWHERE.length > 2){ 
-            XWHERE += " OR ";
-          }
-          XWHERE += `ID='${Xtem}'`;
-        }
-      });
-      let SEND = {
-        DB_HOST: WEB_CONFIG["DATABASE"]["HOST"],
-        DB_USER: WEB_CONFIG["DATABASE"]["USER"],
-        DB_PASSWORD: WEB_CONFIG["DATABASE"]["PASSWORD"],
-        DB_NAME: WEB_CONFIG["DATABASE"]["NOMBRE"],
-        DB_TABLE: WEB_CONFIG["DATABASE"]["TABLA"]["PACIENTES"],
-        WHERE: XWHERE,
-      };
-      SEND_TO_PHP("LOAD_PACIENT_LIST", SEND);
+  ELEMENTS = document.querySelector('#CONFIG #CONFIG_TIME')
+  let TEMP = (_Data['USUARIO']?.['HORARIO'] != undefined) ? String(_Data['USUARIO']['HORARIO']).replaceAll('\\','').replaceAll('\"','').split(','):[];
+  TEMP.forEach((X)=>{
+    X = X.replace(':',",");
+    X = X.replaceAll(" ","").split(',');
+    if(X[1].length > 2) ELEMENTS.querySelector(`*[ITEM="${X[0]}"]`).value = X[1] ?? "";
+  })
+
+  if(String(_Data['USUARIO']?.['DB']).length > 12){
+    TEMP = "";
+    ELEMENTS = document.querySelector('#CONFIG #CONFIG_DB')
+    TEMP = String(_Data['USUARIO']['DB']).split(';')
+    TEMP.forEach((X)=>{
+      X = X.split(':');
+      X[0] = String(X[0]).trim()
+      X[1] = String(X[1]).trim()
+      ELEMENTS.querySelector(`*[ITEM="${X[0]}"]`).value = X[1];
+    })
+    let TEMP_DB_SEL = String(document.querySelector('#CONFIG #CONFIG_DB *[ITEM="DB_SEL"]').value).toUpperCase()
+    if(TEMP_DB_SEL == "MANUAL"){
+      TEMP.forEach((X)=>{
+        X = X.split(':');
+        X[0] = String(X[0]).trim()
+        X[1] = String(X[1]).trim()
+        _Config['DATABASE'][X[0]] = X[1];
+      })
     }
-
-
-    let SEND = {
-      DB_HOST: WEB_CONFIG["DATABASE"]["HOST"],
-      DB_USER: WEB_CONFIG["DATABASE"]["USER"],
-      DB_PASSWORD: WEB_CONFIG["DATABASE"]["PASSWORD"],
-      DB_NAME: WEB_CONFIG["DATABASE"]["NOMBRE"],
-      DB_TABLE: "USER_DATA",
-      KEYS: `ID,NOMBRE`,
-      WHERE: `CONSULTORIO='${WEB_DATA['USUARIO']['CONSULTORIO']}'`
-    }
-    SEND_TO_PHP('DOCTOR_LIST', SEND);
   }
 
+  let XWHERE = ``;
+  let SEND = {
+    DB_TABLE: "CONSULTORIO",
+    KEYS: `*`,
+    WHERE: `ID='${_Data['USUARIO']['CONSULTORIO_ID']}'`
+  }
+  SEND_TO_PHP('LOAD_CONSULTORIO',SEND)
+  
+  XWHERE = ``;
+  let LIST = String(_Data["USUARIO"]["PACIENTES"]).split(",");
+  if (LIST.length > 0) {
+    LIST.forEach((Xtem) => {
+      Xtem = String(Xtem).trim();
+      if(Xtem != "") XWHERE += (XWHERE.length > 2) ? ` OR ID='${Xtem}'`:`ID='${Xtem}'`;
+    });
+    let SEND = {
+      DB_TABLE: _Config["DATABASE"]["TABLA"]["PACIENTES"],
+      WHERE: XWHERE,
+    };
+    SEND_TO_PHP("LOAD_PACIENT_LIST", SEND);
+  }
+  SEND = {
+    DB_TABLE: "USER_DATA",
+    KEYS: `ID,NOMBRE`,
+    WHERE: `CONSULTORIO_ID='${_Data['USUARIO']['CONSULTORIO_ID']}'`
+  }
+  SEND_TO_PHP('DOCTOR_LIST', SEND);
+  
+
   setTimeout(() => {
-    if (WEB_CONFIG["CONEXION"]["METHOD"] != "LOCAL") {
-      let RAW_KEYS = Object.keys(WEB_DATA["PACIENTES"]);
+    if (_Config["CONEXION"]["METHOD"] != "LOCAL") {
+      let RAW_KEYS = Object.keys(_Data["PACIENTES"]);
       if (RAW_KEYS.includes("0")) {
-        let Temp_P = { ...WEB_DATA["PACIENTES"] };
-        WEB_DATA["PACIENTES"] = {};
+        let Temp_P = { ..._Data["PACIENTES"] };
+        _Data["PACIENTES"] = {};
         RAW_KEYS.forEach((X) => {
           let ID = Temp_P[X]["ID"];
-          WEB_DATA["PACIENTES"][ID] = Temp_P[X];
+          _Data["PACIENTES"][ID] = Temp_P[X];
         });
       }
     }
-    let TOTAL = Object.keys(WEB_DATA["PACIENTES"]).length;
+    let ID_KEYS = Object.keys(_Data["PACIENTES"])
+    let TOTAL = ID_KEYS.length;
     if (TOTAL > 0) {
-      let KEYS = Object.keys(WEB_DATA["PACIENTES"]);
       let BLACKLIST = ["BLANK", "SELECTED"];
+      let PREPARE = [];
       for (let x = 0; x < TOTAL; x++) {
-        if (BLACKLIST.includes(KEYS[x]) == false) {
-          Import_Pacient(String(KEYS[x]).toUpperCase());
-        }
+        if (!BLACKLIST.includes(ID_KEYS[x])) PREPARE.push(String(ID_KEYS[x]).toUpperCase())
       }
+      Import_Pacient(PREPARE);
     }
-    if(WEB_DATA?.['LIST'] == undefined){ WEB_DATA['LIST'] = {};}
-    WEB_DATA['LIST']['PACIENTES'] = WEB_DATA["PACIENTES"];
-  }, 1550);
+    if(_Data?.['LIST'] == undefined) _Data['LIST'] = {};
+    _Data['LIST']['PACIENTES'] = ID_KEYS;
+
+    setTimeout(() => {
+      let ELEMENTS = document.querySelectorAll('#CONFIG #CONFIG_CONSULTORY *[ITEM]')
+      ELEMENTS.forEach((X)=>{
+        let KEY = X.getAttribute('ITEM');
+        X.value = _Data['CONSULTORIO']?.[KEY] ?? "";
+      })
+
+      ELEMENTS = document.querySelectorAll('#MAIN .Consult_Info *[ITEM]')
+      ELEMENTS.forEach((X)=>{
+        try {
+          let KEY = X.getAttribute('ITEM');
+          let LANG = X.getAttribute('LG');
+          LANG = (LANG == null) ? 0:LANG.length;
+          if(!CON_KEYS.includes(KEY) && LANG == 0) X.innerHTML = _Data['CONSULTORIO']?.[KEY];
+        } catch (ERR) {
+          console.error(ERR)
+        }
+      })
+
+      let TEMP = _Data['CONSULTORIO']?.['PLANTILLAS'] ?? "SIMPLE";
+
+      ELEMENTS = document.querySelector('#CONFIG #CONFIG_GENERAL *[ITEM="PRINT_TEMPLATES"]')
+      ELEMENTS.value = TEMP;
+
+      LOAD_PRINT_TEMPLATES(TEMP)
+    }, 500)
+  }, 2550);
   return true;
 }
 
 function Load_Plantillas_List() {
-  if (WEB_CONFIG["CONEXION"]["METHOD"] != "LOCAL") {
-    WEB_DATA["PLANTILLAS"]["LINEA"] = {};
-    WEB_DATA["PLANTILLAS"]["LOCAL"] = {};
+  _Data["PLANTILLAS"]["LINEA"] = {};
+  _Data["PLANTILLAS"]["LOCAL"] = {};
 
-    let PREPARE1 = `DOCTOR = 'DEF' AND TIPO = 'PLANTILLA'`;
-    let PREPARE2 = `DOCTOR = '${WEB_DATA["USUARIO"]["ID"]}' AND TIPO = 'PLANTILLA'`;
-    let SEND = {
-      DB_HOST: WEB_CONFIG["DATABASE"]["HOST"],
-      DB_USER: WEB_CONFIG["DATABASE"]["USER"],
-      DB_PASSWORD: WEB_CONFIG["DATABASE"]["PASSWORD"],
-      DB_NAME: WEB_CONFIG["DATABASE"]["NOMBRE"],
-      DB_TABLE: WEB_CONFIG["DATABASE"]["TABLA"]["CARTAS"],
-      WHERE_1: PREPARE1,
-      WHERE_2: PREPARE2,
-    };
-    SEND_TO_PHP("LOAD_TEMPLATES", SEND);
-  } else {
-  }
+  let PREPARE1 = `DOCTOR = 'DEF' AND TIPO = 'PLANTILLA'`;
+  let PREPARE2 = `DOCTOR = '${_Data["USUARIO"]["ID"]}' AND TIPO = 'PLANTILLA'`;
+  let SEND = {
+    DB_TABLE: _Config["DATABASE"]["TABLA"]["CARTAS"],
+    WHERE_1: PREPARE1,
+    WHERE_2: PREPARE2,
+  };
+  SEND_TO_PHP("LOAD_TEMPLATES", SEND);
 
   setTimeout(() => {
     PreLoad_Plantillas();
-  }, 3500);
+  }, 4500);
 }
 
 function Calendar_DD_Selected(DD = null) {
-  let TIME = GET_TIME();
-  let MES = WEB_DATA["FECHA"]["MES"] + 1;
-  if (MES < 10) {
-    MES = `0${MES}`;
-  }
-
-  let IN_FECHA = document.querySelector("#NEW_DATE input[ITEM='FECHA']");
-  let IN_ID = document.querySelector("#NEW_DATE input[ITEM='ID']");
-  let IN_DOC = document.querySelector("#NEW_DATE input[ITEM='DOCTOR_1']");
+  let MES = (WEB_DATA['DATE']['MM'][0] < 10)? `0${WEB_DATA['DATE']['MM'][0]}`:WEB_DATA['DATE']['MM'][0];
+  let IN_FECHA = document.querySelector("#DATES_NEW input[ITEM='FECHA']");
+  let IN_ID = document.querySelector("#DATES_NEW input[ITEM='ID']");
+  let IN_DOC = document.querySelector("#DATES_NEW input[ITEM='DOCTOR_1']");
 
   if (DD != null && DD != "NO") {
-    IN_FECHA.value = `${WEB_DATA["FECHA"]["AÑO"]}-${MES}-${DD}`;
+    IN_FECHA.value = `${WEB_DATA['DATE']['YY']}-${MES}-${DD}`;
   }
-  if (WEB_DATA["PACIENTES"]["SELECTED"]?.["ID"]) {
-    IN_ID.value = WEB_DATA["PACIENTES"]["SELECTED"]["ID"];
+  if (_Data["PACIENTES"]["SELECTED"]?.["ID"]) {
+    IN_ID.value = _Data["PACIENTES"]["SELECTED"]["ID"];
   }
-  IN_DOC.value = WEB_DATA["USUARIO"]["ID"];
+  IN_DOC.value = _Data["USUARIO"]["ID"];
   if (DD == "NO") {
-    document.querySelector("#NEW_DATE").classList.add("Hiden");
+    document.querySelector("#DATES_NEW").classList.add("Hiden");
     IN_ID.value = "";
     IN_FECHA.value = "";
-    document.querySelector("#NEW_DATE input[ITEM='MOTIVO']").value = "";
-    
-    WEB_DATA["PACIENTES"]["SELECTED"]["EDIT"] = "false";
-    WEB_DATA["PACIENTES"]["SELECTED"]["EDIT_INDEX"] = undefined;
+    document.querySelector("#DATES_NEW input[ITEM='MOTIVO']").value = "";
+
+    if(_Data["PACIENTES"]?.["SELECTED"]){
+      _Data["PACIENTES"]["SELECTED"]["EDIT"] = "false";
+      _Data["PACIENTES"]["SELECTED"]["EDIT_INDEX"] = undefined;
+    }
   } else {
-    document.querySelector("#NEW_DATE").classList.remove("Hiden");
+    document.querySelector("#DATES_NEW").classList.remove("Hiden");
   }
 
-  if (
-    String(WEB_DATA["PACIENTES"]["SELECTED"]["ID"]).length > 3 &&
-    WEB_DATA["PACIENTES"]["SELECTED"]["EDIT"] == "false"
-  ) {
-    WEB_DATA["PACIENTES"]["SELECTED"]["EDIT"] = "Add";
-  }
+  if (_Data["PACIENTES"]?.["SELECTED"]?.["ID"] && _Data["PACIENTES"]["SELECTED"]["EDIT"] == "false") _Data["PACIENTES"]["SELECTED"]["EDIT"] = "Add";
 }
 
 function Calendar_MM(Step = null) {
-  if (Step == null) {
-    return false;
-  }
-  WEB_DATA["FECHA"]["MES"] = Number(WEB_DATA["FECHA"]["MES"]);
-
+  if (Step == null) return false;
   if (Step == 1) {
-    WEB_DATA["FECHA"]["MES"] += 1;
-    if (WEB_DATA["FECHA"]["MES"] > 11) {
-      WEB_DATA["FECHA"]["MES"] = 0;
-      WEB_DATA["FECHA"]["AÑO"] += 1;
-      document.querySelector("#Calendar_YY").innerHTML =
-        WEB_DATA["FECHA"]["AÑO"];
+    WEB_DATA['DATE']['MM'][0] = (Number(WEB_DATA['DATE']['MM'][0]) + 1 < 10) ? `0${Number(WEB_DATA['DATE']['MM'][0]) + 1}`:Number(WEB_DATA['DATE']['MM'][0]) + 1;
+    if (Number(WEB_DATA['DATE']['MM'][0]) > 12) {
+      WEB_DATA['DATE']['MM'][0] = '01';
+      WEB_DATA['DATE']['YY'] = Number(WEB_DATA['DATE']['YY']) + 1;
     }
   } else if (Step == -1) {
-    WEB_DATA["FECHA"]["MES"] -= 1;
-    if (WEB_DATA["FECHA"]["MES"] < 0) {
-      WEB_DATA["FECHA"]["MES"] = 11;
-      WEB_DATA["FECHA"]["AÑO"] -= 1;
-      document.querySelector("#Calendar_YY").innerHTML =
-        WEB_DATA["FECHA"]["AÑO"];
+    WEB_DATA['DATE']['MM'][0] = (Number(WEB_DATA['DATE']['MM'][0]) - 1 < 10) ? `0${Number(WEB_DATA['DATE']['MM'][0]) - 1}`:Number(WEB_DATA['DATE']['MM'][0]) - 1;
+    if (Number(WEB_DATA['DATE']['MM'][0]) < 1) {
+      WEB_DATA['DATE']['MM'][0] = '12';
+      WEB_DATA['DATE']['YY'] = Number(WEB_DATA['DATE']['YY']) - 1;
     }
-  } else {
   }
 
   Calendar_Update();
 }
 
 function Calendar_Update() {
-  let TIME = GET_TIME();
   try {
-    let Mes = [
-      "Enero",
-      "Febrero",
-      "Marzo",
-      "Abril",
-      "Mayo",
-      "Junio",
-      "Julio",
-      "Agosto",
-      "Septiembre",
-      "Octubre",
-      "Noviembre",
-      "Diciembre",
-    ];
-
-    document.querySelector("#MM_Name").innerHTML =
-      Mes[WEB_DATA["FECHA"]["MES"]];
-    if (
-      TIME["YEAR"] == WEB_DATA["FECHA"]["AÑO"] &&
-      TIME["MOUNT"] == WEB_DATA["FECHA"]["MES"] + 1
-    ) {
-      document
-        .getElementById(`DD_S_${Number(TIME["DAY"])}`)
-        .classList.add("DD_Actual");
-    } else {
-      document
-        .getElementById(`DD_S_${Number(TIME["DAY"])}`)
-        .classList.remove("DD_Actual");
-    }
-
-    let NTIME = new Date(
-      WEB_DATA["FECHA"]["AÑO"],
-      WEB_DATA["FECHA"]["MES"],
-      1
-    ).getDay();
-    if (NTIME == 0) {
-      NTIME = 7;
-    }
-    document.getElementById("DD_S_1").style.gridColumnStart = NTIME;
-
-    let DAYS = new Date(
-      WEB_DATA["FECHA"]["AÑO"],
-      WEB_DATA["FECHA"]["MES"] + 1,
-      0
-    ).getDate();
+    let Mes = ["","Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
+    document.querySelector("#MM_Name").innerHTML = `${Mes[Number(WEB_DATA['DATE']['MM'][0])]} - ${WEB_DATA['DATE']['YY']}`;
+    if (WEB_DATA['DATE']['FULL'][0] == `${WEB_DATA['DATE']['YY']}/${WEB_DATA['DATE']['MM'][0]}/${WEB_DATA['DATE']['DD'][0]}`) 
+      document.querySelector(`#DD_S_${Number(WEB_DATA['DATE']['DD'][0])}`).classList.add("DD_Actual");
+    else document.querySelector(`#DD_S_${Number(WEB_DATA['DATE']['DD'][0])}`).classList.remove("DD_Actual");
+    
+    let NTIME = new Date(WEB_DATA['DATE']['YY'],Number(WEB_DATA['DATE']['MM'][0]) - 1, 1).getDay();
+    if(NTIME == 0) NTIME = 7;
+    document.querySelector("#Calendar_DD #DD_S_1").style.gridColumnStart = NTIME;
+    let DAYS = new Date(WEB_DATA['DATE']['YY'],Number(WEB_DATA['DATE']['MM'][0]),0).getDate();
 
     for (let x = 28; x <= 31; x++) {
-      if (x > DAYS) {
-        document.querySelector(`#DD_S_${x}`).classList.add("Hiden");
-      } else {
-        document.querySelector(`#DD_S_${x}`).classList.remove("Hiden");
-      }
+      if (x > DAYS) document.querySelector(`#DD_S_${x}`).classList.add("Hiden");
+      else document.querySelector(`#DD_S_${x}`).classList.remove("Hiden");
     }
-  } catch {
+  } catch (e) {
+    console.error(e)
     return false;
   }
 }
 
 function Add_New_Date() {
-  let DOM = document.querySelector("#NEW_DATE form");
+  let DOM = document.querySelector("#DATES_NEW form");
   let ITEMS = DOM.querySelectorAll("input");
   let DATA_RAW = {};
   let DATA1 = "";
@@ -1533,36 +853,36 @@ function Add_New_Date() {
 
   let XWHERE = "";
   let SET = "";
-  if (WEB_DATA["PACIENTES"]?.["SELECTED"]?.["EDIT"] != "false") {
-    if (WEB_DATA["PACIENTES"]?.["SELECTED"]?.["EDIT"] == 'true') {
+  if (_Data["PACIENTES"]?.["SELECTED"]?.["EDIT"] != "false") {
+    if (_Data["PACIENTES"]?.["SELECTED"]?.["EDIT"] == 'true') {
       let DATA =
-        WEB_DATA["CITAS"][WEB_DATA["PACIENTES"]["SELECTED"]["ID"]][
-          WEB_DATA["PACIENTES"]["SELECTED"]["EDIT_INDEX"]
+        _Data["CITAS"][_Data["PACIENTES"]["SELECTED"]["ID"]][
+          _Data["PACIENTES"]["SELECTED"]["EDIT_INDEX"]
         ];
       XWHERE = `ID = '${DATA["ID"]}' AND FECHA = '${DATA["FECHA"]}' AND HORA = '${DATA["HORA"]}'`;
       SET = `FECHA='${DATA_RAW["FECHA"]}', HORA='${DATA_RAW["HORA"]}', MOTIVO='${DATA_RAW["MOTIVO"]}'`;
-      WEB_DATA["CITAS"][WEB_DATA["PACIENTES"]["SELECTED"]["ID"]][
-        WEB_DATA["PACIENTES"]["SELECTED"]["EDIT_INDEX"]
+      _Data["CITAS"][_Data["PACIENTES"]["SELECTED"]["ID"]][
+        _Data["PACIENTES"]["SELECTED"]["EDIT_INDEX"]
       ] = DATA_RAW;
       setTimeout(() => {
-        Load_NoteList(WEB_DATA["PACIENTES"]["SELECTED"]["ID"], false);
+        Load_NoteList(_Data["PACIENTES"]["SELECTED"]["ID"], false);
       }, 250);
     } else {
-      if (WEB_DATA["CITAS"]?.[DATA_RAW["ID"]] == undefined) {
-        WEB_DATA["CITAS"][DATA_RAW["ID"]] = {};
+      if (_Data["CITAS"]?.[DATA_RAW["ID"]] == undefined) {
+        _Data["CITAS"][DATA_RAW["ID"]] = {};
       }
-      let NUM = Object.keys(WEB_DATA["CITAS"][DATA_RAW["ID"]]).length;
+      let NUM = Object.keys(_Data["CITAS"][DATA_RAW["ID"]]).length;
       Add_Notelist("Date", DATA_RAW, NUM);
     }
   }
 
-  if (WEB_CONFIG["CONEXION"]["METHOD"] != "LOCAL") {
+  if (_Config["CONEXION"]["METHOD"] != "LOCAL") {
     let SEND = {
-      DB_HOST: WEB_CONFIG["DATABASE"]["HOST"],
-      DB_USER: WEB_CONFIG["DATABASE"]["USER"],
-      DB_PASSWORD: WEB_CONFIG["DATABASE"]["PASSWORD"],
-      DB_NAME: WEB_CONFIG["DATABASE"]["NOMBRE"],
-      DB_TABLE: WEB_CONFIG["DATABASE"]["TABLA"]["CITAS"],
+      DB_HOST: _Config["DATABASE"]["HOST"],
+      DB_USER: _Config["DATABASE"]["USER"],
+      DB_PASSWORD: _Config["DATABASE"]["PASSWORD"],
+      DB_NAME: _Config["DATABASE"]["NOMBRE"],
+      DB_TABLE: _Config["DATABASE"]["TABLA"]["CITAS"],
       SET: SET,
       TABLE_KEYS: DATA1,
       VALUES: DATA2,
@@ -1571,14 +891,14 @@ function Add_New_Date() {
     SEND_TO_PHP("ADD_DATE", SEND);
   }
 
-  if (WEB_DATA["PACIENTES"]?.["SELECTED"]?.["EDIT"] == "false" || WEB_DATA["PACIENTES"]?.["SELECTED"]?.["EDIT"] == "Add") {
-    let NUM = (WEB_DATA["CITAS"]?.[DATA_RAW["ID"]] != undefined) ? Object.keys(WEB_DATA["CITAS"][DATA_RAW["ID"]]).length:[];
-    if(WEB_DATA["CITAS"]?.[DATA_RAW["ID"]] == undefined){
-      WEB_DATA["CITAS"][DATA_RAW["ID"]] = {};
+  if (_Data["PACIENTES"]?.["SELECTED"]?.["EDIT"] == "false" || _Data["PACIENTES"]?.["SELECTED"]?.["EDIT"] == "Add") {
+    let NUM = (_Data["CITAS"]?.[DATA_RAW["ID"]] != undefined) ? Object.keys(_Data["CITAS"][DATA_RAW["ID"]]).length:[];
+    if(_Data["CITAS"]?.[DATA_RAW["ID"]] == undefined){
+      _Data["CITAS"][DATA_RAW["ID"]] = {};
     }
-    WEB_DATA["CITAS"][DATA_RAW["ID"]][NUM] = DATA_RAW;
+    _Data["CITAS"][DATA_RAW["ID"]][NUM] = DATA_RAW;
 
-    let DOM2 = document.querySelector("#Mn_Dates .Dates_List ul");
+    let DOM2 = document.querySelector("#DATES .Dates_List ul");
     let MES = [
       "",
       "Enero",
@@ -1600,11 +920,11 @@ function Add_New_Date() {
     let NTEM = ``;
     if (
       document.querySelector(
-        `#Mn_Dates .Dates_List ul li details[date="${DATA_RAW["FECHA"]}"]`
+        `#DATES .Dates_List ul li details[date="${DATA_RAW["FECHA"]}"]`
       ) != null
     ) {
       DOM2 = document.querySelector(
-        `#Mn_Dates .Dates_List ul details[date="${DATA_RAW["FECHA"]}"] ul`
+        `#DATES .Dates_List ul details[date="${DATA_RAW["FECHA"]}"] ul`
       );
       NTEM = `<li><a href="#" onclick="load_date(this)"><p class="Hiden">${JSON.stringify(
         DATA_RAW
@@ -1645,7 +965,7 @@ function Add_New_Date() {
     }
   }
 
-  if (WEB_DATA["PACIENTES"]?.["SELECTED"]?.["EDIT"] == "false") {
+  if (_Data["PACIENTES"]?.["SELECTED"]?.["EDIT"] == "false") {
     GOTO_MENU("Dates", 0);
   } else {
     Calendar_DD_Selected("NO");
@@ -1654,14 +974,14 @@ function Add_New_Date() {
     Xtem.value = "";
   });
 
-  WEB_DATA["PACIENTES"]["SELECTED"]["EDIT"] = "false";
-  WEB_DATA["PACIENTES"]["SELECTED"]["EDIT_INDEX"] = undefined;
+  _Data["PACIENTES"]["SELECTED"]["EDIT"] = "false";
+  _Data["PACIENTES"]["SELECTED"]["EDIT_INDEX"] = undefined;
 }
 
 function load_date(TEXT = "") {
   let DATA_RAW = TEXT.querySelector('p[class="Hiden"]').textContent;
   let DATA = JSON.parse(DATA_RAW);
-  let DOM = document.querySelector("#Mn_Dates .Dates_Details");
+  let DOM = document.querySelector("#DATES #Dates_Details");
   let ITEMS = DOM.querySelectorAll("p[item]");
 
   let KEYS = Object.keys(DATA);
@@ -1672,10 +992,10 @@ function load_date(TEXT = "") {
     } else {
       if (Xkey == "NOMBRE") {
         let ID = document.querySelector(
-          '#Mn_Dates .Dates_Details *[ITEM="ID"]'
+          '#DATES #Dates_Details *[ITEM="ID"]'
         ).textContent;
-        Xtem.textContent = WEB_DATA["PACIENTES"]?.[ID]
-          ? WEB_DATA["PACIENTES"][ID]["NOMBRE"]
+        Xtem.textContent = _Data["PACIENTES"]?.[ID]
+          ? _Data["PACIENTES"][ID]["NOMBRE"]
           : "#N/A";
       } else {
         Xtem.textContent = "#N/A";
@@ -1733,44 +1053,39 @@ function Pacient_List_History() {
   let Num = 0;
 
   setTimeout(() => {
-    for (let a in Elements1) {
-      setTimeout(() => {
-        if (Num > 3) {
-          T_newRow1 = TB1.insertRow(-1);
-          Num = 0;
-        }
-        T_Cell = T_newRow1.insertCell(Num);
-        T_Cell.innerHTML = `<button type="button" class="NO_CHECKED" onclick="Btn_Togle(this,'Pacient_History')">${Elements1[a]}</button>`;
-        Num += 1;
-      }, 10 * a);
-    }
-    setTimeout(() => {
-      Num = 0;
-      let T_newRow2 = TB2.insertRow(0);
-      for (let a in Elements2) {
-        setTimeout(() => {
-          if (Num > 3) {
-            T_newRow2 = TB2.insertRow(-1);
-            Num = 0;
-          }
-          T_Cell = T_newRow2.insertCell(Num);
-          T_Cell.innerHTML = `<button type="button" class="NO_CHECKED" onclick="Btn_Togle(this,'Pacient_History')">${Elements2[a]}</button>`;
-          Num += 1;
-        }, 10 * a);
+    Elements1.forEach((X)=>{
+      if(Num > 3) {
+        T_newRow1 = TB1.insertRow(-1);
+        Num = 0;
       }
-    }, 500);
+      T_Cell = T_newRow1.insertCell(Num);
+      T_Cell.innerHTML = `<button type="button" class="NO_CHECKED" onclick="Btn_Togle(this,'Pacient_History')">${X}</button>`;
+      Num += 1;
+    })
+
+    Num = 0;
+    let T_newRow2 = TB2.insertRow(0);
+    Elements2.forEach((X)=>{
+      if (Num > 3) {
+        T_newRow2 = TB2.insertRow(-1);
+        Num = 0;
+      }
+      T_Cell = T_newRow2.insertCell(Num);
+      T_Cell.innerHTML = `<button type="button" class="NO_CHECKED" onclick="Btn_Togle(this,'Pacient_History')">${X}</button>`;
+      Num += 1;
+    })
   }, 100);
 
   return true;
 }
 
 function Pacient_Register(TEXT = {}) {
-  let DOM = document.querySelectorAll("#REGISTER_FORM *[item]");
-  let IMAGE_DOM = document.querySelector("#Mn_Camara #CAM_IMG");
+  let DOM = document.querySelectorAll("#PACIENT_REGISTER .REGISTER_FORM *[item]");
+  let IMAGE_DOM = document.querySelector("#CAMARA #CAM_IMG");
   let IMAGE = IMAGE_DOM.src;
   let TIMG = "";
   if (IMAGE.length < 128) {
-    IMAGE = document.querySelector('#Mn_Import_File_R input[item="ARCHIVO"]');
+    IMAGE = document.querySelector('#IMPORT_FILE_R input[item="ARCHIVO"]');
 
     if (IMAGE.files.length > 0) {
       IMAGE = IMAGE.files[0];
@@ -1779,9 +1094,8 @@ function Pacient_Register(TEXT = {}) {
         TIMG = READER.result;
       };
       READER.readAsDataURL(IMAGE);
-    } else {
-      IMAGE = "";
-    }
+    } else IMAGE = "";
+    
   } else {
     TIMG = IMAGE;
   }
@@ -1795,18 +1109,16 @@ function Pacient_Register(TEXT = {}) {
   setTimeout(() => {
     DATA["IMG"] = TIMG;
     DATA["ID"] = DATA["CURP"];
-    WEB_DATA["PACIENTES"][DATA["CURP"]] = DATA;
+    _Data["PACIENTES"][DATA["CURP"]] = DATA;
     DATA["HISTORIAL_1"] = "";
     DATA["HISTORIAL_2"] = "";
     DATA["HISTORIAL_3"] = "";
     DATA["HISTORIAL_4"] = "";
     DATA["HISTORIAL_5"] = "";
 
-    if (DATA["CURP"].length < 3) {
-      return false;
-    }
+    if (String(DATA["CURP"]).length < 3) return false;
 
-    if (WEB_CONFIG["CONEXION"]["METHOD"] != "LOCAL") {
+    if (_Config["CONEXION"]["METHOD"] != "LOCAL") {
       let KEYS_RAW = Object.keys(DATA);
       let KEYS = "";
       let VALUES = "";
@@ -1817,18 +1129,12 @@ function Pacient_Register(TEXT = {}) {
       }
 
       KEYS_RAW.forEach((Xtem) => {
-        KEYS += `${Xtem},`;
-        VALUES += `'${DATA[Xtem]}',`;
+        KEYS += (KEYS.length > 2) ? `,${Xtem}`:`${Xtem}`;
+        VALUES += (VALUES.length > 2) ? `,'${DATA[Xtem]}'`:`'${DATA[Xtem]}'`;
       });
-      KEYS = KEYS.substring(0, KEYS.length - 1);
-      VALUES = VALUES.substring(0, VALUES.length - 1);
 
       let SEND = {
-        DB_HOST: WEB_CONFIG["DATABASE"]["HOST"],
-        DB_USER: WEB_CONFIG["DATABASE"]["USER"],
-        DB_PASSWORD: WEB_CONFIG["DATABASE"]["PASSWORD"],
-        DB_NAME: WEB_CONFIG["DATABASE"]["NOMBRE"],
-        DB_TABLE: WEB_CONFIG["DATABASE"]["TABLA"]["PACIENTES"],
+        DB_TABLE: _Config["DATABASE"]["TABLA"]["PACIENTES"],
         TABLE_KEYS: KEYS,
         VALUES: VALUES,
         WHERE: XWHERE,
@@ -1836,8 +1142,8 @@ function Pacient_Register(TEXT = {}) {
       SEND_TO_PHP("ADD_PACIENT", SEND);
     }
 
-    WEB_DATA["PACIENTES"][DATA["ID"]] = { ...DATA };
-    Import_Pacient(DATA["ID"]);
+    _Data["PACIENTES"][DATA["ID"]] = { ...DATA };
+    Import_Pacient([DATA["ID"]]);
 
     GOTO_MENU("Pacient_Select");
 
@@ -1850,71 +1156,48 @@ function Pacient_Register(TEXT = {}) {
 
 function Pacient_Load(Pacient, Force=false) {
   try {
-    let Reset = document.querySelectorAll(
-      '#Mn_Pacientes_History button[class="CHECKED"]'
-    );
-    Reset.forEach((X) => {
-      X.setAttribute("class", "NO_CHECKED");
-    });
-  } catch (err) {
-    console.warn(err);
-  }
-
-  if (WEB_CONFIG["CONEXION"]["METHOD"] == "LOCAL") {
-    if (WEB_DATA["PACIENTES"]?.[Pacient] != null) {
-      WEB_DATA["PACIENTES"]["SELECTED"] = WEB_DATA["PACIENTES"][Pacient];
-    } else {
-      GOTO_MENU("Main", 0);
-      APP_ALERT("ERROR", 1);
-      return false;
-    }
+    let Reset = document.querySelectorAll('#PACIENT_HISTORY button[class="CHECKED"]');
+    Reset.forEach((X) => {X.setAttribute("class", "NO_CHECKED");});
+  } catch (err) { console.warn(err);}
+  if (_Data["PACIENTES"]?.[Pacient] == undefined || Force == true) {
+    let SEND = {
+      DB_TABLE: _Config["DATABASE"]["TABLA"]["PACIENTES"],
+      USER: `'${_Data["USUARIO"]["ID"]}'`,
+      KEYS: "*",
+      WHERE_KEY: "ID",
+      WHERE_VALUE: Pacient,
+    };
+    SEND_TO_PHP("LOAD_PACIENT", SEND);
   } else {
-    if (WEB_DATA["PACIENTES"]?.[Pacient] == undefined || Force == true) {
-      let SEND = {
-        DB_HOST: WEB_CONFIG["DATABASE"]["HOST"],
-        DB_USER: WEB_CONFIG["DATABASE"]["USER"],
-        DB_PASSWORD: WEB_CONFIG["DATABASE"]["PASSWORD"],
-        DB_NAME: WEB_CONFIG["DATABASE"]["NOMBRE"],
-        DB_TABLE: WEB_CONFIG["DATABASE"]["TABLA"]["PACIENTES"],
-        USER: `'${WEB_DATA["USUARIO"]["ID"]}'`,
-        KEYS: "*",
-        WHERE_KEY: "ID",
-        WHERE_VALUE: Pacient,
-      };
-      SEND_TO_PHP("LOAD_PACIENT", SEND);
-    } else {
-      WEB_DATA["PACIENTES"]["SELECTED"] = WEB_DATA["PACIENTES"][Pacient];
-    }
+    _Data["PACIENTES"]["SELECTED"] = _Data["PACIENTES"][Pacient];
   }
-
-  let Count = 35;
+  
+  let Count = 35 * (1000/250);
   let REPEAT = setInterval(() => {
-    if (WEB_DATA["PACIENTES"]["SELECTED"]["ID"] != "") {
+    if (_Data["PACIENTES"]["SELECTED"]["ID"] != "") {
       clearInterval(REPEAT);
-      let DOM = document.querySelectorAll("#PACIENTE_INFO *[ITEM]");
-      let RESP = ["R_NOMBRE", "R_TEL", "R_CORREO"];
+      let DOM = document.querySelectorAll("#PACIENT_INFO_A *[ITEM]");
+      let RESP = ["R_NOMBRE", "R_TEL1", "R_TEL2", "R_CORREO"];
       let Respon = {};
       try {
-        Respon = JSON.parse(WEB_DATA["PACIENTES"]["SELECTED"]["RESPONSABLE"]);
-      } catch (err) {
-      }
+        Respon = JSON.parse(_Data["PACIENTES"]["SELECTED"]["RESPONSABLE"]);
+      } catch (err) { console.warn(err); }
 
       DOM.forEach((Xtem) => {
         let KEY = Xtem.getAttribute("ITEM");
         if (KEY == "NOMBRE") {
-          Xtem.textContent =
-            `${WEB_DATA["PACIENTES"]["SELECTED"]["NOMBRE"]} ${WEB_DATA["PACIENTES"]["SELECTED"]["APELLIDO_1"]} ${WEB_DATA["PACIENTES"]["SELECTED"]["APELLIDO_2"]}`.toUpperCase();
+          Xtem.textContent = `${_Data["PACIENTES"]["SELECTED"]["NOMBRE"]} ${_Data["PACIENTES"]["SELECTED"]["APELLIDO_1"]} ${_Data["PACIENTES"]["SELECTED"]["APELLIDO_2"]}`.toUpperCase();
         } else if (KEY == "IMG") {
-          if(WEB_DATA["PACIENTES"]["SELECTED"]["IMG"] != undefined){
-            let XIMG = WEB_DATA["PACIENTES"]["SELECTED"]["IMG"]
+          if(_Data["PACIENTES"]["SELECTED"]["IMG"] != undefined){
+            let XIMG = _Data["PACIENTES"]["SELECTED"]["IMG"]
             Xtem.src = (XIMG.length > 128)? XIMG:"IMG/User_Img.jpg";
           }
         } else {
           try {
             if (Xtem.nodeName == "INPUT") {
-              if (WEB_DATA["PACIENTES"]["SELECTED"][KEY] != undefined) {
+              if (_Data["PACIENTES"]["SELECTED"][KEY] != undefined) {
                 Xtem.value = String(
-                  WEB_DATA["PACIENTES"]["SELECTED"][KEY]
+                  _Data["PACIENTES"]["SELECTED"][KEY]
                 ).toUpperCase();
               } else {
                 if (RESP.includes(KEY)) {
@@ -1927,7 +1210,7 @@ function Pacient_Load(Pacient, Force=false) {
               }
             } else {
               Xtem.textContent = String(
-                WEB_DATA["PACIENTES"]["SELECTED"][KEY]
+                _Data["PACIENTES"]["SELECTED"][KEY]
               ).toUpperCase();
             }
           } catch (err) {
@@ -1936,9 +1219,9 @@ function Pacient_Load(Pacient, Force=false) {
         }
       });
 
-      if (WEB_DATA["PACIENTES"]["SELECTED"]["HISTORIAL_1"] != "") {
+      if (_Data["PACIENTES"]["SELECTED"]["HISTORIAL_1"] != "") {
         let HIST = String(
-          WEB_DATA["PACIENTES"]["SELECTED"]["HISTORIAL_1"]
+          _Data["PACIENTES"]["SELECTED"]["HISTORIAL_1"]
         ).toUpperCase();
         HIST = HIST.split(",");
         HIST.sort();
@@ -1963,9 +1246,9 @@ function Pacient_Load(Pacient, Force=false) {
           });
         }
       }
-      if (WEB_DATA["PACIENTES"]["SELECTED"]["HISTORIAL_2"] != "") {
+      if (_Data["PACIENTES"]["SELECTED"]["HISTORIAL_2"] != "") {
         let HIST = String(
-          WEB_DATA["PACIENTES"]["SELECTED"]["HISTORIAL_2"]
+          _Data["PACIENTES"]["SELECTED"]["HISTORIAL_2"]
         ).toUpperCase();
         HIST = HIST.split(",");
         HIST.sort();
@@ -1990,9 +1273,9 @@ function Pacient_Load(Pacient, Force=false) {
           });
         }
       }
-      if (WEB_DATA["PACIENTES"]["SELECTED"]["HISTORIAL_3"] != "") {
+      if (_Data["PACIENTES"]["SELECTED"]["HISTORIAL_3"] != "") {
         let HIST = String(
-          WEB_DATA["PACIENTES"]["SELECTED"]["HISTORIAL_3"]
+          _Data["PACIENTES"]["SELECTED"]["HISTORIAL_3"]
         ).toUpperCase();
         HIST = HIST.split(",");
         let TABLES = document.querySelectorAll("#TABLE_Historial_3 table");
@@ -2049,9 +1332,9 @@ function Pacient_Load(Pacient, Force=false) {
           }
         }
       }
-      if (WEB_DATA["PACIENTES"]["SELECTED"]["HISTORIAL_4"] != "") {
+      if (_Data["PACIENTES"]["SELECTED"]["HISTORIAL_4"] != "") {
         let HIST = String(
-          WEB_DATA["PACIENTES"]["SELECTED"]["HISTORIAL_4"]
+          _Data["PACIENTES"]["SELECTED"]["HISTORIAL_4"]
         ).toUpperCase();
         HIST = HIST.split(",");
 
@@ -2065,35 +1348,43 @@ function Pacient_Load(Pacient, Force=false) {
           }
         }
       }
-      if (WEB_DATA["PACIENTES"]["SELECTED"]["HISTORIAL_5"] != "") {
+      if (_Data["PACIENTES"]["SELECTED"]["HISTORIAL_5"] != "") {
         let HIST = String(
-          WEB_DATA["PACIENTES"]["SELECTED"]["HISTORIAL_5"]
+          _Data["PACIENTES"]["SELECTED"]["HISTORIAL_5"]
         ).toUpperCase();
         HIST = HIST.split(",");
 
         let TABLES = document.querySelectorAll("#TABLE_Historial_5 table");
         if (HIST.length > 0) {
           let Rest = document.querySelector("#Info_History_5");
+          let XP = Rest.querySelectorAll('p');
+          XP.forEach((X) => {X.remove()})
           for (let x = 0; x < HIST.length; x++) {
             let Add = document.createElement("p");
             Add.innerHTML = String(HIST[x]).toLocaleUpperCase();
             Rest.appendChild(Add);
-
-            let Values = String(HIST[x]).split(":");
-            let Buttons = TABLES[x].querySelectorAll("button");
-            if (Values[1] == "SI") {
-              Buttons[0].setAttribute("class", "CHECKED");
-            } else {
-              Buttons[1].setAttribute("class", "CHECKED");
-            }
+             try {
+               let Buttons = TABLES[x].querySelectorAll("button");
+               let Values = String(HIST[x]).split(":");
+               if (Values[1] == "SI") {
+                 Buttons[0].setAttribute("class", "CHECKED");
+               } else {
+                 Buttons[1].setAttribute("class", "CHECKED");
+               }
+             }  catch {}
           }
         }
       }
+      if (_Data['PACIENTES']['SELECTED']['HISTORIAL_6'] != ""){
+        let Rest = document.querySelector("#Info_History_6")
+        let Add = document.createElement("p");
+        Add.innerHTML = _Data['PACIENTES']?.['SELECTED']?.['HISTORIAL_6'] ?? "";
+        Rest.appendChild(Add);
+      }
 
-      document.querySelector('#Mn_Banner_Pacient_Data > div:nth-child(2) > button.Btn_Sty_3')
-      .setAttribute('onclick',`Pacient_Load('${WEB_DATA["PACIENTES"]["SELECTED"]["ID"]}',true)`);
+      document.querySelector('#PACIENT_INFO .Banner button').setAttribute('onclick',`Pacient_Load('${_Data["PACIENTES"]["SELECTED"]["ID"]}',true)`);
       Load_NoteList(Pacient);
-      GOTO_MENU("Pacient_Data", 0);
+      GOTO_MENU("PACIENT_INFO", 0);
     } else {
       if (Count > 0) {
         Count -= 1;
@@ -2103,174 +1394,171 @@ function Pacient_Load(Pacient, Force=false) {
         return false;
       }
     }
-    WEB_DATA["PACIENTES"]["SELECTED"]["EDIT"] = 'false';  
+    _Data["PACIENTES"]["SELECTED"]["EDIT"] = 'false';  
   }, 250);
 }
 
-function Import_Pacient(ID, Btn = null) {
-  if (ID.length < 3) {
-    return false;
-  }
-  ID = String(ID).toUpperCase();
+function Import_Pacient(ID = [], Btn = null) {
+  if (ID.length < 1) return false;
   if (Btn != null) {
-    Btn.setAttribute("class", "Btn_Sty_4");
-    Btn.textContent = "En propiedad";
+    Btn.setAttribute("class", "");
     Btn.setAttribute('onclick','');
+    Btn.textContent = "En propiedad";
   }
+  
+  let XWHERE = "";
+  let SET = "";
+  ID.forEach((X)=>{
+    X = String(X).toUpperCase();
+    XWHERE += (XWHERE.length > 2)? ` OR ID='${X}'`:`ID='${X}'`;
+    if(_Data["PACIENTES"]?.[X] == undefined) SET += `${X},`;
+  })
 
-  if (WEB_CONFIG["CONEXION"]["METHOD"] != "LOCAL") {
-    if (WEB_DATA["PACIENTES"]?.[ID] == undefined) {
-      let SEND = {
-        DB_HOST: WEB_CONFIG["DATABASE"]["HOST"],
-        DB_USER: WEB_CONFIG["DATABASE"]["USER"],
-        DB_PASSWORD: WEB_CONFIG["DATABASE"]["PASSWORD"],
-        DB_NAME: WEB_CONFIG["DATABASE"]["NOMBRE"],
-        DB_TABLE: WEB_CONFIG["DATABASE"]["TABLA"]["PACIENTES"],
-        KEYS: "*",
-        WHERE_KEY: "ID",
-        WHERE_VALUE: `${ID}`,
-        SET: `'${ID},',PACIENTES`,
-        USER: WEB_DATA["USUARIO"]["ID"],
-      };
-      SEND_TO_PHP("IMPORT_PACIENT", SEND);
+  let SEND = {
+    DB_TABLE: _Config["DATABASE"]["TABLA"]["PACIENTES"],
+    KEYS: "ID,NOMBRE,APELLIDO_1,APELLIDO_2,CURP,FECHA,TELEFONO_1,TELEFONO_2,GENERO,RH,CORREO",
+    WHERE: XWHERE,
+    SET: SET,
+    USER: _Data["USUARIO"]["ID"],
+  }
+  SEND_TO_PHP("IMPORT_PACIENT", SEND);
+  let PList = document.querySelector(".Pacient_List");
+
+  let DELAY = 250;
+  let COUNT = 35 * (1000 / DELAY);
+  let INTERVAL = setInterval(()=>{
+    console.log(Object.keys(_Data['PACIENTES']))
+    if(_Data['PACIENTES']?.[ID[0]] != undefined){
+      clearInterval(INTERVAL);
+      
+      ID.forEach((X)=>{
+        if(_Data['PACIENTES']?.[X]){
+          let TRS = PList.querySelector(`a[onclick="Pacient_Load('${X}')"]`);
+          if(TRS != undefined) {
+            TRS = TRS.parentNode.parentNode;
+            TRS.remove();
+          }
+
+          if(String(_Data['PACIENTES'][X]['IMG']).length < 128) _Data['PACIENTES'][X]['IMG'] =  "IMG/User_Img.jpg";
+          let Element = `
+            <td>
+              <a href="#" onclick="Pacient_Load('${_Data['PACIENTES'][X].ID}')">
+                <p ITEM="CURP">#${_Data['PACIENTES'][X].ID}</p>
+              </a>
+            </td>
+            <td>
+              <p class="Pacient_List_NAME">
+                <strong ITEM="NAME">${_Data['PACIENTES'][X].NOMBRE} ${_Data['PACIENTES'][X].APELLIDO_1} ${_Data['PACIENTES'][X].APELLIDO_2}</strong>
+              </p>
+              <p class="Pacient_List_MORE">
+                <span ITEM="GENDER">${_Data['PACIENTES'][X].GENERO}, </span>
+                <span ITEM="DATE">${_Data['PACIENTES'][X].FECHA}, </span>
+                <span ITEM="RH">${_Data['PACIENTES'][X].RH}, </span>
+                <span ITEM="TEL_1">${_Data['PACIENTES'][X].TELEFONO_1}, </span>
+                <span ITEM="EMAIL">${_Data['PACIENTES'][X].CORREO}</span>
+              </p>
+            </td>
+            <td>
+              <button type="button" class="Btn_Sty_2" onclick="Pacient_Load('${_Data['PACIENTES'][X].ID}')">Abrir</button>
+            </td>
+          `;
+          Pacient_Elemen = document.createElement("tr");
+          Pacient_Elemen.innerHTML = Element;
+          PList.appendChild(Pacient_Elemen);
+  
+          if(!_Data["USUARIO"]?.["PACIENTES"]) _Data["USUARIO"]["PACIENTES"] = {}
+          _Data["USUARIO"]["PACIENTES"] += `,${X}`; 
+        
+          let add = document.querySelector("#TABLE_PACIEENTS_COUNT_T");
+          add.innerText = Number(add.innerText) + 1;
+          let add2 = undefined;
+          if (String(_Data['PACIENTES'][X]["GENERO"])[0] == "M") add2 = document.querySelector("#TABLE_PACIEENTS_COUNT_M");
+          if (String(_Data['PACIENTES'][X]["GENERO"])[0] == "F") add2 = document.querySelector("TABLE_PACIEENTS_COUNT_F");
+          if (add2 != undefined) add2.innerText = Number(add2.innerText) + 1;
+        }
+      })
     }
-  }
-
-  let Count = 25;
-  let RESICLE = setInterval(() => {
-    if(WEB_DATA['PACIENTES']?.[ID] != undefined){
-      clearInterval(RESICLE);
-
-      let DATA = WEB_DATA["PACIENTES"]?.[ID];
-      if (DATA == undefined) {
-        return false;
-      }
-      var PList = document.querySelector(".Pacient_List");
-      if(DATA?.["IMG"] != undefined){
-        DATA["IMG"] = (DATA["IMG"].length > 128) ? DATA["IMG"]:"IMG/User_Img.jpg";
-      }
-      let IMAGE = DATA?.["IMG"] ?? "IMG/User_Img.jpg";
-      let Element = `
-      <a href="#" class="Element_Pacient" onclick="Pacient_Load('${DATA.ID}')">
-      <img src="${IMAGE}" alt=""><span>
-      <p class="Pacient_List_ID">#${DATA.ID}</p>
-      <p class="Pacient_List_NAME">${DATA.NOMBRE} ${DATA.APELLIDO_1} ${DATA.APELLIDO_2}</p>
-      <p class="Pacient_List_MORE">${DATA.GENERO}, ${DATA.FECHA}, ${DATA.RH}, ${DATA.TELEFONO_1}, ${DATA.CORREO}</p>
-      </span></a>`;
-
-      Pacient_Elemen = document.createElement("li");
-      Pacient_Elemen.classList.add("Element_Pacient_Li");
-      Pacient_Elemen.innerHTML = Element;
-      PList.appendChild(Pacient_Elemen);
-
-      if(WEB_DATA["USUARIO"]?.["PACIENTES"] == undefined){
-        WEB_DATA["USUARIO"]["PACIENTES"] = {}
-      }
-      WEB_DATA["USUARIO"]["PACIENTES"][ID] = DATA;
-
-      let add = document.querySelector("#TABLE_PACIEENTS_COUNT_T");
-      add.innerText = Number(add.innerText) + 1;
-      let add2 = undefined;
-      if (String(DATA["GENERO"])[0] == "M") {
-        add2 = document.querySelector("#TABLE_PACIEENTS_COUNT_M");
-      }
-      if (String(DATA["GENERO"])[0] == "F") {
-        add2 = document.querySelector("TABLE_PACIEENTS_COUNT_F");
-      }
-      if (add2 != undefined) {
-        add2.innerText = Number(add2.innerText) + 1;
-      }
-   }
-  
-   if(Count < 0){
-    clearInterval(RESICLE);
-    console.log(`Paciente no importado = ${ID}`)
-   }
-   Count -= 1;
-
-  }, 200)
-  
+    COUNT -= 1;
+    if(COUNT < 0) clearInterval(INTERVAL);
+  }, DELAY)
 }
 
-function Search_Pacient() {
-  if (WEB_CONFIG["CONEXION"]["METHOD"] == "LOCAL") {
+function Search_Pacient(clear = false) {
+  _Data["SEARCH"] = undefined;
+  let DOM = document.querySelectorAll("#SEARCH *[ITEM]");
+  if(clear != false){
+    DOM.forEach((X)=>{
+      if(X.nodeName == "INPUT") X.value = ""
+    })
     return false;
   }
-  let DOM = document.querySelector("#Mn_Search");
-  let TEXT = String(
-    DOM.querySelector('input[type="search"]').value
-  ).toUpperCase();
-  let KEY = String(
-    DOM.querySelector('input[name="Search_Category"]:checked + label')
-      .textContent
-  ).toUpperCase();
+  let XWHERE = "";
+  DOM.forEach((X)=>{
+    let KEY = X.getAttribute('ITEM');
+    let VALUE = X.value;
+    if(VALUE == null) VALUE = "";
+    if(VALUE != "") XWHERE += (XWHERE.length > 2) ? ` AND ${KEY} LIKE '%${VALUE}%'`:`${KEY} LIKE '%${VALUE}%'`;
+  })
 
-  if (TEXT.length < 2) {
-    return false;
-  } else {
+  if (XWHERE.length > 2) {
     let SEND = {
-      DB_HOST: WEB_CONFIG["DATABASE"]["HOST"],
-      DB_USER: WEB_CONFIG["DATABASE"]["USER"],
-      DB_PASSWORD: WEB_CONFIG["DATABASE"]["PASSWORD"],
-      DB_NAME: WEB_CONFIG["DATABASE"]["NOMBRE"],
-      DB_TABLE: WEB_CONFIG["DATABASE"]["TABLA"]["PACIENTES"],
+      DB_TABLE: _Config["DATABASE"]["TABLA"]["PACIENTES"],
       KEYS: "ID,NOMBRE,APELLIDO_1,APELLIDO_2,FECHA",
-      WHERE_KEY: KEY,
-      WHERE_VALUE: TEXT,
+      WHERE: XWHERE
     };
-
     SEND_TO_PHP("SEARCH", SEND);
 
-    let TABLE = DOM.querySelector("table");
+    let TABLE = document.querySelector("#SEARCH table");
     let TD = TABLE.querySelectorAll("tr");
     for (let XTD = 0; XTD < TD.length; XTD++) {
-      if (XTD > 0) {
-        TD[XTD].remove();
-      }
+      if (XTD > 0) TD[XTD].remove();
     }
 
-    let Count = 12;
+    let Count = 24;
     let REPEAT = setInterval(() => {
-      if (WEB_DATA["SEARCH"] != undefined) {
-        clearInterval(REPEAT);
-        let TOTAL = Object.keys(WEB_DATA["SEARCH"]).length;
-        for (let Xtem = 0; Xtem < TOTAL; Xtem++) {
-          let ROW = TABLE.insertRow(1);
-          let Cell1 = ROW.insertCell(0);
-          let Cell2 = ROW.insertCell(1);
-          let Cell3 = ROW.insertCell(2);
-          let Cell4 = ROW.insertCell(3);
-
-          Cell1.innerHTML = `${WEB_DATA["SEARCH"][Xtem]["ID"]}`;
-          Cell2.innerHTML = `${WEB_DATA["SEARCH"][Xtem]["NOMBRE"]} ${WEB_DATA["SEARCH"][Xtem]["APELLIDO_1"]} ${WEB_DATA["SEARCH"][Xtem]["APELLIDO_2"]}`;
-          Cell3.innerHTML = `${WEB_DATA["SEARCH"][Xtem]["FECHA"]}`;
-          if (
-            WEB_DATA["PACIENTES"]?.[WEB_DATA["SEARCH"][Xtem]["ID"]] == undefined
-          ) {
-            Cell4.innerHTML = `<button type="button" class="Btn_Sty_1" onclick="Import_Pacient('${WEB_DATA["SEARCH"][Xtem]["ID"]}',this)"><img src="./IMG/Wifi_Cloud.svg" alt="">Importar</button>`;
-          } else {
-            Cell4.innerHTML = `<button type="button" class="Btn_Sty_1" onclick="Import_Pacient('${WEB_DATA["SEARCH"][Xtem]["ID"]}',this)"><img src="./IMG/Wifi_Cloud.svg" alt="">Restablecer</button>`;
-          }
-        }
-
-        clearInterval(REPEAT);
-        return true;
-      } else {
-        if (Count > 0) {
-          Count -= 1;
-        } else {
+      if (_Data["SEARCH"] != undefined) {
+        if(_Data["SEARCH"][0] != null){
           clearInterval(REPEAT);
+          let REF = []
+          let REFX = []
+          let KEYS = Object.keys(_Data["SEARCH"]);
+          KEYS.forEach((X)=>{
+            REF.push(_Data["SEARCH"][X]?.['ID']);
+            REFX.push(_Data["SEARCH"][X]?.['ID']);
+          })
+          REF.sort()
+          REF.forEach((Xtem)=>{
+            let INDEX = REFX.indexOf(Xtem)
+            let ROW = TABLE.insertRow(1);
+            let Cell1 = ROW.insertCell(0);
+            let Cell2 = ROW.insertCell(1);
+            let Cell3 = ROW.insertCell(2);
+            let Cell4 = ROW.insertCell(3);
 
-          let ROW = TABLE.insertRow(1);
-          let Cell1 = ROW.insertCell(0);
+            Cell1.innerHTML = `${_Data["SEARCH"][INDEX]["ID"]}`;
+            Cell2.innerHTML = `${_Data["SEARCH"][INDEX]["NOMBRE"]} ${_Data["SEARCH"][INDEX]["APELLIDO_1"]} ${_Data["SEARCH"][INDEX]["APELLIDO_2"]}`;
+            Cell3.innerHTML = `${_Data["SEARCH"][INDEX]["FECHA"]}`;
 
-          Cell1.innerHTML = `<td colspan="4" style="color: #ff3333; background: #ddbbbb; text-align: center;"> SIN RESULTADOS <td>`;
-
-          return false;
-        }
+            if (_Data["PACIENTES"]?.[_Data["SEARCH"][INDEX]["ID"]] == undefined) Cell4.innerHTML = `<button type="button" class="Btn_Sty_1" onclick="Import_Pacient(['${_Data["SEARCH"][INDEX]["ID"]}'],this)"><img src="./IMG/Wifi_Cloud.svg" alt="">Importar</button>`;
+            else Cell4.innerHTML = `<button type="button" class="Btn_Sty_1" onclick="Import_Pacient(['${_Data["SEARCH"][INDEX]["ID"]}'],this)"><img src="./IMG/Wifi_Cloud.svg" alt="">Restablecer</button>`;
+          })
+          
+          _Data["SEARCH"] = undefined;
+          return true;
+        } else Count = 0;        
+      } 
+      if (Count > 0) {
+        Count -= 1;
+      } else {
+        clearInterval(REPEAT);
+        let ROW = TABLE.insertRow(1);
+        let Cell1 = ROW.insertCell(0);
+        Cell1.outerHTML = `<td colspan="4" style="background: #ddbbbb; text-align: center;"> SIN RESULTADOS <td>`;
+        return false;
       }
     }, 250);
   }
+  else return false; 
 }
 
 function Search_Note() {
@@ -2288,154 +1576,190 @@ function Search_Note() {
     }
 
     let SEND = {
-      DB_HOST: WEB_CONFIG["DATABASE"]["HOST"],
-      DB_USER: WEB_CONFIG["DATABASE"]["USER"],
-      DB_PASSWORD: WEB_CONFIG["DATABASE"]["PASSWORD"],
-      DB_NAME: WEB_CONFIG["DATABASE"]["NOMBRE"],
-      DB_TABLE: WEB_CONFIG["DATABASE"]["TABLA"]["NOTAS"],
+      DB_HOST: _Config["DATABASE"]["HOST"],
+      DB_USER: _Config["DATABASE"]["USER"],
+      DB_PASSWORD: _Config["DATABASE"]["PASSWORD"],
+      DB_NAME: _Config["DATABASE"]["NOMBRE"],
+      DB_TABLE: _Config["DATABASE"]["TABLA"]["NOTAS"],
       KEYS: "FECHA,HORA,MOTIVO,TIPO",
       WHERE_KEY: "ID",
-      WHERE_VALUE: WEB_DATA["PACIENTES"]["SELECTED"]["ID"],
+      WHERE_VALUE: _Data["PACIENTES"]["SELECTED"]["ID"],
     };
     SEND_TO_PHP("SEARCH", SEND);
 
-    let Count = 16;
+    let Count = 30 * (1000/250);
     let REPEAT = setInterval(() => {
-      if (WEB_DATA["SEARCH"] != undefined) {
-        clearInterval(REPEAT);
-        let TOTAL = Object.keys(WEB_DATA["SEARCH"]).length;
-        for (let Xtem = 0; Xtem < TOTAL; Xtem++) {
-          let ROW = TABLA.insertRow(1);
-          let Cell1 = ROW.insertCell(0);
-          let Cell2 = ROW.insertCell(1);
-          let Cell3 = ROW.insertCell(2);
-          let Cell4 = ROW.insertCell(3);
-
-          Cell1.innerHTML = `${WEB_DATA["SEARCH"][Xtem]["FECHA"]}`;
-          Cell2.innerHTML = `${WEB_DATA["SEARCH"][Xtem]["MOTIVO"]}`;
-          Cell3.innerHTML = ``;
-          Cell4.innerHTML = `
-          <button type="button" class="Btn_Sty_4" onclick="Open_Note('${WEB_DATA["SEARCH"][Xtem]["FECHA"]},${WEB_DATA["SEARCH"][Xtem]["HORA"]}')"><img src="./IMG/eye-solid.svg" alt="">Ver</button>
-          <button type="button" class="Btn_Sty_1" onclick="Edit_Note('${WEB_DATA["SEARCH"][Xtem]["FECHA"]},${WEB_DATA["SEARCH"][Xtem]["HORA"]}')"><img src="./IMG/Edit.svg" alt="">Editar</button>
-          <button type="button" class="Btn_Sty_3" onclick="Delete_Note('${WEB_DATA["SEARCH"][Xtem]["FECHA"]},${WEB_DATA["SEARCH"][Xtem]["HORA"]}')"><img src="./IMG/Delete.svg" alt=""></button>
-          `;
-        }
-        return true;
-      } else {
-        if (Count > 0) {
-          Count -= 1;
-        } else {
+      if (_Data["SEARCH"] != undefined) {
+        if(_Data["SEARCH"][0] != null){
           clearInterval(REPEAT);
-          let ROW = TABLA.insertRow(1);
-          let Cell1 = ROW.insertCell(0);
-          Cell1.innerHTML = `<td colspan="4" style="color: #ff3333; background: #ddbbbb; text-align: center;"> SIN RESULTADOS <td>`;
-          return false;
-        }
+          let TOTAL = Object.keys(_Data["SEARCH"]).length;
+          for (let Xtem = 0; Xtem < TOTAL; Xtem++) {
+            let ROW = TABLA.insertRow(1);
+            let Cell1 = ROW.insertCell(0);
+            let Cell2 = ROW.insertCell(1);
+            let Cell3 = ROW.insertCell(2);
+            let Cell4 = ROW.insertCell(3);
+
+            Cell1.innerHTML = `${_Data["SEARCH"][Xtem]["FECHA"]}`;
+            Cell2.innerHTML = `${_Data["SEARCH"][Xtem]["MOTIVO"]}`;
+            Cell3.innerHTML = ``;
+            Cell4.innerHTML = `
+            <button type="button" class="Btn_Sty_4" onclick="Open_Note('${_Data["SEARCH"][Xtem]["FECHA"]},${_Data["SEARCH"][Xtem]["HORA"]}')"><img src="./IMG/eye-solid.svg" alt="">Ver</button>
+            <button type="button" class="Btn_Sty_1" onclick="Edit_Note('${_Data["SEARCH"][Xtem]["FECHA"]},${_Data["SEARCH"][Xtem]["HORA"]}')"><img src="./IMG/Edit.svg" alt="">Editar</button>
+            <button type="button" class="Btn_Sty_3" onclick="Delete_Note('${_Data["SEARCH"][Xtem]["FECHA"]},${_Data["SEARCH"][Xtem]["HORA"]}')"><img src="./IMG/Delete.svg" alt=""></button>
+            `;
+          }
+          return true;
+        } else Count = 0;
+      }
+      if (Count > 0) {
+        Count -= 1;
+      } else {
+        clearInterval(REPEAT);
+        let ROW = TABLA.insertRow(1);
+        let Cell1 = ROW.insertCell(0);
+        Cell1.innerHTML = `<td colspan="4" style="color: #ff3333; background: #ddbbbb; text-align: center;"> SIN RESULTADOS <td>`;
+        return false;
       }
     }, 250);
   }
   return true;
 }
 
-function Search_Doc() {
-  let TABLA = document.querySelector("#Mn_Pacientes_Docs table");
-  let SEARCH = document.querySelector(
-    '#Mn_Pacientes_Docs table input[type="search"]'
-  ).value;
+function Search_Doc(Menu = "") {
+  let DOM = undefined;
+  let Filter = undefined;
+  let FilterIndex = undefined;
+  let Search = undefined;
+  let DeepSearch = undefined;
 
-  if (SEARCH.length > 1) {
-    let TR = TABLA.querySelectorAll("tr");
-    for (let XTD = 0; XTD < TR.length; XTD++) {
-      if (XTD > 0) {
-        TD[XTD].remove();
-      }
-    }
+  Menu = String(Menu).toUpperCase()
+  if(Menu == "PACIENT"){
+    DOM = document.querySelector('#Cn_Pacientes_List table');
+    Filter = document.querySelector('#Cn_Pacientes_List div.Search select').value;
+    Search = document.querySelector('#Cn_Pacientes_List div.Search input[type="search"]').value;
+    FilterIndex = (Filter == "CURP") ? 1:2;
+  }
+  else if(Menu == "NOTE"){
+    DOM = document.querySelector('#TABLE_Notes');
+    Filter = document.querySelector('#PACIENT_NOTES select').value;
+    Search = document.querySelector('#PACIENT_NOTES input[type="search"]').value;
+    let DIC = {"DATE":1,"MOTIVE":2,"TAGS":3}
+    FilterIndex = DIC?.[Filter] ?? undefined;
+    Menu = "Note";
+  }
+  else if(Menu == "DOC"){
+    DOM = document.querySelector('#TABLE_Docs');
+    Filter = document.querySelector('#PACIENT_DOCS details[submenu="Cartas"] select').value;
+    Search = document.querySelector('#PACIENT_DOCS details[submenu="Cartas"] input[type="search"]').value;
+    let DIC = {"DATE":1,"NAME":2,"MOTIVE":3}
+    FilterIndex = DIC?.[Filter] ?? undefined;
+    Menu = "Carta";
+  }
+  else if(Menu == "FILE"){
+    DOM = document.querySelector('#TABLE_Files');
+    Filter = document.querySelector('#PACIENT_DOCS details[submenu="Archivos"] select').value;
+    Search = document.querySelector('#PACIENT_DOCS details[submenu="Archivos"] input[type="search"]').value;
+    let DIC = {"DATE":1,"NAME":2,"TYPE":3}
+    FilterIndex = DIC?.[Filter] ?? undefined;
+    Menu = "Archivo";
+  }
+  if(DOM == undefined) return false;
+  Search = String(Search).toLowerCase();
 
+  let DELAY = 0;
+  if(DeepSearch == true){
+    DELAY = 3000;
     let SEND = {
-      DB_HOST: WEB_CONFIG["DATABASE"]["HOST"],
-      DB_USER: WEB_CONFIG["DATABASE"]["USER"],
-      DB_PASSWORD: WEB_CONFIG["DATABASE"]["PASSWORD"],
-      DB_NAME: WEB_CONFIG["DATABASE"]["NOMBRE"],
-      DB_TABLE: WEB_CONFIG["DATABASE"]["TABLA"]["CARTAS"],
+      DB_TABLE: _Config["DATABASE"]["TABLA"]["CARTAS"],
       KEYS: "NOMBRE,TIPO,FECHA,HORA",
       WHERE_KEY: "ID",
-      WHERE_VALUE: WEB_DATA["PACIENTES"]["SELECTED"]["ID"],
+      WHERE_VALUE: _Data["PACIENTES"]["SELECTED"]["ID"],
     };
     SEND_TO_PHP("SEARCH", SEND);
+  }
 
-    let Count = 16;
-    let REPEAT = setInterval(() => {
-      if (WEB_DATA["SEARCH"] != undefined) {
-        clearInterval(REPEAT);
-        let TOTAL = Object.keys(WEB_DATA["SEARCH"]).length;
-        for (let Xtem = 0; Xtem < TOTAL; Xtem++) {
-          let ROW = TABLA.insertRow(1);
-          let Cell1 = ROW.insertCell(0);
-          let Cell2 = ROW.insertCell(1);
-          let Cell3 = ROW.insertCell(2);
-          let Cell4 = ROW.insertCell(3);
+  setTimeout(() => {
+    if (DELAY > 0 && _Data["SEARCH"] != undefined && Menu != "PACIENT") {
+      let TOTAL = Object.keys(_Data["SEARCH"]).length;
+      let XMENU = undefined
+      let Docs = undefined;
+      if(Menu == "Archivo") XMENU = _Data['DOCUMENTOS'][_Data['PACIENTES']['SELECTED']['ID']]['ARCHIVOS']
+      else if(Menu == "Carta") XMENU = _Data['DOCUMENTOS'][_Data['PACIENTES']['SELECTED']['ID']]['CARTAS']
+      else if(Menu == "Note") XMENU = _Data['NOTAS'][_Data['PACIENTES']['SELECTED']['ID']]
+      else if(Menu == "PACIENT") XMENU = _Data['PACIENTES']
+      Docs = Object.keys(XMENU)
 
-          Cell1.innerHTML = `${WEB_DATA["SEARCH"][Xtem]["FECHA"]}`;
-          Cell2.innerHTML = `${WEB_DATA["SEARCH"][Xtem]["NOMBRE"]}`;
-          Cell3.innerHTML = `${WEB_DATA["SEARCH"][Xtem]["TIPO"]}`;
-          Cell4.innerHTML = `
-          <button type="button" class="Btn_Sty_4" onclick="Open_Doc('${WEB_DATA["SEARCH"][Xtem]["FECHA"]},${WEB_DATA["SEARCH"][Xtem]["HORA"]}')"><img src="./IMG/eye-solid.svg" alt="">Ver</button>
-          <button type="button" class="Btn_Sty_1" onclick="Edit_Doc('${WEB_DATA["SEARCH"][Xtem]["FECHA"]},${WEB_DATA["SEARCH"][Xtem]["HORA"]}')"><img src="./IMG/Edit.svg" alt="">Editar</button>
-          <button type="button" class="Btn_Sty_3" onclick="Delete_Doc('${WEB_DATA["SEARCH"][Xtem]["FECHA"]},${WEB_DATA["SEARCH"][Xtem]["HORA"]}')"><img src="./IMG/Delete.svg" alt=""></button>
-          `;
+      TOTAL.forEach((X)=>{
+        let PREPARE1 = `${_Data['SEARCH'][X]['FECHA']}-${_Data['SEARCH'][X]['HORA']}`;
+        Docs.forEach((Y)=>{
+            let PREPARE2 = `${XMENU[Y]['FECHA']}-${XMENU[Y]['HORA']}`;
+            if(PREPARE1 == PREPARE2) _Data["SEARCH"][X] = undefined;
+        })
+      })
+      TOTAL.forEach((X)=>{
+        if(_Data["SEARCH"][X] != undefined){
+          if(Menu != "PACIENT") Add_Notelist(Menu, _Data['SEARCH'][X]);
         }
-        return true;
-      } else {
-        if (Count > 0) {
-          Count -= 1;
-        } else {
-          clearInterval(REPEAT);
-          let ROW = TABLA.insertRow(1);
-          let Cell1 = ROW.insertCell(0);
-          Cell1.innerHTML = `<td colspan="4" style="color: #ff3333; background: #ddbbbb; text-align: center;"> SIN RESULTADOS <td>`;
-          return false;
+      })
+    }
+      
+    let TRS = DOM.querySelectorAll('tr');
+    let TResult = 0;
+    TRS.forEach((X)=>{
+      let XDATA = "";
+      if(FilterIndex != undefined && FilterIndex > 0) {
+        try {
+          if(Menu == "PACIENT") XDATA = X.querySelector(`td:nth-child(${FilterIndex}) *[ITEM="${Filter}"]`).innerText;
+          else XDATA = X.querySelector(`td:nth-child(${FilterIndex})`).innerText;
+        } catch {
+          XDATA = "undefined";
         }
       }
-    }, 250);
-  }
+      if(XDATA.length > 1) XDATA = String(XDATA).toLocaleLowerCase();
+      if(XDATA.search(Search) < 0) X.classList.add('Hiden'); 
+      else {
+        X.classList.remove('Hiden'); 
+        TResult += 1;
+      }
+    })
+    TRS[0].classList.remove('Hiden');
+
+    if(TResult == 0) setTimeout(() => {
+      alert('>> 0 RESULT <<');
+    }, 50);
+  
+  }, DELAY);
+  
   return true;
 }
 
 function Save_Pacient() {
-  let TIME = GET_TIME();
-  let DATA = WEB_DATA["PACIENTES"]["SELECTED"];
-
+  let DATA = _Data["PACIENTES"]["SELECTED"];
   try{
-    let N1 = document.querySelector('#PACIENTE_INFO input[item="PESO"]').value;
-    let N2 = Number(document.querySelector('#PACIENTE_INFO input[item="ALTURA"]').value) / 100;
+    let N1 = document.querySelector('#PACIENT_INFO input[item="PESO"]').value;
+    let N2 = Number(document.querySelector('#PACIENT_INFO input[item="ALTURA"]').value) / 100;
     let VAL = (Number(N1) / (N2 * N2)); 
-    document.querySelector('#PACIENTE_INFO input[item="IMC"]').value = VAL.toFixed(2);
+    document.querySelector('#PACIENT_INFO input[item="IMC"]').value = VAL.toFixed(2);
   } catch(e){ console.log(e);}
 
-  let INFO1 = document.querySelectorAll("#PACIENTE_INFO input[item]");
-  let PResp = ["R_NOMBRE", "R_TEL", "R_CORREO"];
+  let INFO1 = document.querySelectorAll("#PACIENT_INFO input[item]");
+  let PResp = ["R_NOMBRE", "R_TEL1", "R_TEL2", "R_CORREO"];
   DATA["RESPONSABLE"] = "";
   INFO1.forEach((Xtem) => {
     let KEY = Xtem.getAttribute("ITEM");
     if (PResp.includes(KEY) == false) {
       DATA[KEY] = Xtem.value;
     } else {
-      if (DATA["RESPONSABLE"].length > 2) {
-        DATA["RESPONSABLE"] += `,`;
-      }
-      DATA["RESPONSABLE"] += `"${KEY}":"${Xtem.value}"`;
+      DATA["RESPONSABLE"] += (DATA["RESPONSABLE"].length > 2) ? `,"${KEY}":"${Xtem.value}"`:`"${KEY}":"${Xtem.value}"`;
     }
   });
   DATA["RESPONSABLE"] = `{${DATA["RESPONSABLE"]}}`;
 
-  //let ED1 = Number((WEB_DATA['PACIENTES']['SELECTED']['FECHA']).split('-')[0]); 
-  //let ED2 = Number(TIME['YEAR']); 
-  //let XEdad = ED1 - ED2;
-  //DATA['EDAD'] = `(${XEdad})`;
-
-
-  let Ale = document.querySelectorAll('#Info_History_3 > p')[5];
-  Ale.innerText = `ALERGIAS: ${document.querySelector('#TABLE_Historial_Alergias').value}`;
+  try{
+    let Ale = document.querySelectorAll('#Info_History_3 > p')[5];
+    Ale.innerText = `ALERGIAS: ${document.querySelector('#TABLE_Historial_Alergias').value}`;
+  } catch {}
 
   let Hist1 = document.querySelectorAll("#Info_History_1 p");
   let Hist2 = document.querySelectorAll("#Info_History_2 p");
@@ -2448,36 +1772,22 @@ function Save_Pacient() {
   DATA["HISTORIAL_3"] = "";
   DATA["HISTORIAL_4"] = "";
   DATA["HISTORIAL_5"] = "";
+  DATA["HISTORIAL_6"] = document.querySelector('#Historial_6').value;
 
   Hist1.forEach((Xtem) => {
-    DATA["HISTORIAL_1"] += `${String(Xtem.textContent).toLowerCase()},`
-      .replace("\n", "")
-      .replace("\n", "")
-      .trim();
+    DATA["HISTORIAL_1"] += `${String(Xtem.textContent).toLowerCase()},`.replace("\n", "").replace("\n", "").trim();
   });
   Hist2.forEach((Xtem) => {
-    DATA["HISTORIAL_2"] += `${String(Xtem.textContent).toLowerCase()},`
-      .replace("\n", "")
-      .replace("\n", "")
-      .trim();
+    DATA["HISTORIAL_2"] += `${String(Xtem.textContent).toLowerCase()},`.replace("\n", "").replace("\n", "").trim();
   });
   Hist3.forEach((Xtem) => {
-    DATA["HISTORIAL_3"] += `${String(Xtem.textContent).toLowerCase()},`
-      .replace("\n", "")
-      .replace("\n", "")
-      .trim();
+    DATA["HISTORIAL_3"] += `${String(Xtem.textContent).toLowerCase()},`.replace("\n", "").replace("\n", "").trim();
   });
   Hist4.forEach((Xtem) => {
-    DATA["HISTORIAL_4"] += `${String(Xtem.textContent).toLowerCase()},`
-      .replace("\n", "")
-      .replace("\n", "")
-      .trim();
+    DATA["HISTORIAL_4"] += `${String(Xtem.textContent).toLowerCase()},`.replace("\n", "").replace("\n", "").trim();
   });
   Hist5.forEach((Xtem) => {
-    DATA["HISTORIAL_5"] += `${String(Xtem.textContent).toLowerCase()},`
-      .replace("\n", "")
-      .replace("\n", "")
-      .trim();
+    DATA["HISTORIAL_5"] += `${String(Xtem.textContent).toLowerCase()},`.replace("\n", "").replace("\n", "").trim();
   });
 
   DATA["HISTORIAL_1"] =
@@ -2514,10 +1824,10 @@ function Save_Pacient() {
           .replaceAll(" ", "")
       : "";
   let WAIT = 150;
-  let IMAGE_DOM = document.querySelector("#Mn_Camara #CAM_IMG");
+  let IMAGE_DOM = document.querySelector("#CAMARA #CAM_IMG");
   if (IMAGE_DOM.src.length < 128) {
     let IMAGE = document.querySelector(
-      '#Mn_Import_File_R input[item="ARCHIVO"]'
+      '#IMPORT_FILE_R input[item="ARCHIVO"]'
     );
 
     if (IMAGE.files.length > 0) {
@@ -2534,36 +1844,30 @@ function Save_Pacient() {
   }
 
   setTimeout(() => {
-    if (WEB_CONFIG["CONEXION"]["METHOD"] != "LOCAL") {
+    if (_Config["CONEXION"]["METHOD"] != "LOCAL") {
       let VALUES = ``;
       let KEYS = Object.keys(DATA);
       let BLACKLIST = ['EDIT','EDIT_INDEX'];
       KEYS.forEach((Xtem) => {
-        if(BLACKLIST.includes(Xtem) == false){
-          VALUES += `${Xtem}='${DATA[Xtem]}',`;
-        }
+        if(BLACKLIST.includes(Xtem) == false) VALUES += `${Xtem}='${DATA[Xtem]}',`;
       });
       VALUES = VALUES.substring(0, VALUES.length - 1);
 
       let SEND = {
-        DB_HOST: WEB_CONFIG["DATABASE"]["HOST"],
-        DB_USER: WEB_CONFIG["DATABASE"]["USER"],
-        DB_PASSWORD: WEB_CONFIG["DATABASE"]["PASSWORD"],
-        DB_NAME: WEB_CONFIG["DATABASE"]["NOMBRE"],
-        DB_TABLE: WEB_CONFIG["DATABASE"]["TABLA"]["PACIENTES"],
+        DB_TABLE: _Config["DATABASE"]["TABLA"]["PACIENTES"],
         SET: VALUES,
         WHERE_KEY: "ID",
-        WHERE_VALUE: WEB_DATA["PACIENTES"]["SELECTED"]["ID"],
+        WHERE_VALUE: _Data["PACIENTES"]["SELECTED"]["ID"],
       };
       SEND_TO_PHP("UPDATE_PACIENT", SEND);
 
       KEYS.forEach((Xtem) => {
-        WEB_DATA["PACIENTES"][DATA["ID"]][Xtem] = DATA[Xtem];
+        _Data["PACIENTES"][DATA["ID"]][Xtem] = DATA[Xtem];
       });
     } else {
       let KEYS = Object.keys(DATA);
       KEYS.forEach((Xtem) => {
-        WEB_DATA["PACIENTES"][DATA["ID"]][Xtem] = DATA[Xtem];
+        _Data["PACIENTES"][DATA["ID"]][Xtem] = DATA[Xtem];
       });
     }
 
@@ -2573,29 +1877,21 @@ function Save_Pacient() {
 }
 
 function Add_Notelist(Type, DATA, sub = "") {
-  if (DATA == undefined) {
-    return false;
-  }
-  var TB = undefined;
-  if (Type == "Note") {
-    TB = document.getElementById("TABLE_Notes");
-  } else if (Type == "Carta") {
-    TB = document.getElementById("TABLE_Docs");
-  } else if (Type == "Archivo") {
-    TB = document.getElementById("TABLE_Files");
-  } else if (Type == "Date") {
-    TB = document.getElementById("TABLE_Dates");
-  } else {
-    return false;
-  }
-
-  let TIME = GET_TIME();
+  if (DATA == undefined) return false;
+  let TB = undefined;
+  if (Type == "Note") TB = document.getElementById("TABLE_Notes");
+  else if (Type == "Carta") TB = document.getElementById("TABLE_Docs");
+  else if (Type == "Archivo") TB = document.getElementById("TABLE_Files");
+  else if (Type == "Date") TB = document.getElementById("TABLE_Dates");
+  else return false;
+  
   let Row = TB.insertRow(1);
   let Cell1 = Row.insertCell();
   let Cell2 = Row.insertCell();
   let Cell3 = Row.insertCell();
   let Cell4 = Row.insertCell();
 
+  let RET = "";
   if (Type == "Note") {
     let Temp = JSON.parse(DATA["OTROS"]);
     Cell1.innerHTML = DATA?.["FECHA"] ?? "";
@@ -2605,6 +1901,7 @@ function Add_Notelist(Type, DATA, sub = "") {
       Cell2.innerHTML = DATA?.["MOTIVO"] ?? "";
     }
     Cell3.innerHTML = Temp?.["TYPE"] ?? "";
+    RET = Temp?.["TYPE"] ?? "";
   } else if (Type == "Carta") {
     Cell1.innerHTML = DATA?.["FECHA"] ?? "";
     Cell2.innerHTML = DATA?.["NOMBRE"] ?? "";
@@ -2615,7 +1912,7 @@ function Add_Notelist(Type, DATA, sub = "") {
     Cell3.innerHTML = DATA?.["type_BLOB"] ?? "";
   } else if (Type == "Date") {
     Cell1.innerHTML = DATA?.["FECHA"];
-    if (Date.parse(TIME["DATE"]) > Date.parse(DATA?.["FECHA"])) {
+    if (Date.parse(WEB_DATA['DATE']['FULL'][0]) > Date.parse(DATA?.["FECHA"])) {
       Cell2.innerHTML = "Completa";
     } else {
       Cell2.innerHTML = "Pendiente";
@@ -2623,39 +1920,40 @@ function Add_Notelist(Type, DATA, sub = "") {
     Cell3.innerHTML = DATA?.["MOTIVO"] ?? "";
   }
   if (Type != "Archivo") {
+    let XPREP = "";
+    let PREPARE = {Note: "NOTE", Carta: "CART", Date: "DATE"}
+    Type = PREPARE?.[Type] ?? "";
+
+    if(Type == "NOTE") XPREP = `['${Type}','${RET}']`;
+    else if(Type == "DATE") XPREP = `['${Type}','SIMPLE']`;
+    else if(Type == "CART") XPREP = `['${Type}','DEF']`;
+    
     Cell4.innerHTML = `
     <div>
-    <button type="button" class="Btn_Sty_1" onclick="TO_PRINT('${Type}',${sub})"><img src="./IMG/Print.svg" alt=""></button>
-    <button type="button" class="Btn_Sty_4" onclick="READ_TEXT('${Type}',${sub})"><img src="./IMG/eye-solid.svg" alt=""></button>
-    <button type="button" class="Btn_Sty_4" onclick="EDIT_TEXT('${Type}',${sub})"><img src="./IMG/Edit.svg" alt=""></button>
+    <button type="button" class="Btn_Sty_2" onclick="TO_PRINT(${XPREP},${sub})"><img src="./IMG/Print.svg" alt=""></button>
+    <button type="button" class="Btn_Sty_2" onclick="EDIT_TEXT('${Type}',${sub})"><img src="./IMG/Edit.svg" alt=""></button>
     <button type="button" class="Btn_Sty_3" onclick="DELETE_FILE(${sub}, '${Type.toUpperCase()}')"><img src="./IMG/Delete.svg" alt=""></button>
     </div>`;
   } else {
     Cell4.innerHTML = `
     <div>
-    <button type="button" class="Btn_Sty_4" onclick="DOWNLOAD_FILE(${sub},'FILE',false)"><img src="./IMG/eye-solid.svg" alt=""></button>
-    <button type="button" class="Btn_Sty_4" onclick="DOWNLOAD_FILE(${sub},'FILE',true)"><img src="./IMG/Download.svg" alt=""></button>
+    <button type="button" class="Btn_Sty_2" onclick="DOWNLOAD_FILE(${sub},'FILE',false)"><img src="./IMG/eye-solid.svg" alt=""></button>
+    <button type="button" class="Btn_Sty_2" onclick="DOWNLOAD_FILE(${sub},'FILE',true)"><img src="./IMG/Download.svg" alt=""></button>
     <button type="button" class="Btn_Sty_3" onclick="DELETE_FILE(${sub}, 'FILE')"><img src="./IMG/Delete.svg" alt=""></button>
     </div>`;
   }
 }
 
 function Load_NoteList(ID, ReloadAll = true) {
-  if (WEB_DATA["PACIENTES"]?.[ID] == undefined) {
-    return false;
-  }
+  if (!_Data["PACIENTES"]?.[ID]) return false;
   if (ReloadAll == true) {
-    if (WEB_CONFIG["CONEXION"]["METHOD"] != "LOCAL") {
+    if (_Config["CONEXION"]["METHOD"] != "LOCAL") {
       let SEND = {
-        DB_HOST: WEB_CONFIG["DATABASE"]["HOST"],
-        DB_USER: WEB_CONFIG["DATABASE"]["USER"],
-        DB_PASSWORD: WEB_CONFIG["DATABASE"]["PASSWORD"],
-        DB_NAME: WEB_CONFIG["DATABASE"]["NOMBRE"],
-        DB_TABLE1: WEB_CONFIG["DATABASE"]["TABLA"]["NOTAS"],
-        DB_TABLE2: WEB_CONFIG["DATABASE"]["TABLA"]["CITAS"],
-        DB_TABLE3: WEB_CONFIG["DATABASE"]["TABLA"]["CARTAS"],
-        DB_TABLE4: WEB_CONFIG["DATABASE"]["TABLA"]["ARCHIVOS"],
-        USER: `'${WEB_DATA["USUARIO"]["ID"]}'`,
+        DB_TABLE1: _Config["DATABASE"]["TABLA"]["NOTAS"],
+        DB_TABLE2: _Config["DATABASE"]["TABLA"]["CITAS"],
+        DB_TABLE3: _Config["DATABASE"]["TABLA"]["CARTAS"],
+        DB_TABLE4: _Config["DATABASE"]["TABLA"]["ARCHIVOS"],
+        USER: `'${_Data["USUARIO"]["ID"]}'`,
         KEYS: "*",
         WHERE_KEY: "ID",
         WHERE_VALUE: ID,
@@ -2664,77 +1962,69 @@ function Load_NoteList(ID, ReloadAll = true) {
     }
   }
 
-  if(WEB_CONFIG['CONEXION']['METHOD'] == "LOCAL"){
-    WEB_DATA["NOTAS"]["TEMP"] = {};
-    WEB_DATA["CITAS"]["TEMP"] = {};
-    WEB_DATA["DOCUMENTOS"]["TEMP"] = WEB_DATA["DOCUMENTOS"]?.["TEMP"] ?? {};
-    WEB_DATA["DOCUMENTOS"]["TEMP"]["CARTAS"] = {};
-    WEB_DATA["DOCUMENTOS"]["TEMP"]["ARCHIVOS"] = {};
-  }
-
   setTimeout(() => {
-    WEB_DATA["DOCUMENTOS"][ID] = WEB_DATA["DOCUMENTOS"]?.[ID]
-      ? WEB_DATA["DOCUMENTOS"][ID]
+    _Data["DOCUMENTOS"][ID] = _Data["DOCUMENTOS"]?.[ID]
+      ? _Data["DOCUMENTOS"][ID]
       : {};
 
-    if (WEB_DATA["NOTAS"]["TEMP"] != {}) {
-      WEB_DATA["NOTAS"][ID] = WEB_DATA["NOTAS"]?.[ID]
-        ? WEB_DATA["NOTAS"][ID]
-        : { ...WEB_DATA["NOTAS"]["TEMP"] };
-      WEB_DATA["NOTAS"]["TEMP"] = {};
+    if (_Data["NOTAS"]["TEMP"] != {}) {
+      _Data["NOTAS"][ID] = _Data["NOTAS"]?.[ID]
+        ? _Data["NOTAS"][ID]
+        : { ..._Data["NOTAS"]["TEMP"] };
+      _Data["NOTAS"]["TEMP"] = {};
     }
-    if (WEB_DATA["CITAS"]["TEMP"] != {}) {
-      WEB_DATA["CITAS"][ID] = WEB_DATA["CITAS"]?.[ID]
-        ? WEB_DATA["CITAS"][ID]
-        : { ...WEB_DATA["CITAS"]["TEMP"] };
-      WEB_DATA["CITAS"]["TEMP"] = {};
+    if (_Data["CITAS"]["TEMP"] != {}) {
+      _Data["CITAS"][ID] = _Data["CITAS"]?.[ID]
+        ? _Data["CITAS"][ID]
+        : { ..._Data["CITAS"]["TEMP"] };
+      _Data["CITAS"]["TEMP"] = {};
     }
-    if (WEB_DATA["DOCUMENTOS"]["TEMP"]["CARTAS"] != {}) {
-      if (WEB_DATA["DOCUMENTOS"]?.[ID]?.["CARTAS"] == undefined) {
-        WEB_DATA["DOCUMENTOS"][ID]["CARTAS"] = Object(
-          WEB_DATA["DOCUMENTOS"]["TEMP"]["CARTAS"]
+    if (_Data["DOCUMENTOS"]["TEMP"]["CARTAS"] != {}) {
+      if (_Data["DOCUMENTOS"]?.[ID]?.["CARTAS"] == undefined) {
+        _Data["DOCUMENTOS"][ID]["CARTAS"] = Object(
+          _Data["DOCUMENTOS"]["TEMP"]["CARTAS"]
         );
       }
     }
-    if (WEB_DATA["DOCUMENTOS"]["TEMP"]["ARCHIVOS"] != {}) {
-      if (WEB_DATA["DOCUMENTOS"]?.[ID]?.["ARCHIVOS"] == undefined) {
-        WEB_DATA["DOCUMENTOS"][ID]["ARCHIVOS"] = Object(
-          WEB_DATA["DOCUMENTOS"]["TEMP"]["ARCHIVOS"]
+    if (_Data["DOCUMENTOS"]["TEMP"]["ARCHIVOS"] != {}) {
+      if (_Data["DOCUMENTOS"]?.[ID]?.["ARCHIVOS"] == undefined) {
+        _Data["DOCUMENTOS"][ID]["ARCHIVOS"] = Object(
+          _Data["DOCUMENTOS"]["TEMP"]["ARCHIVOS"]
         );
       }
     }
-    WEB_DATA["DOCUMENTOS"]["TEMP"]["CARTAS"] = {};
-    WEB_DATA["DOCUMENTOS"]["TEMP"]["ARCHIVOS"] = {};
+    _Data["DOCUMENTOS"]["TEMP"]["CARTAS"] = {};
+    _Data["DOCUMENTOS"]["TEMP"]["ARCHIVOS"] = {};
 
-    if (WEB_DATA["NOTAS"]?.[ID] != undefined) {
+    if (_Data["NOTAS"]?.[ID] != undefined) {
       let TABLA = document.querySelectorAll("#TABLE_Notes tr");
-      let KEYS = Object.keys(WEB_DATA["NOTAS"][ID]);
+      let KEYS = Object.keys(_Data["NOTAS"][ID]);
       for (let x = 1; x < TABLA.length; x++) {
         TABLA[x].remove();
       }
       for (
         let Xtem = 0;
-        Xtem < Object.keys(WEB_DATA["NOTAS"][ID]).length;
+        Xtem < Object.keys(_Data["NOTAS"][ID]).length;
         Xtem++
       ) {
-        Add_Notelist("Note", WEB_DATA["NOTAS"][ID][KEYS[Xtem]], KEYS[Xtem]);
+        Add_Notelist("Note", _Data["NOTAS"][ID][KEYS[Xtem]], KEYS[Xtem]);
       }
     }
-    if (WEB_DATA["CITAS"]?.[ID] != undefined) {
+    if (_Data["CITAS"]?.[ID] != undefined) {
       let TABLA = document.querySelectorAll("#TABLE_Dates tr");
-      let KEYS = Object.keys(WEB_DATA["CITAS"][ID]);
+      let KEYS = Object.keys(_Data["CITAS"][ID]);
       for (let x = 1; x < TABLA.length; x++) {
         TABLA[x].remove();
       }
       for (
         let Xtem = 0;
-        Xtem < Object.keys(WEB_DATA["CITAS"][ID]).length;
+        Xtem < Object.keys(_Data["CITAS"][ID]).length;
         Xtem++
       ) {
-        Add_Notelist("Date", WEB_DATA["CITAS"][ID][KEYS[Xtem]], KEYS[Xtem]);
+        Add_Notelist("Date", _Data["CITAS"][ID][KEYS[Xtem]], KEYS[Xtem]);
       }
     }
-    if (WEB_DATA["DOCUMENTOS"]?.[ID] != undefined) {
+    if (_Data["DOCUMENTOS"]?.[ID] != undefined) {
       let TABLA = document.querySelectorAll("#TABLE_Docs tr");
       let Count_Start = 0;
       let Count_End = 0;
@@ -2745,15 +2035,15 @@ function Load_NoteList(ID, ReloadAll = true) {
       for (let x = 1; x < TABLA.length; x++) {
         TABLA[x].remove();
       }
-      let KEYS = Object.keys(WEB_DATA["DOCUMENTOS"][ID]["CARTAS"]);
+      let KEYS = Object.keys(_Data["DOCUMENTOS"][ID]["CARTAS"]);
       try {
-        Count_End = Object.keys(WEB_DATA["DOCUMENTOS"][ID]["CARTAS"]).length;
+        Count_End = Object.keys(_Data["DOCUMENTOS"][ID]["CARTAS"]).length;
         Count_Start = Count_Start < 50 ? 0 : Count_Start - 50;
         if (Count_End > 0) {
           for (let Xtem = Count_Start; Xtem < Count_End; Xtem++) {
             Add_Notelist(
               "Carta",
-              WEB_DATA["DOCUMENTOS"][ID]["CARTAS"][KEYS[Xtem]],
+              _Data["DOCUMENTOS"][ID]["CARTAS"][KEYS[Xtem]],
               KEYS[Xtem]
             );
           }
@@ -2762,14 +2052,14 @@ function Load_NoteList(ID, ReloadAll = true) {
         console.warn(err);
       }
       try {
-        KEYS = Object.keys(WEB_DATA["DOCUMENTOS"][ID]["ARCHIVOS"]);
-        Count_End = Object.keys(WEB_DATA["DOCUMENTOS"][ID]["ARCHIVOS"]).length;
+        KEYS = Object.keys(_Data["DOCUMENTOS"][ID]["ARCHIVOS"]);
+        Count_End = Object.keys(_Data["DOCUMENTOS"][ID]["ARCHIVOS"]).length;
         Count_Start = Count_Start < 50 ? 0 : Count_Start - 50;
         if (Count_End > 0) {
           for (let Xtem = Count_Start; Xtem < Count_End; Xtem++) {
             Add_Notelist(
               "Archivo",
-              WEB_DATA["DOCUMENTOS"][ID]["ARCHIVOS"][KEYS[Xtem]],
+              _Data["DOCUMENTOS"][ID]["ARCHIVOS"][KEYS[Xtem]],
               KEYS[Xtem]
             );
           }
@@ -2778,16 +2068,13 @@ function Load_NoteList(ID, ReloadAll = true) {
         console.warn(err);
       }
     }
-  }, 1500);
+  }, 2750);
 }
 
 function Btn_Togle(Btn, Menu = "") {
   let Btn_State = Btn.getAttribute("class");
-  if (Btn_State == "NO_CHECKED") {
-    Btn.classList.replace("NO_CHECKED", "CHECKED");
-  } else {
-    Btn.classList.replace("CHECKED", "NO_CHECKED");
-  }
+  if (Btn_State == "NO_CHECKED") Btn.classList.replace("NO_CHECKED", "CHECKED");
+   else Btn.classList.replace("CHECKED", "NO_CHECKED");
   let Elements = [];
 
   if (Menu == "Pacient_History") {
@@ -2981,32 +2268,24 @@ function Btn_Togle(Btn, Menu = "") {
 
   if (Menu == "Config") {
     let Nod = Btn.parentNode;
-    let Nod_Name = Nod.getAttribute("id");
+    let Nod_Name = Nod.getAttribute("class");
 
     if (Nod_Name == "Config_Menu") {
       Elements = Nod.querySelectorAll("button");
-      let CMenus = document.getElementById("Mn_Config_App");
-      let CMenus1 = CMenus.querySelectorAll('div[class="Cn_Box_Sty_0"]');
+      let CMenus = document.querySelector("#CONFIG");
+      let CMenus1 = CMenus.querySelectorAll('div[id]');
       CMenus1.forEach((x) => {
         x.classList.add("Hiden");
       });
 
-      if (Btn.innerText == "Usuario") {
-        document.getElementById("Config_User").classList.remove("Hiden");
-      }
-      if (Btn.innerText == "Consultorio") {
-        document.getElementById("Config_Consultory").classList.remove("Hiden");
-      }
-      if (Btn.innerText == "Horario") {
-        document.getElementById("Config_Time").classList.remove("Hiden");
-      }
-      if (Btn.innerText == "DataBase") {
-        document.getElementById("Config_DB").classList.remove("Hiden");
-      }
+      if (Btn.innerText == "Usuario") document.getElementById("CONFIG_USER").classList.remove("Hiden");
+      if (Btn.innerText == "Consultorio") document.getElementById("CONFIG_CONSULTORY").classList.remove("Hiden");
+      if (Btn.innerText == "Horario") document.getElementById("CONFIG_TIME").classList.remove("Hiden");
+      if (Btn.innerText == "General") document.getElementById("CONFIG_GENERAL").classList.remove("Hiden");
+      if (Btn.innerText == "DataBase") document.getElementById("CONFIG_DB").classList.remove("Hiden");
     }
-    if (Nod_Name == "Config_User_Gender") {
-      Elements = Nod.querySelectorAll("button");
-    }
+    if (Nod_Name == "Config_User_Gender") Elements = Nod.querySelectorAll("button");
+    
   }
 
   Elements.forEach((x) => {
@@ -3022,30 +2301,22 @@ function Btn_Togle(Btn, Menu = "") {
 
 function Mn_Note(ACCION, TIPO) {
   let NOTE = undefined;
-  if (TIPO == "N_FAST") {
-    NOTE = document.querySelector("#Mn_FNote");
-  } else if (TIPO == "N_EVO") {
-    NOTE = document.querySelector("#Mn_NotesEv");
-  } else if (TIPO == "N_COMPLETE") {
-    NOTE = document.querySelector("#Mn_Notes");
-  } else if (TIPO == "N_REF") {
-    NOTE = document.querySelector("#Mn_Note_Traslado");
-  } else if (TIPO == "N_EGRESO") {
-    NOTE = document.querySelector("#Mn_Note_Egreso");
-  } else if (TIPO == "RECIPE") {
-    NOTE = document.querySelector("#Mn_Recipe");
-  } else {
-    return false;
-  }
-
+  if (TIPO == "N_FAST") NOTE = document.querySelector("#FNOTE");
+  else if (TIPO == "N_EVO") NOTE = document.querySelector("#ENOTE");
+  else if (TIPO == "N_COMPLETE") NOTE = document.querySelector("#CNOTE");
+  else if (TIPO == "N_REF") NOTE = document.querySelector("#TRNOTE");
+  else if (TIPO == "N_EGRESO") NOTE = document.querySelector("#EGNOTE");
+  else if (TIPO == "RECIPE") NOTE = document.querySelector("#RECIPE");
+  else return false;
+  
   let DOM = NOTE.querySelectorAll("*[ITEM]");
 
   if (ACCION == 0) {
     NOTE.classList.remove("Hiden");
     NOTE.querySelector("input[ITEM='DOCTOR']").value =
-      WEB_DATA["USUARIO"]["ID"];
+      _Data["USUARIO"]["ID"];
     NOTE.querySelector("input[ITEM='ID']").value =
-      WEB_DATA["PACIENTES"]?.["SELECTED"]?.["ID"] ?? "";
+      _Data["PACIENTES"]?.["SELECTED"]?.["ID"] ?? "";
   } else if (ACCION == -1) {
     DOM.forEach((Xtem) => {
       if (Xtem.getAttribute("type") == "checkbox") {
@@ -3056,11 +2327,10 @@ function Mn_Note(ACCION, TIPO) {
     });
     NOTE.classList.add("Hiden");
     
-    if(WEB_DATA["PACIENTES"]?.["SELECTED"] == undefined){ WEB_DATA["PACIENTES"]["SELECTED"] = {};}
-    WEB_DATA["PACIENTES"]["SELECTED"]["EDIT"] = "false";
-    WEB_DATA["PACIENTES"]["SELECTED"]["EDIT_INDEX"] = undefined;
+    if(_Data["PACIENTES"]?.["SELECTED"] == undefined){ _Data["PACIENTES"]["SELECTED"] = {};}
+    _Data["PACIENTES"]["SELECTED"]["EDIT"] = "false";
+    _Data["PACIENTES"]["SELECTED"]["EDIT_INDEX"] = undefined;
   } else if (ACCION == 1) {
-    let TIME = GET_TIME();
     let DATA = {};
     let OTROS = {};
     let NOTROS = ["DOCTOR", "FECHA", "HORA", "TEXTO", "MOTIVO", "ID"];
@@ -3068,19 +2338,17 @@ function Mn_Note(ACCION, TIPO) {
       let Key = String(Xtem.getAttribute("item")).toUpperCase();
       DATA[Key] = String(Xtem.value).toUpperCase();
       if (NOTROS.includes(Key) == false) {
-        if (Xtem.getAttribute("type") == "text") {
+        if (Xtem.getAttribute("type") != "checkbox") {
           if (Xtem.value != undefined && String(Xtem.value).trim() != "") {
             OTROS[Key] = String(Xtem.value).toUpperCase();
           }
-        } else if (Xtem.getAttribute("type") == "checkbox") {
-          if (Xtem.checked == true) {
-            OTROS[Key] = 1;
-          }
+        } else {
+          if (Xtem.checked == true) OTROS[Key] = 1;
         }
       }
-    });
-    DATA["FECHA"] = TIME["DATE"];
-    DATA["HORA"] = TIME["TIME"];
+    })
+    DATA["FECHA"] = WEB_DATA['DATE']['FULL'][0];
+    DATA["HORA"] = WEB_DATA['TIME']['FULL'];
     OTROS = JSON.stringify(OTROS);
     OTROS.replace("{", "").replace("}", "");
     if (DATA?.["TEXTO"] == undefined) {
@@ -3095,42 +2363,42 @@ function Mn_Note(ACCION, TIPO) {
     let SET = "";
     let VALUES = ``;
 
-    if (WEB_DATA["PACIENTES"]?.["SELECTED"]?.["EDIT"] != "false") {
-      if (WEB_DATA["PACIENTES"]?.["SELECTED"]?.["EDIT"] == 'true') {
+    if (_Data["PACIENTES"]?.["SELECTED"]?.["EDIT"] != "false") {
+      if (_Data["PACIENTES"]?.["SELECTED"]?.["EDIT"] == 'true') {
         let XDATA =
-          WEB_DATA["NOTAS"][WEB_DATA["PACIENTES"]["SELECTED"]["ID"]][
-            WEB_DATA["PACIENTES"]["SELECTED"]["EDIT_INDEX"]
+          _Data["NOTAS"][_Data["PACIENTES"]["SELECTED"]["ID"]][
+            _Data["PACIENTES"]["SELECTED"]["EDIT_INDEX"]
           ];
         VALUES = "";
-        XWHERE = `ID='${WEB_DATA["PACIENTES"]["SELECTED"]["ID"]}' AND HORA='${XDATA["HORA"]}' AND FECHA='${XDATA["FECHA"]}'`;
+        XWHERE = `ID='${_Data["PACIENTES"]["SELECTED"]["ID"]}' AND HORA='${XDATA["HORA"]}' AND FECHA='${XDATA["FECHA"]}'`;
         SET = `ID='${DATA.ID}', FECHA='${DATA.FECHA}', HORA='${DATA.HORA}', DOCTOR='${DATA.DOCTOR}', MOTIVO='${DATA.MOTIVO}', TEXTO='${DATA.TEXTO}', OTROS='${OTROS}'`;
-        WEB_DATA["NOTAS"][WEB_DATA["PACIENTES"]["SELECTED"]["ID"]][
-          WEB_DATA["PACIENTES"]["SELECTED"]["EDIT_INDEX"]
+        _Data["NOTAS"][_Data["PACIENTES"]["SELECTED"]["ID"]][
+          _Data["PACIENTES"]["SELECTED"]["EDIT_INDEX"]
         ] = { ...DATA, OTROS: OTROS };
         setTimeout(() => {
-          Load_NoteList(WEB_DATA["PACIENTES"]["SELECTED"]["ID"], false);
+          Load_NoteList(_Data["PACIENTES"]["SELECTED"]["ID"], false);
         }, 250);
       }
       else {
         VALUES = `'${DATA.ID}','${DATA.FECHA}','${DATA.HORA}','${DATA.DOCTOR}','${DATA.MOTIVO}','${DATA.TEXTO}','${OTROS}'`;
         setTimeout(() => {
-          Load_NoteList(WEB_DATA["PACIENTES"]["SELECTED"]["ID"], false);
+          Load_NoteList(_Data["PACIENTES"]["SELECTED"]["ID"], false);
         }, 250);
       }
     } else {
       VALUES = `'${DATA.ID}','${DATA.FECHA}','${DATA.HORA}','${DATA.DOCTOR}','${DATA.MOTIVO}','${DATA.TEXTO}','${OTROS}'`;
       setTimeout(() => {
-        Load_NoteList(WEB_DATA["PACIENTES"]["SELECTED"]["ID"], false);
+        Load_NoteList(_Data["PACIENTES"]["SELECTED"]["ID"], false);
       }, 550);
     }
 
-    if (WEB_CONFIG["CONEXION"]["METHOD"] != "LOCAL") {
+    if (_Config["CONEXION"]["METHOD"] != "LOCAL") {
       let SEND = {
-        DB_HOST: WEB_CONFIG["DATABASE"]["HOST"],
-        DB_USER: WEB_CONFIG["DATABASE"]["USER"],
-        DB_PASSWORD: WEB_CONFIG["DATABASE"]["PASSWORD"],
-        DB_NAME: WEB_CONFIG["DATABASE"]["NOMBRE"],
-        DB_TABLE: WEB_CONFIG["DATABASE"]["TABLA"]["NOTAS"],
+        DB_HOST: _Config["DATABASE"]["HOST"],
+        DB_USER: _Config["DATABASE"]["USER"],
+        DB_PASSWORD: _Config["DATABASE"]["PASSWORD"],
+        DB_NAME: _Config["DATABASE"]["NOMBRE"],
+        DB_TABLE: _Config["DATABASE"]["TABLA"]["NOTAS"],
         TABLE_KEYS: "ID,FECHA,HORA,DOCTOR,MOTIVO,TEXTO,OTROS",
         VALUES: VALUES,
         WHERE: XWHERE,
@@ -3138,14 +2406,14 @@ function Mn_Note(ACCION, TIPO) {
       };
       SEND_TO_PHP("ADD_NOTE", SEND);
     }
-    if (WEB_DATA["PACIENTES"]["SELECTED"]["EDIT"] == "false") {
-      if (WEB_DATA["NOTAS"]?.[DATA.ID] == undefined) {
-        WEB_DATA["NOTAS"][DATA.ID] = {};
+    if (_Data["PACIENTES"]["SELECTED"]["EDIT"] == "false") {
+      if (_Data["NOTAS"]?.[DATA.ID] == undefined) {
+        _Data["NOTAS"][DATA.ID] = {};
       }
       try {
-        let NUM = Object.keys(WEB_DATA["NOTAS"][DATA.ID]).length;
-        if (WEB_DATA["NOTAS"][DATA.ID][NUM] == undefined) {
-          WEB_DATA["NOTAS"][DATA.ID][NUM] = {
+        let NUM = Object.keys(_Data["NOTAS"][DATA.ID]).length;
+        if (_Data["NOTAS"][DATA.ID][NUM] == undefined) {
+          _Data["NOTAS"][DATA.ID][NUM] = {
             ID: DATA.ID,
             FECHA: DATA.FECHA,
             HORA: DATA.HORA,
@@ -3157,8 +2425,8 @@ function Mn_Note(ACCION, TIPO) {
         } else {
           NUM += 1;
           while (true) {
-            if (WEB_DATA["NOTAS"][DATA.ID][NUM] == undefined) {
-              WEB_DATA["NOTAS"][DATA.ID][NUM] = {
+            if (_Data["NOTAS"][DATA.ID][NUM] == undefined) {
+              _Data["NOTAS"][DATA.ID][NUM] = {
                 ID: DATA.ID,
                 FECHA: DATA.FECHA,
                 HORA: DATA.HORA,
@@ -3170,9 +2438,9 @@ function Mn_Note(ACCION, TIPO) {
             }
           }
         }
-        Add_Notelist("Note", WEB_DATA["NOTAS"][DATA.ID][NUM], NUM);
+        Add_Notelist("Note", _Data["NOTAS"][DATA.ID][NUM], NUM);
       } catch {
-        WEB_DATA["NOTAS"][DATA.ID][0] = DATA;
+        _Data["NOTAS"][DATA.ID][0] = DATA;
       }
     }
 
@@ -3185,29 +2453,24 @@ function Mn_Note(ACCION, TIPO) {
     });
     NOTE.classList.add("Hiden");
 
-    WEB_DATA["PACIENTES"]["SELECTED"]["EDIT"] = "false";
-    WEB_DATA["PACIENTES"]["SELECTED"]["EDIT_INDEX"] = undefined;
+    _Data["PACIENTES"]["SELECTED"]["EDIT"] = "false";
+    _Data["PACIENTES"]["SELECTED"]["EDIT_INDEX"] = undefined;
   }
 }
 
 function Mn_Doc(ACCION, TIPO) {
   let DOC = undefined;
-  if (TIPO == "CARTA") {
-    DOC = document.querySelector("#Mn_Note_Consent");
-  } else if (TIPO == "CARTA2") {
-    DOC = document.querySelector("#Mn_Note_Consent");
+  if (TIPO == "CARTA")DOC = document.querySelector("#CART");
+  else if (TIPO == "CARTA2"){
+    DOC = document.querySelector("#CART");
     GOTO_MENU("Cart2", 1);
-  } else if (TIPO == "PLANTILLA") {
-    DOC = document.querySelector("#Mn_Note_Consent_Templates");
-  } else if (TIPO == "IMPORT") {
-    DOC = document.querySelector("#Mn_Import_File");
-  } else if (TIPO == "SELECT") {
-    DOC = document.querySelector("#Mn_Import_File_R");
-  } else if (TIPO == "JSON") {
-    DOC = document.querySelector("#Mn_Import_Json");
-  } else {
-    return false;
   }
+  else if (TIPO == "PLANTILLA")DOC = document.querySelector("#CART2");
+  else if (TIPO == "IMPORT")DOC = document.querySelector("#IMPORT_FILE");
+  else if (TIPO == "SELECT")DOC = document.querySelector("#IMPORT_FILE_R");
+  else if (TIPO == "JSON")DOC = document.querySelector("#IMPORT_JSON");
+  else return false;
+
 
   let DOM = DOC.querySelectorAll("*[ITEM]");
 
@@ -3215,9 +2478,9 @@ function Mn_Doc(ACCION, TIPO) {
     DOC.classList.remove("Hiden");
     try {
       DOC.querySelector('input[ITEM="DOCTOR"]').value =
-        WEB_DATA["USUARIO"]["ID"];
+        _Data["USUARIO"]["ID"];
       DOC.querySelector('input[ITEM="ID"]').value =
-        WEB_DATA["PACIENTES"]["SELECTED"]["ID"] ?? "";
+        _Data["PACIENTES"]["SELECTED"]["ID"] ?? "";
     } catch (err) {}
   } else if (ACCION == -1) {
     DOC.classList.add("Hiden");
@@ -3233,26 +2496,25 @@ function Mn_Doc(ACCION, TIPO) {
       Import_File(SELECT);
     }
 
-    if(WEB_DATA["PACIENTES"]?.["SELECTED"] == undefined){ WEB_DATA["PACIENTES"]["SELECTED"] = {};}
-    WEB_DATA["PACIENTES"]["SELECTED"]["EDIT"] = "false";
-    WEB_DATA["PACIENTES"]["SELECTED"]["EDIT_INDEX"] = undefined;
+    if(_Data["PACIENTES"]?.["SELECTED"] == undefined){ _Data["PACIENTES"]["SELECTED"] = {};}
+    _Data["PACIENTES"]["SELECTED"]["EDIT"] = "false";
+    _Data["PACIENTES"]["SELECTED"]["EDIT_INDEX"] = undefined;
   } else if (ACCION == 1) {
-    let TIME = GET_TIME();
     let DATA = {};
-    DATA["DOCTOR"] = WEB_DATA["USUARIO"]["ID"];
-    if (WEB_DATA["PACIENTES"]["SELECTED"]["ID"] != "") {
-      DATA["ID"] = WEB_DATA["PACIENTES"]["SELECTED"]["ID"];
+    DATA["DOCTOR"] = _Data["USUARIO"]["ID"];
+    if (_Data["PACIENTES"]["SELECTED"]["ID"] != "") {
+      DATA["ID"] = _Data["PACIENTES"]["SELECTED"]["ID"];
     } else {
-      DATA["ID"] = WEB_DATA["USUARIO"]["ID"];
+      DATA["ID"] = _Data["USUARIO"]["ID"];
     }
-    DATA["FECHA"] = TIME["DATE"];
-    DATA["HORA"] = TIME["TIME"];
+    DATA["FECHA"] = WEB_DATA['DATE']['FULL'][0];
+    DATA["HORA"] = WEB_DATA['TIME']['FULL'];
     if (TIPO == "CARTA") {
       DATA["TIPO"] = "CARTA";
     } else if (TIPO == "PLANTILLA") {
       DATA["TIPO"] = "P";
     } else if (TIPO == "IMPORT") {
-      if (WEB_DATA["PACIENTES"]["SELECTED"]["ID"] == "") {
+      if (_Data["PACIENTES"]["SELECTED"]["ID"] == "") {
         Mn_Doc(-1, "IMPORT");
         return false;
       }
@@ -3278,42 +2540,42 @@ function Mn_Doc(ACCION, TIPO) {
       let SET = "";
       let XWHERE = "";
 
-      if (WEB_DATA["PACIENTES"]?.["SELECTED"]?.["EDIT"] != "false") {
-        if (WEB_DATA["PACIENTES"]["SELECTED"]["EDIT"] == true) {
+      if (_Data["PACIENTES"]?.["SELECTED"]?.["EDIT"] != "false") {
+        if (_Data["PACIENTES"]["SELECTED"]["EDIT"] == true) {
           let XDATA =
-            WEB_DATA["DOCUMENTOS"][WEB_DATA["PACIENTES"]["SELECTED"]["ID"]][
+            _Data["DOCUMENTOS"][_Data["PACIENTES"]["SELECTED"]["ID"]][
               "CARTAS"
-            ][WEB_DATA["PACIENTES"]["SELECTED"]["EDIT_INDEX"]];
+            ][_Data["PACIENTES"]["SELECTED"]["EDIT_INDEX"]];
           XWHERE = `ID='${XDATA["ID"]}' AND FECHA='${XDATA["FECHA"]}' AND HORA='${XDATA["HORA"]}'`;
           SET = `ID='${DATA.ID}',DOCTOR='${DATA.DOCTOR}',NOMBRE='${DATA.NOMBRE}',FECHA='${DATA.FECHA}',HORA='${DATA.HORA}',TIPO='${DATA.TIPO}',MOTIVO='${DATA.MOTIVO}',TEXTO='${DATA.TEXTO}'`;
-          WEB_DATA["DOCUMENTOS"][WEB_DATA["PACIENTES"]["SELECTED"]["ID"]][
+          _Data["DOCUMENTOS"][_Data["PACIENTES"]["SELECTED"]["ID"]][
             "CARTAS"
-          ][WEB_DATA["PACIENTES"]["SELECTED"]["EDIT_INDEX"]] = DATA;
+          ][_Data["PACIENTES"]["SELECTED"]["EDIT_INDEX"]] = DATA;
           setTimeout(() => {
-            Load_NoteList(WEB_DATA["PACIENTES"]["SELECTED"]["ID"], false);
+            Load_NoteList(_Data["PACIENTES"]["SELECTED"]["ID"], false);
           }, 250);
         } else {
           VALUES = `'${DATA.ID}','${DATA.DOCTOR}','${DATA.NOMBRE}','${DATA.FECHA}','${DATA.HORA}','${DATA.TIPO}','${DATA.MOTIVO}','${DATA.TEXTO}'`;
           setTimeout(() => {
-            Load_NoteList(WEB_DATA["PACIENTES"]["SELECTED"]["ID"], false);
+            Load_NoteList(_Data["PACIENTES"]["SELECTED"]["ID"], false);
           }, 250);
         }
       } else {
         VALUES = `'${DATA.ID}','${DATA.DOCTOR}','${DATA.NOMBRE}','${DATA.FECHA}','${DATA.HORA}','${DATA.TIPO}','${DATA.MOTIVO}','${DATA.TEXTO}'`;
         setTimeout(() => {
-          Load_NoteList(WEB_DATA["PACIENTES"]["SELECTED"]["ID"], false);
+          Load_NoteList(_Data["PACIENTES"]["SELECTED"]["ID"], false);
         }, 550);
       }
 
-      if (WEB_CONFIG["CONEXION"]["METHOD"] != "LOCAL") {
+      if (_Config["CONEXION"]["METHOD"] != "LOCAL") {
         let SEND = {
-          DB_HOST: WEB_CONFIG["DATABASE"]["HOST"],
-          DB_USER: WEB_CONFIG["DATABASE"]["USER"],
-          DB_PASSWORD: WEB_CONFIG["DATABASE"]["PASSWORD"],
-          DB_NAME: WEB_CONFIG["DATABASE"]["NOMBRE"],
-          DB_TABLE: WEB_CONFIG["DATABASE"]["TABLA"]["CARTAS"],
+          DB_HOST: _Config["DATABASE"]["HOST"],
+          DB_USER: _Config["DATABASE"]["USER"],
+          DB_PASSWORD: _Config["DATABASE"]["PASSWORD"],
+          DB_NAME: _Config["DATABASE"]["NOMBRE"],
+          DB_TABLE: _Config["DATABASE"]["TABLA"]["CARTAS"],
           TABLE_KEYS: "ID,DOCTOR,NOMBRE,FECHA,HORA,TIPO,MOTIVO,TEXTO",
-          EDIT: WEB_DATA["PACIENTES"]?.["SELECTED"]?.["EDIT"],
+          EDIT: _Data["PACIENTES"]?.["SELECTED"]?.["EDIT"],
           VALUES: VALUES,
           WHERE: XWHERE,
           SET: SET,
@@ -3321,31 +2583,31 @@ function Mn_Doc(ACCION, TIPO) {
         SEND_TO_PHP("ADD_NOTE", SEND);
       }
 
-      if (WEB_DATA["PACIENTES"]["SELECTED"]["EDIT"] == "false") {
-        if (WEB_DATA["DOCUMENTOS"]?.[DATA.ID] == undefined) {
-          WEB_DATA["DOCUMENTOS"][DATA.ID] = {};
+      if (_Data["PACIENTES"]["SELECTED"]["EDIT"] == "false") {
+        if (_Data["DOCUMENTOS"]?.[DATA.ID] == undefined) {
+          _Data["DOCUMENTOS"][DATA.ID] = {};
         }
-        if (WEB_DATA["DOCUMENTOS"]?.[DATA.ID]["CARTAS"] == undefined) {
-          WEB_DATA["DOCUMENTOS"][DATA.ID]["CARTAS"] = {};
+        if (_Data["DOCUMENTOS"]?.[DATA.ID]["CARTAS"] == undefined) {
+          _Data["DOCUMENTOS"][DATA.ID]["CARTAS"] = {};
         }
         try {
-          if (WEB_DATA["PACIENTES"]?.["SELECTED"]?.["EDIT"] == 'true') {
-            WEB_DATA["DOCUMENTOS"][DATA.ID]["CARTAS"][
-              WEB_DATA["PACIENTES"]["SELECTED"]["EDIT_ID"]
+          if (_Data["PACIENTES"]?.["SELECTED"]?.["EDIT"] == 'true') {
+            _Data["DOCUMENTOS"][DATA.ID]["CARTAS"][
+              _Data["PACIENTES"]["SELECTED"]["EDIT_ID"]
             ] = DATA;
           } else {
             let NUM = Object.keys(
-              WEB_DATA["DOCUMENTOS"][DATA.ID]["CARTAS"]
+              _Data["DOCUMENTOS"][DATA.ID]["CARTAS"]
             ).length;
-            if (WEB_DATA["DOCUMENTOS"][DATA.ID]["CARTAS"][NUM] == undefined) {
-              WEB_DATA["DOCUMENTOS"][DATA.ID]["CARTAS"][NUM] = DATA;
+            if (_Data["DOCUMENTOS"][DATA.ID]["CARTAS"][NUM] == undefined) {
+              _Data["DOCUMENTOS"][DATA.ID]["CARTAS"][NUM] = DATA;
             } else {
               NUM += 1;
               while (true) {
                 if (
-                  WEB_DATA["DOCUMENTOS"][DATA.ID]["CARTAS"][NUM] == undefined
+                  _Data["DOCUMENTOS"][DATA.ID]["CARTAS"][NUM] == undefined
                 ) {
-                  WEB_DATA["DOCUMENTOS"][DATA.ID]["CARTAS"][NUM] = DATA;
+                  _Data["DOCUMENTOS"][DATA.ID]["CARTAS"][NUM] = DATA;
                   break;
                 }
               }
@@ -3354,7 +2616,7 @@ function Mn_Doc(ACCION, TIPO) {
             Add_Notelist("Carta", DATA, NUM);
           }
         } catch {
-          WEB_DATA["DOCUMENTOS"][DATA.ID]["CARTAS"][0] = DATA;
+          _Data["DOCUMENTOS"][DATA.ID]["CARTAS"][0] = DATA;
         }
       }
 
@@ -3366,85 +2628,63 @@ function Mn_Doc(ACCION, TIPO) {
       DOC.classList.add("Hiden");
     }
 
-    WEB_DATA["PACIENTES"]["SELECTED"]["EDIT"] = "false";
-    WEB_DATA["PACIENTES"]["SELECTED"]["EDIT_INDEX"] = undefined;
+    _Data["PACIENTES"]["SELECTED"]["EDIT"] = "false";
+    _Data["PACIENTES"]["SELECTED"]["EDIT_INDEX"] = undefined;
   }
 }
 
 function Import_File(self) {
   let FILES = self;
-  let TEXT = self.parentNode.parentNode.querySelector("label > span");
+  //let TEXT = self.parentNode.parentNode.querySelector("label > span");
 
   if (FILES.files.length > 0) {
-    TEXT.textContent = `${FILES.files.length} Archivo seleccionado`;
+    //TEXT.textContent = `${FILES.files.length} Archivo seleccionado`;
   } else {
-    TEXT.textContent = `Seleccionar Archivo`;
-  }
-}
-
-function Mn_NoteSub(Mn) {
-  let Menus = document.querySelectorAll("#Mn_Notes .CNote_3 > div");
-  Menus.forEach((Xtem) => {
-    Xtem.classList.add("Hiden");
-  });
-  try {
-    Menus[Mn].classList.remove("Hiden");
-  } catch (err) {
-    console.warn(err);
+    //TEXT.textContent = `Seleccionar Archivo`;
   }
 }
 
 function PreLoad_Plantillas() {
-  if(WEB_CONFIG['CONEXION']['METHOD'] != "LOCAL"){
-    let TEMP = { ...WEB_DATA["PLANTILLAS"] };
-    let KEYS = Object.keys(TEMP["LINEA"]);
-    WEB_DATA["PLANTILLAS"]["LINEA"] = {};
-    KEYS.forEach((Xtem) => {
-      if (TEMP["LINEA"][Xtem] != "") {
-        try {
-          let DATA = JSON.parse(TEMP["LINEA"][Xtem]["OTROS"]);
-          let XCategory = DATA?.["CATEGORY"] ? DATA["CATEGORY"] : "OTROS";
-          if (WEB_DATA["PLANTILLAS"]["LINEA"]?.[XCategory] == undefined) {
-            WEB_DATA["PLANTILLAS"]["LINEA"][XCategory] = {};
-          }
-          let LEN = Object.keys(
-            WEB_DATA["PLANTILLAS"]["LINEA"][XCategory]
-          ).length;
-          WEB_DATA["PLANTILLAS"]["LINEA"][XCategory][LEN] = TEMP["LINEA"][Xtem];
-        } catch (err) {
-          console.warn(err);
-        }
+  let TEMP = { ..._Data["PLANTILLAS"] };
+  let KEYS = Object.keys(TEMP["LINEA"]);
+  _Data["PLANTILLAS"]["LINEA"] = {};
+  KEYS.forEach((Xtem) => {
+    if (TEMP["LINEA"][Xtem] != "") {
+      try {
+        let DATA = JSON.parse(TEMP["LINEA"][Xtem]["OTROS"]);
+        let XCategory = DATA?.["CATEGORY"] ? DATA["CATEGORY"] : "OTROS";
+        if (_Data["PLANTILLAS"]["LINEA"]?.[XCategory] == undefined) _Data["PLANTILLAS"]["LINEA"][XCategory] = {};
+        let LEN = Object.keys(_Data["PLANTILLAS"]["LINEA"][XCategory]).length;
+        _Data["PLANTILLAS"]["LINEA"][XCategory][LEN] = TEMP["LINEA"][Xtem];
+      } catch (err) {
+        console.warn(err);
       }
-    });
-    
-    KEYS = Object.keys(TEMP["LOCAL"]);
-    
-    if (KEYS.includes("OTROS") == false) WEB_DATA["PLANTILLAS"]["LOCAL"] = {};
-    KEYS.forEach((Xtem) => {
-      if (TEMP["LOCAL"][Xtem] != "") {
-        let DATA = JSON.parse(TEMP["LOCAL"][Xtem]["OTROS"]);
-        let XCategory = DATA["CATEGORY"] ?? "OTROS";
-        if (WEB_DATA["PLANTILLAS"]["LOCAL"]?.[XCategory] == undefined) {
-          WEB_DATA["PLANTILLAS"]["LOCAL"][XCategory] = {};
-        }
-        let LEN = Object.keys(WEB_DATA["PLANTILLAS"]["LOCAL"][XCategory]).length;
-        WEB_DATA["PLANTILLAS"]["LOCAL"][XCategory][LEN] = TEMP["LOCAL"][Xtem];
-      }
-    });
-  }
+    }
+  });
+  KEYS = Object.keys(TEMP["LOCAL"]);
+  if (KEYS.includes("OTROS") == false) _Data["PLANTILLAS"]["LOCAL"] = {};
+  KEYS.forEach((Xtem) => {
+    if (TEMP["LOCAL"][Xtem] != "") {
+      let DATA = JSON.parse(TEMP["LOCAL"][Xtem]["OTROS"]);
+      let XCategory = DATA["CATEGORY"] ?? "OTROS";
+      if (_Data["PLANTILLAS"]["LOCAL"]?.[XCategory] == undefined) _Data["PLANTILLAS"]["LOCAL"][XCategory] = {};
+      let LEN = Object.keys(_Data["PLANTILLAS"]["LOCAL"][XCategory]).length;
+      _Data["PLANTILLAS"]["LOCAL"][XCategory][LEN] = TEMP["LOCAL"][Xtem];
+    }
+  });
 }
   
 function Load_Plantilla(Type, Category, Index) {
-    let DOM_1 = document.querySelector("#Mn_Note_Consent .Cn_Note_Conset");
-  let DOM_2 = document.querySelector("#Mn_Note_Consent_Templates");
+  let DOM_1 = document.querySelector("#CART");
+  let DOM_2 = document.querySelector("#CART2");
   let Menus = DOM_2.querySelector('ul[ITEM="OPTIONS"]');
 
   let XCategory = ["BLANK", "CONSENTIMIENTO", "ESTUDIO", "INFORMATIVA", "OTRO"];
   let List = undefined;
   if (Type == 0) {
-    List = WEB_DATA["PLANTILLAS"]?.["LINEA"]?.[XCategory[Category]];
+    List = _Data["PLANTILLAS"]?.["LINEA"]?.[XCategory[Category]];
   } else if (Type == 1) {
-    List = WEB_DATA["PLANTILLAS"]?.["LOCAL"]?.[XCategory[Category]];
+    List = _Data["PLANTILLAS"]?.["LOCAL"]?.[XCategory[Category]];
   }
   if (List == undefined) {
     List = {};
@@ -3483,7 +2723,7 @@ function Load_Plantilla(Type, Category, Index) {
 }
 
 function Save_Plantilla(Type, Category) {
-  let DOM_1 = document.querySelector("#Mn_Note_Consent .Cn_Note_Conset");
+  let DOM_1 = document.querySelector("#CART .Cn_Note_Conset");
   let XCategory = ["BLANK", "CONSENTIMIENTO", "ESTUDIO", "INFORMATIVA", "OTRO"];
   let ITEMS = DOM_1.querySelectorAll("*[ITEM]");
   let DATA = {};
@@ -3496,19 +2736,18 @@ function Save_Plantilla(Type, Category) {
   DATA["OTROS"] = `{"CATEGORY": "${XCategory[Category]}"}`;
   DATA["TIPO"] = "PLANTILLA";
 
-  if (WEB_CONFIG["CONEXION"]["METHOD"] != "LOCAL") {
-    let TIME = GET_TIME();
-    DATA["FECHA"] = TIME["DATE"];
-    DATA["HORA"] = TIME["TIME"];
+  if (_Config["CONEXION"]["METHOD"] != "LOCAL") {
+    DATA["FECHA"] = WEB_DATA['DATE']['FULL'][0];
+    DATA["HORA"] = WEB_DATA['TIME']['FULL'];
 
     let VALUES = `'${DATA.ID}','${DATA.DOCTOR}','${DATA.NOMBRE}','${DATA.FECHA}','${DATA.HORA}','${DATA.TIPO}','${DATA.MOTIVO}','${DATA.TEXTO}','${DATA.OTROS}'`;
 
     let SEND = {
-      DB_HOST: WEB_CONFIG["DATABASE"]["HOST"],
-      DB_USER: WEB_CONFIG["DATABASE"]["USER"],
-      DB_PASSWORD: WEB_CONFIG["DATABASE"]["PASSWORD"],
-      DB_NAME: WEB_CONFIG["DATABASE"]["NOMBRE"],
-      DB_TABLE: WEB_CONFIG["DATABASE"]["TABLA"]["CARTAS"],
+      DB_HOST: _Config["DATABASE"]["HOST"],
+      DB_USER: _Config["DATABASE"]["USER"],
+      DB_PASSWORD: _Config["DATABASE"]["PASSWORD"],
+      DB_NAME: _Config["DATABASE"]["NOMBRE"],
+      DB_TABLE: _Config["DATABASE"]["TABLA"]["CARTAS"],
       TABLE_KEYS: "ID,DOCTOR,NOMBRE,FECHA,HORA,TIPO,MOTIVO,TEXTO,OTROS",
       VALUES: VALUES,
       WHERE: "",
@@ -3520,16 +2759,16 @@ function Save_Plantilla(Type, Category) {
   DATA["ID"] = DATA?.["ID"] != undefined || DATA?.["ID"] != "" ? "" : "";
   DATA["DOCTOR"] =
     DATA?.["DOCTOR"] != undefined || DATA?.["DOCTOR"] != "" ? "" : "";
-  WEB_DATA["PLANTILLAS"]["LOCAL"][XCategory[Category]] = WEB_DATA[
+  _Data["PLANTILLAS"]["LOCAL"][XCategory[Category]] = _Data[
     "PLANTILLAS"
   ]?.["LOCAL"]?.[XCategory[Category]]
-    ? WEB_DATA["PLANTILLAS"]["LOCAL"][XCategory[Category]]
+    ? _Data["PLANTILLAS"]["LOCAL"][XCategory[Category]]
     : {};
-  if (WEB_DATA["PLANTILLAS"]["LOCAL"][XCategory[Category]] != {}) {
+  if (_Data["PLANTILLAS"]["LOCAL"][XCategory[Category]] != {}) {
     let LEN = Object.keys(
-      WEB_DATA["PLANTILLAS"]["LOCAL"][XCategory[Category]]
+      _Data["PLANTILLAS"]["LOCAL"][XCategory[Category]]
     ).length;
-    WEB_DATA["PLANTILLAS"]["LOCAL"][XCategory[Category]][LEN] = DATA;
+    _Data["PLANTILLAS"]["LOCAL"][XCategory[Category]][LEN] = DATA;
     Load_Plantilla(Type, Category, 0);
   }
 }
@@ -3539,19 +2778,19 @@ function Delete_Plantilla(Type, Category, Index) {
     return true;
   }
   let XCategory = ["BLANK", "CONSENTIMIENTO", "ESTUDIO", "INFORMATIVA", "OTRO"];
-  let Temp = WEB_DATA["PLANTILLAS"]["LOCAL"][XCategory[Category]][Index];
+  let Temp = _Data["PLANTILLAS"]["LOCAL"][XCategory[Category]][Index];
   let KEYS = `ID,DOCTOR,NOMBRE,FECHA,HORA,TIPO,MOTIVO`;
-  let DATA = `'${WEB_DATA["USUARIO"]["ID"]}','${Temp["NOMBRE"]}','${Temp["FECHA"]}','${Temp["HORA"]}','PLANTILLA','${Temp["HORA"]}','${Temp["MOTIVO"]}'`;
+  let DATA = `'${_Data["USUARIO"]["ID"]}','${Temp["NOMBRE"]}','${Temp["FECHA"]}','${Temp["HORA"]}','PLANTILLA','${Temp["HORA"]}','${Temp["MOTIVO"]}'`;
 
-  WEB_DATA["PLANTILLAS"]["LOCAL"][XCategory[Category]] = {};
+  _Data["PLANTILLAS"]["LOCAL"][XCategory[Category]] = {};
 
-  if (WEB_CONFIG["CONEXION"]["METHOD"] != "LOCAL") {
+  if (_Config["CONEXION"]["METHOD"] != "LOCAL") {
     let SEND = {
-      DB_HOST: WEB_CONFIG["DATABASE"]["HOST"],
-      DB_USER: WEB_CONFIG["DATABASE"]["USER"],
-      DB_PASSWORD: WEB_CONFIG["DATABASE"]["PASSWORD"],
-      DB_NAME: WEB_CONFIG["DATABASE"]["NOMBRE"],
-      DB_TABLE: WEB_CONFIG["DATABASE"]["TABLA"]["CARTAS"],
+      DB_HOST: _Config["DATABASE"]["HOST"],
+      DB_USER: _Config["DATABASE"]["USER"],
+      DB_PASSWORD: _Config["DATABASE"]["PASSWORD"],
+      DB_NAME: _Config["DATABASE"]["NOMBRE"],
+      DB_TABLE: _Config["DATABASE"]["TABLA"]["CARTAS"],
       KEYS: KEYS,
       VALUES: DATA,
     };
@@ -3574,10 +2813,10 @@ function READ_TEXT(Menu, ID) {
   let Filter = {};
 
   if (Menu == "Note") {
-    if(WEB_DATA["NOTAS"][WEB_DATA["PACIENTES"]["SELECTED"]["ID"]][ID] == undefined){
+    if(_Data["NOTAS"][_Data["PACIENTES"]["SELECTED"]["ID"]][ID] == undefined){
       return false;
     }
-    let SET = WEB_DATA["NOTAS"][WEB_DATA["PACIENTES"]["SELECTED"]["ID"]][ID];
+    let SET = _Data["NOTAS"][_Data["PACIENTES"]["SELECTED"]["ID"]][ID];
     let KEYS = Object.keys(SET);
 
     KEYS.forEach((Xtem) => {
@@ -3592,10 +2831,10 @@ function READ_TEXT(Menu, ID) {
       }
     });
   } else if (Menu == "Date") {
-    if(WEB_DATA["CITAS"][WEB_DATA["PACIENTES"]["SELECTED"]["ID"]][ID] == undefined){
+    if(_Data["CITAS"][_Data["PACIENTES"]["SELECTED"]["ID"]][ID] == undefined){
       return false;
     }
-    let SET = WEB_DATA["CITAS"][WEB_DATA["PACIENTES"]["SELECTED"]["ID"]][ID];
+    let SET = _Data["CITAS"][_Data["PACIENTES"]["SELECTED"]["ID"]][ID];
     let KEYS = Object.keys(SET);
 
     KEYS.forEach((Xtem) => {
@@ -3611,10 +2850,10 @@ function READ_TEXT(Menu, ID) {
     });
   } else if (Menu == "Carta" || Menu == "Archivo") {
     let XMENU = Menu == "Carta" ? "CARTAS" : "ARCHIVOS";
-    if(WEB_DATA["DOCUMENTOS"][WEB_DATA["PACIENTES"]["SELECTED"]["ID"]][XMENU][ID] == undefined){
+    if(_Data["DOCUMENTOS"][_Data["PACIENTES"]["SELECTED"]["ID"]][XMENU][ID] == undefined){
       return false;
     }
-    let SET = WEB_DATA["DOCUMENTOS"][WEB_DATA["PACIENTES"]["SELECTED"]["ID"]][XMENU][ID];
+    let SET = _Data["DOCUMENTOS"][_Data["PACIENTES"]["SELECTED"]["ID"]][XMENU][ID];
     let KEYS = Object.keys(SET);
 
     KEYS.forEach((Xtem) => {
@@ -3638,8 +2877,8 @@ function READ_TEXT(Menu, ID) {
 }
 
 function EDIT_TEXT(Menu, ID) {
-  WEB_DATA["PACIENTES"]["SELECTED"]["EDIT"] = 'true';
-  WEB_DATA["PACIENTES"]["SELECTED"]["EDIT_ID"] = ID;
+  _Data["PACIENTES"]["SELECTED"]["EDIT"] = 'true';
+  _Data["PACIENTES"]["SELECTED"]["EDIT_ID"] = ID;
   let DOM = undefined;
   let ITEMS = undefined;
   let SET = {};
@@ -3649,54 +2888,44 @@ function EDIT_TEXT(Menu, ID) {
   let SUBKEYS = [];
 
   if (Menu == "Note") {
-    SET = WEB_DATA["NOTAS"][WEB_DATA["PACIENTES"]["SELECTED"]["ID"]][ID];
+    SET = _Data["NOTAS"][_Data["PACIENTES"]["SELECTED"]["ID"]][ID];
     KEYS = Object.keys(SET);
     SUBITEMS = JSON.parse(SET["OTROS"]);
     SUBKEYS = Object.keys(SUBITEMS);
     if (SUBITEMS?.["TYPE"] != undefined) {
       let TYPE = String(SUBITEMS["TYPE"]).toUpperCase();
-      if (TYPE == "SIMPLE") {
-        DOM = document.querySelector("#Mn_FNote");
-      } else if (TYPE == "EVOLUCION") {
-        DOM = document.querySelector("#Mn_NotesEv");
-      } else if (TYPE == "COMPLETA") {
-        DOM = document.querySelector("#Mn_Notes");
-      } else if (TYPE == "REFERENCIA") {
-        DOM = document.querySelector("#Mn_Note_Traslado");
-      } else if (TYPE == "EGRESO") {
-        DOM = document.querySelector("#Mn_Note_Egreso");
-      } else if (TYPE == "RECETA") {
-        DOM = document.querySelector("#Mn_Recipe");
-      }
-    } else {
-      DOM = document.querySelector("#Mn_NotesEv");
-    }
+      if (TYPE == "SIMPLE") DOM = document.querySelector("#FNOTE");
+      else if (TYPE == "EVOLUCION") DOM = document.querySelector("#ENOTE");
+      else if (TYPE == "COMPLETA") DOM = document.querySelector("#CNOTE");
+      else if (TYPE == "REFERENCIA") DOM = document.querySelector("#TRNOTE");
+      else if (TYPE == "EGRESO") DOM = document.querySelector("#EGNOTE");
+      else if (TYPE == "RECETA") DOM = document.querySelector("#RECIPE");
+      
+    } else DOM = document.querySelector("#ENOTE");
+    
     ITEMS = DOM.querySelectorAll("*[ITEM]");
 
-    WEB_DATA["PACIENTES"]["SELECTED"]["EDIT"] = 'true';
-    WEB_DATA["PACIENTES"]["SELECTED"]["EDIT_INDEX"] = ID;
+    _Data["PACIENTES"]["SELECTED"]["EDIT"] = 'true';
+    _Data["PACIENTES"]["SELECTED"]["EDIT_INDEX"] = ID;
   } else if (Menu == "Carta") {
-    DOM = document.querySelector("#Mn_Note_Consent");
+    DOM = document.querySelector("#CART");
     ITEMS = DOM.querySelectorAll("*[ITEM]");
-    SET =
-      WEB_DATA["DOCUMENTOS"][WEB_DATA["PACIENTES"]["SELECTED"]["ID"]]["CARTAS"][
-        ID
-      ];
+    SET = _Data["DOCUMENTOS"][_Data["PACIENTES"]["SELECTED"]["ID"]]["CARTAS"][ID];
     KEYS = Object.keys(SET);
 
-    WEB_DATA["PACIENTES"]["SELECTED"]["EDIT"] = 'true';
-    WEB_DATA["PACIENTES"]["SELECTED"]["EDIT_INDEX"] = ID;
+    _Data["PACIENTES"]["SELECTED"]["EDIT"] = 'true';
+    _Data["PACIENTES"]["SELECTED"]["EDIT_INDEX"] = ID;
   } else if (Menu == "Date") {
-    DOM = document.querySelector("#NEW_DATE");
+    DOM = document.querySelector("#DATES_NEW");
     ITEMS = DOM.querySelectorAll("*[ITEM]");
-    if(WEB_DATA["CITAS"][WEB_DATA["PACIENTES"]["SELECTED"]["ID"]][ID] == undefined){
+    if(_Data["CITAS"][_Data["PACIENTES"]["SELECTED"]["ID"]][ID] == undefined){
       return false
     }
-    SET = WEB_DATA["CITAS"][WEB_DATA["PACIENTES"]["SELECTED"]["ID"]][ID];
+    SET = _Data["CITAS"][_Data["PACIENTES"]["SELECTED"]["ID"]][ID];
     KEYS = Object.keys(SET);
 
-    WEB_DATA["PACIENTES"]["SELECTED"]["EDIT"] = 'true';
-    WEB_DATA["PACIENTES"]["SELECTED"]["EDIT_INDEX"] = ID;
+    _Data["PACIENTES"]["SELECTED"]["EDIT"] = 'true';
+    _Data["PACIENTES"]["SELECTED"]["EDIT_INDEX"] = ID;
   }
 
   if (ITEMS != undefined) {
@@ -3734,12 +2963,13 @@ function EDIT_TEXT(Menu, ID) {
   }
 }
 
-function CAMARA(Close = 0) {
-  const video = document.getElementById("video");
-  const canvas = document.getElementById("canvas");
-  const snap = document.getElementById("snap");
-  const closesnap = document.getElementById("closesnap");
-
+function CAMARA() {
+  let CAM = document.querySelector('#CAMARA');
+  const video = CAM.querySelector("video");
+  const canvas = CAM.querySelector("canvas");
+  const snap = CAM.querySelector("#snap");
+  const closesnap = CAM.querySelector("#closesnap");
+  CAM.classList.remove('Hiden');
   const constraints = {
     audio: false,
     video: { width: 1280, height: 720 },
@@ -3765,118 +2995,164 @@ function CAMARA(Close = 0) {
   // Draw image
   var context = canvas.getContext("2d");
   snap.addEventListener("click", function () {
-    context.drawImage(video, 0, 0, 640, 480);
+    context.drawImage(video, 275, 0, 730, 720, 0, 0, 360, 360);
 
-    let CAN = document.querySelector("#Mn_Camara #canvas");
-    let TIMG = CAN.toDataURL("image/png");
-    document.querySelector("#Mn_Camara #CAM_IMG").src = TIMG;
+    let TIMG = canvas.toDataURL("image/png");
+    CAM.querySelector("#CAM_IMG").src = TIMG;
 
     window.stream = null;
     video.srcObject = null;
-    document.querySelector("#Mn_Camara").classList.add("Hiden");
+    CAM.classList.add("Hiden");
   });
 
   closesnap.addEventListener("click", function () {
     window.stream = null;
     video.srcObject = null;
-    document.querySelector("#Mn_Camara").classList.add("Hiden");
+    CAM.classList.add("Hiden");
   });
 }
 
 function SEND_FILE() {
-  if (WEB_DATA["PACIENTES"]["SELECTED"]["ID"].length < 3) {
-    return false;
-  }
-  let DOM = document.querySelector("#Mn_Import_File");
-  let TIME = GET_TIME();
-
+  if (_Data["PACIENTES"]["SELECTED"]["ID"].length < 3) return false;
+  let DOM = document.querySelector("#IMPORT_FILE");
   let NOMBRE = DOM.querySelector('input[ITEM="NOMBRE"]').value;
   let ARCHIVO = DOM.querySelector('*[ITEM="ARCHIVO"]').files[0];
-  if (ARCHIVO == undefined || NOMBRE.length < 1) {
-    return false;
-  }
+  if (ARCHIVO == undefined || NOMBRE.length < 1) return false;
 
-  let DATE1 = `${TIME["YEAR"]}${TIME["MOUNT"]}${TIME["DAY"]}`;
-  let DATE2 = `${TIME["HOUR"]}${TIME["MINUT"]}${TIME["SECOND"]}`;
+  let DATE1 = `${WEB_DATA['DATE']['YY']}${WEB_DATA['DATE']['MM'][0]}${WEB_DATA['DATE']['DD'][0]}`;
+  let DATE2 = `${WEB_DATA['TIME']['HH']}${WEB_DATA['TIME']['MM']}${WEB_DATA['TIME']['SS']}`;
   let EXTENCION = String(ARCHIVO["name"]).split(".");
   EXTENCION = `.${EXTENCION[EXTENCION.length - 1]}`;
-  let ARCHIVO2 = `${WEB_DATA["PACIENTES"]["SELECTED"]["ID"]}_${DATE1}_${DATE2}_${NOMBRE}`;
+  let ARCHIVO2 = `${_Data["PACIENTES"]["SELECTED"]["ID"]}_${DATE1}_${DATE2}_${NOMBRE}`;
 
-  if (WEB_CONFIG["CONEXION"]["METHOD"] != "LOCAL") {
-    let SEND = {
-      DB_HOST: WEB_CONFIG["DATABASE"]["HOST"],
-      DB_USER: WEB_CONFIG["DATABASE"]["USER"],
-      DB_PASSWORD: WEB_CONFIG["DATABASE"]["PASSWORD"],
-      DB_NAME: WEB_CONFIG["DATABASE"]["NOMBRE"],
-      DB_TABLE: WEB_CONFIG["DATABASE"]["TABLA"]["ARCHIVOS"],
-      TABLE_KEYS: `ID,FECHA,HORA,NOMBRE,ARCHIVO,DATA_BLOB,type_BLOB`,
-      ID: WEB_DATA["PACIENTES"]["SELECTED"]["ID"],
-      FECHA: TIME["DATE"],
-      HORA: TIME["TIME"],
-      NOMBRE: NOMBRE,
-      EXTENCION: EXTENCION,
-      ARCHIVO: ARCHIVO2,
-    };
-    SEND_TO_PHP("SEND_FILE", SEND, ARCHIVO);
-  }
-
-  let DATA = {
-    FECHA: TIME["DATE"],
-    HORA: TIME["TIME"],
+  let SEND = {
+    DB_TABLE: _Config["DATABASE"]["TABLA"]["ARCHIVOS"],
+    TABLE_KEYS: `ID,FECHA,HORA,NOMBRE,ARCHIVO,DATA_BLOB,type_BLOB`,
+    ID: _Data["PACIENTES"]["SELECTED"]["ID"],
+    FECHA: WEB_DATA['DATE']['FULL'][0],
+    HORA: WEB_DATA['TIME']['FULL'],
     NOMBRE: NOMBRE,
     EXTENCION: EXTENCION,
     ARCHIVO: ARCHIVO2,
-    type_BLOB: "",
   };
-  let NUM = Object.keys(
-    WEB_DATA["DOCUMENTOS"][WEB_DATA["PACIENTES"]["SELECTED"]["ID"]]["ARCHIVOS"]
-  ).length;
-  Add_Notelist("Archivo", DATA, NUM);
+  SEND_TO_PHP("SEND_FILE", SEND, ARCHIVO);
 
+  let TYPES = {
+    ".aac":"audio/aac",
+    ".abw":"application/x-abiword",
+    ".arc":"application/x-freearc",
+    ".avif":"image/avif",
+    ".avi":"video/x-msvideo",
+    ".azw":"application/vnd.amazon.ebook",
+    ".bin":"application/octet-stream",
+    ".bmp":"image/bmp",
+    ".bz":"application/x-bzip",
+    ".bz2":"application/x-bzip2",
+    ".cda":"application/x-cdf",
+    ".csh":"application/x-csh",
+    ".css":"text/css",
+    ".csv":"text/csv",
+    ".doc":"application/msword",
+    ".docx":"application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+    ".eot":"application/vnd.ms-fontobject",
+    ".epub":"application/epub+zip",
+    ".gz":"application/gzip",
+    ".gif":"image/gif",
+    ".htm":"text/html",
+    ".ico":"image/vnd.microsoft.icon",
+    ".ics":"text/calendar",
+    ".jar":"application/java-archive",
+    ".jpeg":"image/jpeg",
+    ".jpg":"image/jpeg",
+    ".js":"text/javascript",
+    ".json":"application/json",
+    ".jsonld":"application/ld+json",
+    ".mid":"audio/midi",
+    ".mjs":"text/javascript",
+    ".mp3":"audio/mpeg",
+    ".mp4":"video/mp4",
+    ".mpeg":"video/mpeg",
+    ".mpkg":"application/vnd.apple.installer+xml",
+    ".odp":"application/vnd.oasis.opendocument.presentation",
+    ".ods":"application/vnd.oasis.opendocument.spreadsheet",
+    ".odt":"application/vnd.oasis.opendocument.text",
+    ".oga":"audio/ogg",
+    ".ogv":"video/ogg",
+    ".ogx":"application/ogg",
+    ".opus":"audio/opus",
+    ".otf":"font/otf",
+    ".png":"image/png",
+    ".pdf":"application/pdf",
+    ".php":"application/x-httpd-php",
+    ".ppt":"application/vnd.ms-powerpoint",
+    ".pptx":"application/vnd.openxmlformats-officedocument.presentationml.presentation",
+    ".rar":"application/vnd.rar",
+    ".rtf":"application/rtf",
+    ".sh":"application/x-sh",
+    ".svg":"image/svg+xml",
+    ".tar":"application/x-tar",
+    ".tif":"image/tiff",
+    ".ts":"video/mp2t",
+    ".ttf":"font/ttf",
+    ".txt":"text/plain",
+    ".vsd":"application/vnd.visio",
+    ".wav":"audio/wav",
+    ".weba":"audio/webm",
+    ".webm":"video/webm",
+    ".webp":"image/webp",
+    ".woff":"font/woff",
+    ".woff2":"font/woff2",
+    ".xhtml":"application/xhtml+xml",
+    ".xls":"application/vnd.ms-excel",
+    ".xlsx":"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+    ".xml":"application/xml",
+    ".xul":"application/vnd.mozilla.xul+xml",
+    ".zip":"application/zip",
+    ".3gp":"video/3gpp",
+    ".3g2":"video/3gpp2",
+    ".7z":"application/x-7z-compressed",  
+  }
+  console.log(EXTENCION)
+  let DATA = {
+    FECHA: WEB_DATA['DATE']['FULL'][0],
+    HORA: WEB_DATA['TIME']['FULL'],
+    NOMBRE: NOMBRE,
+    EXTENCION: EXTENCION,
+    ARCHIVO: ARCHIVO2,
+    type_BLOB: TYPES?.[EXTENCION] ?? "",
+  };
+  let NUM = Object.keys(_Data["DOCUMENTOS"][_Data["PACIENTES"]["SELECTED"]["ID"]]["ARCHIVOS"]).length;
+  Add_Notelist("Archivo", DATA, NUM);
   Mn_Doc(-1, "IMPORT");
 }
 
 function DOWNLOAD_FILE(Index, Type, ToDownload = false) {
-  if (WEB_DATA["PACIENTES"]["SELECTED"]["ID"].length < 3) {
-    return false;
-  }
+  if (_Data["PACIENTES"]["SELECTED"]["ID"].length < 3) return false;
   let ARCHIVO = "";
+  if (Type == "FILE") ARCHIVO = _Data["DOCUMENTOS"][_Data["PACIENTES"]["SELECTED"]["ID"]]["ARCHIVOS"][Index]["ARCHIVO"];
 
-  if (Type == "FILE") {
-    ARCHIVO =
-      WEB_DATA["DOCUMENTOS"][WEB_DATA["PACIENTES"]["SELECTED"]["ID"]][
-        "ARCHIVOS"
-      ][Index]["ARCHIVO"];
-  }
-
-  if (WEB_CONFIG["CONEXION"]["METHOD"] != "LOCAL" && ARCHIVO != "") {
+  if (_Config["CONEXION"]["METHOD"] != "LOCAL" && ARCHIVO != "") {
     let SEND = {
-      DB_HOST: WEB_CONFIG["DATABASE"]["HOST"],
-      DB_USER: WEB_CONFIG["DATABASE"]["USER"],
-      DB_PASSWORD: WEB_CONFIG["DATABASE"]["PASSWORD"],
-      DB_NAME: WEB_CONFIG["DATABASE"]["NOMBRE"],
-      DB_TABLE: WEB_CONFIG["DATABASE"]["TABLA"]["ARCHIVOS"],
-      ID: WEB_DATA["PACIENTES"]["SELECTED"]["ID"],
+      DB_TABLE: _Config["DATABASE"]["TABLA"]["ARCHIVOS"],
+      ID: _Data["PACIENTES"]["SELECTED"]["ID"],
       ARCHIVO: ARCHIVO,
     };
     SEND_TO_PHP("DOWNLOAD_FILE", SEND);
   }
 
   let RESICLE = setInterval(() => {
-    if (WEB_DATA["DOWNLOAD"] != undefined) {
+    if (_Data["DOWNLOAD"] != undefined) {
       clearInterval(RESICLE);
 
-      let file = URL.createObjectURL(WEB_DATA["DOWNLOAD"]);
+      let file = URL.createObjectURL(_Data["DOWNLOAD"]);
       let a = document.createElement("a");
       a.target = "_blank";
-      if (ToDownload == true) {
-        a.download = "";
-      }
+      if (ToDownload == true) a.download = "";
       a.href = file;
       a.click();
 
       setTimeout(() => {
-        WEB_DATA["DOWNLOAD"] = undefined;
+        _Data["DOWNLOAD"] = undefined;
         file = null;
         a = null;
       }, 500);
@@ -3885,7 +3161,7 @@ function DOWNLOAD_FILE(Index, Type, ToDownload = false) {
 }
 
 function DELETE_FILE(Index, Type) {
-  if (WEB_DATA["PACIENTES"]["SELECTED"]["ID"].length < 3) {
+  if (_Data["PACIENTES"]["SELECTED"]["ID"].length < 3) {
     return false;
   }
 
@@ -3900,60 +3176,60 @@ function DELETE_FILE(Index, Type) {
 
   if (Type == "FILE") {
     ARCHIVO =
-      WEB_DATA["DOCUMENTOS"][WEB_DATA["PACIENTES"]["SELECTED"]["ID"]][
+      _Data["DOCUMENTOS"][_Data["PACIENTES"]["SELECTED"]["ID"]][
         "ARCHIVOS"
       ][Index]["ARCHIVO"];
-    DB_TABLE = WEB_CONFIG["DATABASE"]["TABLA"]["ARCHIVOS"];
+    DB_TABLE = _Config["DATABASE"]["TABLA"]["ARCHIVOS"];
   } else if (Type == "CARTA") {
     ARCHIVO =
-      WEB_DATA["DOCUMENTOS"][WEB_DATA["PACIENTES"]["SELECTED"]["ID"]]["CARTAS"][
+      _Data["DOCUMENTOS"][_Data["PACIENTES"]["SELECTED"]["ID"]]["CARTAS"][
         Index
       ]["NOMBRE"];
     FECHA =
-      WEB_DATA["DOCUMENTOS"][WEB_DATA["PACIENTES"]["SELECTED"]["ID"]]["CARTAS"][
+      _Data["DOCUMENTOS"][_Data["PACIENTES"]["SELECTED"]["ID"]]["CARTAS"][
         Index
       ]["FECHA"];
     HORA =
-      WEB_DATA["DOCUMENTOS"][WEB_DATA["PACIENTES"]["SELECTED"]["ID"]]["CARTAS"][
+      _Data["DOCUMENTOS"][_Data["PACIENTES"]["SELECTED"]["ID"]]["CARTAS"][
         Index
       ]["HORA"];
-    DB_TABLE = WEB_CONFIG["DATABASE"]["TABLA"]["CARTAS"];
+    DB_TABLE = _Config["DATABASE"]["TABLA"]["CARTAS"];
   } else if (Type == "DATE") {
-    if(WEB_DATA["CITAS"][WEB_DATA["PACIENTES"]["SELECTED"]["ID"]]?.[Index]?.["MOTIVO"] == undefined){
+    if(_Data["CITAS"][_Data["PACIENTES"]["SELECTED"]["ID"]]?.[Index]?.["MOTIVO"] == undefined){
       return false;
     }
-    ARCHIVO = WEB_DATA["CITAS"][WEB_DATA["PACIENTES"]["SELECTED"]["ID"]][Index]["MOTIVO"];
+    ARCHIVO = _Data["CITAS"][_Data["PACIENTES"]["SELECTED"]["ID"]][Index]["MOTIVO"];
     FECHA =
-      WEB_DATA["CITAS"][WEB_DATA["PACIENTES"]["SELECTED"]["ID"]][Index][
+      _Data["CITAS"][_Data["PACIENTES"]["SELECTED"]["ID"]][Index][
         "FECHA"
       ];
     HORA =
-      WEB_DATA["CITAS"][WEB_DATA["PACIENTES"]["SELECTED"]["ID"]][Index]["HORA"];
-    DB_TABLE = WEB_CONFIG["DATABASE"]["TABLA"]["CITAS"];
+      _Data["CITAS"][_Data["PACIENTES"]["SELECTED"]["ID"]][Index]["HORA"];
+    DB_TABLE = _Config["DATABASE"]["TABLA"]["CITAS"];
   } else if (Type == "NOTE") {
     ARCHIVO =
-      WEB_DATA["NOTAS"][WEB_DATA["PACIENTES"]["SELECTED"]["ID"]][Index][
+      _Data["NOTAS"][_Data["PACIENTES"]["SELECTED"]["ID"]][Index][
         "MOTIVO"
       ];
     FECHA =
-      WEB_DATA["NOTAS"][WEB_DATA["PACIENTES"]["SELECTED"]["ID"]][Index][
+      _Data["NOTAS"][_Data["PACIENTES"]["SELECTED"]["ID"]][Index][
         "FECHA"
       ];
     HORA =
-      WEB_DATA["NOTAS"][WEB_DATA["PACIENTES"]["SELECTED"]["ID"]][Index]["HORA"];
-    DB_TABLE = WEB_CONFIG["DATABASE"]["TABLA"]["NOTAS"];
+      _Data["NOTAS"][_Data["PACIENTES"]["SELECTED"]["ID"]][Index]["HORA"];
+    DB_TABLE = _Config["DATABASE"]["TABLA"]["NOTAS"];
   } else if (Type == "PLANTILLA") {
   }
 
-  if (WEB_CONFIG["CONEXION"]["METHOD"] != "LOCAL") {
+  if (_Config["CONEXION"]["METHOD"] != "LOCAL") {
     let SEND = {
-      DB_HOST: WEB_CONFIG["DATABASE"]["HOST"],
-      DB_USER: WEB_CONFIG["DATABASE"]["USER"],
-      DB_PASSWORD: WEB_CONFIG["DATABASE"]["PASSWORD"],
-      DB_NAME: WEB_CONFIG["DATABASE"]["NOMBRE"],
+      DB_HOST: _Config["DATABASE"]["HOST"],
+      DB_USER: _Config["DATABASE"]["USER"],
+      DB_PASSWORD: _Config["DATABASE"]["PASSWORD"],
+      DB_NAME: _Config["DATABASE"]["NOMBRE"],
       DB_TABLE: DB_TABLE,
       TYPE: Type,
-      ID: WEB_DATA["PACIENTES"]["SELECTED"]["ID"],
+      ID: _Data["PACIENTES"]["SELECTED"]["ID"],
       FECHA: FECHA,
       HORA: HORA,
       ARCHIVO: ARCHIVO,
@@ -3962,26 +3238,26 @@ function DELETE_FILE(Index, Type) {
   }
   setTimeout(() => {
     if (Type == "FILE") {
-      WEB_DATA["DOCUMENTOS"][WEB_DATA["PACIENTES"]["SELECTED"]["ID"]][
+      _Data["DOCUMENTOS"][_Data["PACIENTES"]["SELECTED"]["ID"]][
         "ARCHIVOS"
       ][Index] = undefined;
     }
     if (Type == "CARTA") {
-      WEB_DATA["DOCUMENTOS"][WEB_DATA["PACIENTES"]["SELECTED"]["ID"]]["CARTAS"][
+      _Data["DOCUMENTOS"][_Data["PACIENTES"]["SELECTED"]["ID"]]["CARTAS"][
         Index
       ] = undefined;
     }
     if (Type == "DATE") {
-      WEB_DATA["CITAS"][WEB_DATA["PACIENTES"]["SELECTED"]["ID"]][Index] =
+      _Data["CITAS"][_Data["PACIENTES"]["SELECTED"]["ID"]][Index] =
         undefined;
     }
     if (Type == "NOTE") {
-      WEB_DATA["NOTAS"][WEB_DATA["PACIENTES"]["SELECTED"]["ID"]][Index] =
+      _Data["NOTAS"][_Data["PACIENTES"]["SELECTED"]["ID"]][Index] =
         undefined;
     }
     if (Type == "PLANTILLA") {
     }
-    Load_NoteList(WEB_DATA["PACIENTES"]["SELECTED"]["ID"], false);
+    Load_NoteList(_Data["PACIENTES"]["SELECTED"]["ID"], false);
   }, 100);
 }
 
@@ -4009,20 +3285,20 @@ function SEARCH_FILE(Type, InLocal = true) {
 
     if (Type == "FILE") {
       XDATA =
-        WEB_DATA["DOCUMENTOS"][WEB_DATA["PACIENTES"]["SELECTED"]["ID"]][
+        _Data["DOCUMENTOS"][_Data["PACIENTES"]["SELECTED"]["ID"]][
           "ARCHIVOS"
         ];
       LEN = Object.keys(XDATA).length;
       TABLE = document.querySelectorAll("#TABLE_Files tr");
     }
     if (Type == "NOTA") {
-      XDATA = WEB_DATA["NOTAS"][WEB_DATA["PACIENTES"]["SELECTED"]["ID"]];
+      XDATA = _Data["NOTAS"][_Data["PACIENTES"]["SELECTED"]["ID"]];
       LEN = Object.keys(XDATA).length;
       TABLE = document.querySelectorAll("#TABLE_Notes tr");
     }
     if (Type == "CARTA") {
       XDATA =
-        WEB_DATA["DOCUMENTOS"][WEB_DATA["PACIENTES"]["SELECTED"]["ID"]][
+        _Data["DOCUMENTOS"][_Data["PACIENTES"]["SELECTED"]["ID"]][
           "CARTAS"
         ];
       LEN = Object.keys(XDATA).length;
@@ -4066,24 +3342,24 @@ function SEARCH_FILE(Type, InLocal = true) {
 
 function REPORT(type){
   if(type == 0){
-    document.querySelector('#Mn_Report *[ITEM="TYPE"]').innerHTML = '0';
-    document.querySelector('#Mn_Report *[ITEM="TYPE_TEXT"]').innerHTML = 'SUGERENCIA';
+    document.querySelector('#REPORT *[ITEM="TYPE"]').innerHTML = '0';
+    document.querySelector('#REPORT *[ITEM="TYPE_TEXT"]').innerHTML = 'SUGERENCIA';
   } else if (type == 1){
-    document.querySelector('#Mn_Report *[ITEM="TYPE"]').innerHTML = '1';
-    document.querySelector('#Mn_Report *[ITEM="TYPE_TEXT"]').innerHTML = 'REPORTAR PROBLEMA';
+    document.querySelector('#REPORT *[ITEM="TYPE"]').innerHTML = '1';
+    document.querySelector('#REPORT *[ITEM="TYPE_TEXT"]').innerHTML = 'REPORTAR PROBLEMA';
   } else if (type == 2){
-    document.querySelector('#Mn_Report *[ITEM="TYPE"]').innerHTML = '2';
-    document.querySelector('#Mn_Report *[ITEM="TYPE_TEXT"]').innerHTML = 'REPORTAR ERROR';
+    document.querySelector('#REPORT *[ITEM="TYPE"]').innerHTML = '2';
+    document.querySelector('#REPORT *[ITEM="TYPE_TEXT"]').innerHTML = 'REPORTAR ERROR';
   } else { 
     return false;
   }
-  GOTO_MENU('Report', 0);
+  GOTO_MENU('Report', 1);
 }
 
 function SEND_REPORT(Close = false){
   if(Close == false){
-    let TYPE = document.querySelector('#Mn_Report *[ITEM="TYPE"]').innerHTML;
-    let TEXT = document.querySelector('#Mn_Report textarea').value;
+    let TYPE = document.querySelector('#REPORT *[ITEM="TYPE"]').innerHTML;
+    let TEXT = document.querySelector('#REPORT textarea').value;
     let DATA = {}; 
     
     if(TEXT.length > 2){
@@ -4091,14 +3367,10 @@ function SEND_REPORT(Close = false){
       if(TYPE == '1'){ DATA['TIPO'] = "PROBLEMA";}
       if(TYPE == '2'){ DATA['TIPO'] = "ERROR";}
   
-      if(WEB_CONFIG['CONEXION']['METHOD'] != "LOCAL"){
-        let VALUES = `'${WEB_DATA['USUARIO']['ID']}','${DATA['TIPO']}','${TEXT}'`;      
+      if(_Config['CONEXION']['METHOD'] != "LOCAL"){
+        let VALUES = `'${_Data['USUARIO']['ID']}','${DATA['TIPO']}','${TEXT}'`;      
         let SEND = {
-          DB_HOST: WEB_CONFIG["DATABASE"]["HOST"],
-          DB_USER: WEB_CONFIG["DATABASE"]["USER"],
-          DB_PASSWORD: WEB_CONFIG["DATABASE"]["PASSWORD"],
-          DB_NAME: WEB_CONFIG["DATABASE"]["NOMBRE"],
-          DB_TABLE: WEB_CONFIG["DATABASE"]["TABLA"]["REPORT"],
+          DB_TABLE: _Config["DATABASE"]["TABLA"]["REPORT"],
           TABLE_KEYS: `DOCTOR,TIPO,TEXT`,
           VALUES: VALUES,
         };
@@ -4106,325 +3378,61 @@ function SEND_REPORT(Close = false){
   
         GOTO_MENU("Help",0);
         setTimeout(() => {
-          document.querySelector('#Mn_Report textarea').value = "";
+          document.querySelector('#REPORT textarea').value = "";
         },100)
       }
     }
   } else {
-    document.querySelector('#Mn_Report textarea').value = "";
+    document.querySelector('#REPORT textarea').value = "";
     GOTO_MENU("Help",0);
   }
 }
 
-function TO_PRINT(Menu, ID) {
-  let TIME= GET_TIME();
-  let DOM_PRINT = document.createElement('iframe');
-  
-  
-  let LOGO = "",
-  FOLIO = "",
-  CONSULTORIO = "TERAPIA",
-  TIPO = "",
-  NOMBRE = `${WEB_DATA['PACIENTES']['SELECTED']['NOMBRE']} ${WEB_DATA['PACIENTES']['SELECTED']['APELLIDO_1']} ${WEB_DATA['PACIENTES']['SELECTED']['APELLIDO_2']}`,
-  SEXO = WEB_DATA['PACIENTES']['SELECTED']['GENERO'],
-  FECHA_HORA = `${TIME['DATE']} ${TIME['TIME']}`,
-  DOMICILIO = WEB_DATA['CONSULTORIO']['DIRECCION'],
-  EDAD = WEB_DATA['PACIENTES']['SELECTED']['EDAD'],
-  DOCTOR_ID = "",
-  ESPECIALIDAD = WEB_DATA['USUARIO']['ESPECIALIDAD'] ?? "#",
-  CLINICA = WEB_DATA['USUARIO']['CONSULTORIO_ID'],
-  RH = WEB_DATA['PACIENTES']['SELECTED']['RH'];
-
-  let TEXT = "";
-  let PREPARE = `
-  <head>
-  <link rel="stylesheet" href="./Style.css" media="all"/>
-  </head>
-  <body class="TO_PRINT">
-  `;
-
-  if (Menu == "Note") {
-    let SET = WEB_DATA["NOTAS"]?.[WEB_DATA["PACIENTES"]["SELECTED"]["ID"]]?.[ID];
-    if(SET == undefined){ return false;}
-    DOCTOR_ID = SET['DOCTOR'];
-    
-    let OTROS = JSON.parse(SET['OTROS']);
-    TIPO = (OTROS['TYPE'] == "RECETA" || OTROS['TYPE'] == "REFERENCIA")? OTROS['TYPE']:"NOTA";
-    
-    PREPARE += `
-    <div>
-    <table>
-    <tr>
-      <td><img src="${LOGO}" alt="" ITEM="LOGO"></td>
-      <td>
-        <h1>${CONSULTORIO}</h1>
-        <h3>${TIPO}</h3>
-        <br>
-      </td>
-      <td></td>
-    </tr>
-    </table>
-    </div>
-    <div>
-      <p>DOCTOR: ${DOCTOR_ID} || ESPECIALIDAD: ${ESPECIALIDAD}</p>
-    </div>
-    <div>
-    <p>FECHA DE IMPRESION: ${FECHA_HORA} || FECHA DE LA NOTA: ${SET["FECHA"]}</p>    
-    </div>
-    <div class="Flex">
-      <p>NOMBRE: ${NOMBRE}</p>
-      <p>CURP: ${SET["ID"]}</p>
-      <p>EDAD: ${EDAD}</p>
-      <p>SEXO: ${SEXO}</p>
-      <p>GRUPO/RH: ${RH}</p>
-    </div>
-    `;
-    
-    if(OTROS['TYPE'] != "SIMPLE" && OTROS['TYPE'] != "RECETA" && OTROS['TYPE'] != "REFERENCIA"){
-      PREPARE += `
-      <div class="Flex">
-      <p>PESO: ${OTROS?.["PESO"]}</p>
-      <p>ALTURA: ${OTROS?.["ALTURA"]}</p>
-      <p>TENCION ARTERIAL: ${OTROS?.["TA"]}</p>
-      <p>FREC.CARDIACA: ${OTROS?.["FC"]}</p>
-      <p>FREC.RESPIRATORIA: ${OTROS?.["FR"]}</p>
-      <p>TEMPERATURA: ${OTROS?.["TEMPERATURA"]}</p>
-      <p>SATURACION OXIGENO: ${OTROS?.["SO2"]}</p>
-      </div> 
-      `;
-    }
-
-    PREPARE += `
-    <hr><br>    
-    <p ITEM="TEXTO">${SET['TEXTO']}</p>
-    `;
-
-    if(OTROS['TYPE'] == "COMPLETA"){
-      let PRE_KEYS = Object.keys(OTROS);
-      let KEYS = {
-        TB1: [],
-        TB2: [],
-        TB3: [],
-        TB4: [],
-        TB5: [],
-      };
-
-      PRE_KEYS.forEach((Xtem) => {
-        let VAL = String(Xtem).substring(0,3);
-        if(VAL == "AAS"){
-          KEYS['TB1'].push(Xtem);
-        } else if(VAL == "SAA"){
-          KEYS['TB2'].push(Xtem);
-        } else if(VAL == "MA_"){
-          KEYS['TB3'].push(Xtem);
-        } else if(VAL == "FE_"){
-          KEYS['TB4'].push(Xtem);
-        } else if(VAL == "SNP"){
-          KEYS['TB5'].push(Xtem);
-        }
-      })
-
-      if(KEYS['TB1'].length > 0){
-        let NUM = ((KEYS['TB1'].length) / 2);
-        let Count = 0;
-
-        PREPARE += `<br><h4>APARATOS Y SISTEMAS GENERALES</h4><div class="Flex"><div class="NoLine">`;
-
-        KEYS['TB1'].forEach((Xtem) => {
-          let VAL = document.querySelector(`#Mn_Notes > div > div > div.more > div.CNote_3 *[item="${Xtem}"]`)
-          if(VAL.getAttribute('type') == "checkbox"){ 
-            VAL = VAL.parentElement.textContent;
-            PREPARE += `<p>${VAL}</p>`;
-          }
-          else { 
-            let Temp = VAL.getAttribute('placeholder')
-            PREPARE += `<p>${Temp}: `;
-            VAL = VAL.value;
-            PREPARE += `${OTROS[Xtem]}</p>`;
-          }
-          if(Count == parseInt(NUM)){
-            PREPARE += `</div><div class="NoLine">`
-          }
-          Count += 1;
-        })
-        PREPARE += "</div></div>"
-      }
-
-      if(KEYS['TB2'].length > 0){
-        PREPARE += `<br><h4>SOMATOMETRIA Y ANTROPOMETRÍA</h4>`;        
-        let Temp_DOM = document.querySelector('#Mn_Notes div.more > div.CNote_3 > div:nth-child(3) > table');
-        let Temp = Temp_DOM.cloneNode(true);
-
-        KEYS['TB2'].forEach((Xtem) => {
-          let Xa = Temp.querySelector(`*[item="${Xtem}"]`);
-          Xa.outerHTML = `${OTROS[Xtem]}`;
-        })
-
-        let Xa = Temp.querySelectorAll(`input[item]`);
-        Xa.forEach((X) => { X.outerHTML = "";})
-
-        PREPARE += `${Temp.outerHTML}`;
-      }
-
-      if(KEYS['TB3'].length > 0){
-        PREPARE += `<br><h4>MOVIMIENTO ARTICULAR</h4>`;
-        let Temp_DOM = document.querySelector('#Mn_Notes div.more > div.CNote_3 > div:nth-child(4) > table');
-        let Temp = Temp_DOM.cloneNode(true);
-
-        KEYS['TB3'].forEach((Xtem) => {
-          let Xa = Temp.querySelector(`*[item="${Xtem}"]`);
-          Xa.outerHTML = `${OTROS[Xtem]}`;
-        })
-        let Xa = Temp.querySelectorAll(`input[item]`);
-        Xa.forEach((X) => { X.outerHTML = "";})
-
-        PREPARE += `${Temp.outerHTML}`;
-      }
-
-      if(KEYS['TB4'].length > 0){
-        PREPARE += `<br><h4>FUERZA ESTIMADA</h4>`;
-        let Temp_DOM = document.querySelector('#Mn_Notes div.more > div.CNote_3 > div:nth-child(5) > table');
-        let Temp = Temp_DOM.cloneNode(true);
-
-        KEYS['TB4'].forEach((Xtem) => {
-          let Xa = Temp.querySelector(`*[item="${Xtem}"]`);
-          Xa.outerHTML = `${OTROS[Xtem]}`;
-        })
-        let Xa = Temp.querySelectorAll(`input[item]`);
-        Xa.forEach((X) => { X.outerHTML = "";})
-
-        PREPARE += `${Temp.outerHTML}`;
-      }
-
-      if(KEYS['TB5'].length > 0){
-        PREPARE += `<br><h4>EVALUACIÓN DEL SNP</h4>`;
-        let Temp_DOM = document.querySelector('#Mn_Notes > div > div > div.more > div.CNote_3 > div:nth-child(6) > table');
-        let Temp = Temp_DOM.cloneNode(true);
-
-        KEYS['TB5'].forEach((Xtem) => {
-          let Xa = Temp.querySelector(`*[item="${Xtem}"]`);
-          Xa.outerHTML = `${OTROS[Xtem]}`;
-        })
-        let Xa = Temp.querySelectorAll(`input[item]`);
-        Xa.forEach((X) => { X.outerHTML = "";})
-
-        PREPARE += `${Temp.outerHTML}`;
-      }
-      
-    }
-
-    if(OTROS['TYPE'] == "REFERENCIA"){
-      let PRE_KEYS = Object.keys(OTROS);
-      let KEYS = [];
-      let TOKEY = {
-        TOR1: "Verificar destino del traslado",
-        TOR2: "Informar al paciente y/o familiares",
-        TOR3: "Evaluar integrante que realiza el traslado",
-        TOR4: "Realizar informe del traslado",
-        TOR5: "Entregar al paciente",
-        TOR6: "Entregar indicaciones del traslado",
-        TOR7: "Verificar permeabilidad de las vias venosas",
-        TOR8: "Verificar higiene del paciente",
-        TOR9: "Verificar historia clinica completa",
-        TOR10:"Indicaciones de seguridad",
-        TOR11:"Recomendaciones de traslado",
-      };
-
-      PRE_KEYS.forEach((Xtem) => {
-        if(String(Xtem).substring(0,3) == "TOR"){
-          KEYS.push(Xtem);
-        }
-      })
-
-      PREPARE += `<br><h4>INDICACIONES</h4>`;
-
-      KEYS.forEach((Xtem) => {
-        let VAL = (OTROS[Xtem].length > 1)? `: ${OTROS[Xtem]}`:"";
-        PREPARE += `<p>${TOKEY[Xtem]}${VAL}</p>`;
-      })
-    }
-
-  } else if (Menu == "Date") {
-    let SET = WEB_DATA["CITAS"]?.[WEB_DATA["PACIENTES"]["SELECTED"]["ID"]]?.[ID];
-    if(SET == undefined){ return false;}
-
-    PREPARE += `
-    <div>
-    <table>
-    <tr>
-      <td><img src="${LOGO}" alt="" ITEM="LOGO"></td>
-      <td>
-        <h1>${CONSULTORIO}</h1>
-        <h3>CITA</h3>
-        <br>
-      </td>
-      <td></td>
-    </tr>
-    </table>
-    </div>
-    <div class="Flex">
-      <p>REGISTRADO POR: ${SET['DOCTOR_1']}</p>
-      <p>ATENDIDO POR: ${SET['DOCTOR_2']}</p>
-    </div>
-    <p>FECHA DE LA CITA: ${SET["FECHA"]} - ${SET['HORA']}</p>
-    <div class="Flex">
-      <p>NOMBRE: ${NOMBRE}</p>
-      <p>CURP: ${SET["ID"]}</p>
-      <p>EDAD: ${EDAD}</p>
-      <p>SEXO: ${SEXO}</p>
-      <p>GRUPO/RH: ${RH}</p>
-    </div><hr><br>
-    <p>MOTIVO: ${SET['MOTIVO']}</p>
-    `;
-
-  } else if (Menu == "Carta") {
-    let XMENU = "CARTAS";
-    if(WEB_DATA["DOCUMENTOS"][WEB_DATA["PACIENTES"]["SELECTED"]["ID"]][XMENU][ID] == undefined){
-      return false;
-    }
-    let SET = WEB_DATA["DOCUMENTOS"][WEB_DATA["PACIENTES"]["SELECTED"]["ID"]][XMENU][ID];
-    DOCTOR_ID = SET['DOCTOR'];
-
-    PREPARE += `
-    <div>
-    <table>
-    <tr>
-      <td><img src="${LOGO}" alt="" ITEM="LOGO"></td>
-      <td>
-        <h1>${CONSULTORIO}</h1>
-        <h3>${String(Menu).toUpperCase()}</h3>
-        <br>
-      </td>
-      <td></td>
-    </tr>
-    </table>
-    </div>
-    <div class="Flex">
-      <p>DOCTOR: ${DOCTOR_ID}</p>
-      <p>ESPECIALIDAD: ${ESPECIALIDAD}</p>
-    </div>
-    <p>FECHA DE IMPRESION: ${FECHA_HORA} || FECHA DE LA CARTA: ${SET["FECHA"]}</p>
-    <div class="Flex">
-      <p>NOMBRE: ${NOMBRE}</p>
-      <p>CURP: ${SET["ID"]}</p>
-      <p>EDAD: ${EDAD}</p>
-      <p>SEXO: ${SEXO}</p>
-      <p>GRUPO/RH: ${RH}</p>
-    </div><hr><br>
-    <h2>${SET['NOMBRE']}</h2>
-    <h3>${SET['MOTIVO']}</h3><br>
-    <p>${SET['TEXTO']}</p>
-    `;
-
+function TO_PRINT(Menu = [], ID) {
+  for(let X in Menu){
+    Menu[X] = String(Menu[X]).toUpperCase()
   }
 
+  let DATA = undefined;
+  let PACIENT = _Data['PACIENTES']['SELECTED']
+
+  if(Menu[0] == "DATE") DATA = {..._Data['CITAS'][PACIENT['ID']][ID]};
+  else if(Menu[0] == "CART") DATA = {..._Data['DOCUMENTOS'][PACIENT['ID']]};
+  else if(Menu[0] == "NOTE") {
+    DATA = {..._Data['NOTAS'][PACIENT['ID']][ID]};
+    DATA["OTROS"] = JSON.parse(DATA["OTROS"]);
+    let KEYS = Object.keys(DATA["OTROS"]);
+    KEYS.forEach((X)=>{ DATA[X] = DATA["OTROS"][X] })
+  }
+  else return false;
+
+  let MY_HTML = "";
+  MY_HTML += `
+  <!DOCTYPE html> <html> <head>
+    <link rel="stylesheet" href="${WEB_DATA['WEB_PRINT']['STYLE_FILE']}" media="all"/>
+  </head> <body class="TO_PRINT ${WEB_DATA['WEB_PRINT']['STYLE_FONT']}">
+  `;
+  MY_HTML += WEB_DATA['WEB_PRINT']['HEADER'] ?? "";
+  MY_HTML += WEB_DATA['WEB_PRINT']['TEMPLATES']?.[Menu[0]]?.[Menu[1]] ?? ""; 
+  MY_HTML += `</body></html>`;
+
   let NWin = window.open("")
-  NWin.document.write(PREPARE)
+  NWin.document.write(MY_HTML)
   NWin.document.close()
+
+  let ITEMS = NWin.document.querySelectorAll('*[ITEM]');
+  let TYPE_TEXT = ["P","SPAN","STRONG","B"]
+  let TYPE_INPUT = ["INPUT","TEXTAREA","SELECT"]
+
+  ITEMS.forEach((X)=>{
+    let TYPE = X.nodeName;
+    let KEY = X.getAttribute('ITEM')
+    if(TYPE_TEXT.includes(TYPE)) X.innerHTML = DATA?.[KEY] ?? "";
+    else if(TYPE_INPUT.includes(TYPE)) X.value = DATA?.[KEY] ?? "";
+  })
+
   NWin.print();
-  setTimeout(() => { 
-    NWin.close();
-  }, 350)
+  //setTimeout(() =>{NWin.close();}, 350)
 
 }
 
@@ -4440,91 +3448,210 @@ function DOCTOR_LIST(Menu, id){
   XLI.forEach((X) => {X.remove();})
 
   if(id == "NO"){
-    let Count = 0;
-    let Xkey = undefined;
-    if(Menu == "DOC"){
-      Count = Object.keys(WEB_DATA['LIST']['DOCTORS']).length;
-    } else if(Menu == "PAS"){
-      Xkey = Object.keys(WEB_DATA['LIST']['PACIENTES']);
-      Count = Xkey.length;
-    
-    } 
+    let LIST = DOM.querySelector('ul')
+    LIST.innerHTML = "";
 
-    for(let X=0; X<Count; X++){
-      let Item = document.createElement('li');
-      let HText = `<div class="Flex_R"><div>`
-      if(Menu == 'DOC'){
-        HText += `
-        <p>#${WEB_DATA['LIST']['DOCTORS'][X]['ID']}</p>
-        <p>${WEB_DATA['LIST']['DOCTORS'][X]['NOMBRE']}</p>
-        </div><div>
-        <button type="button" class="Btn_Sty_1" onclick="DOCTOR_LIST('DOC',${X})">Seleccionar</button>
-        </div></div>`;
-      } else if(Menu == 'PAS'){
-        HText += `
-        <p>#${WEB_DATA['LIST']['PACIENTES'][Xkey[X]]['ID']}</p>
-        <p>${WEB_DATA['LIST']['PACIENTES'][Xkey[X]]['NOMBRE']}</p>
-        </div><div>
-          <button type="button" class="Btn_Sty_1" onclick="DOCTOR_LIST('PAS',${X})">Seleccionar</button>
-        </div></div>`;
-      }
-      Item.innerHTML = HText;
-      XUL.appendChild(Item);
+    let XTEMS = undefined;
+    let ITEMS = undefined;
+    if(Menu == "DOC") {
+      XTEMS = _Data['LIST']['DOCTORS'];
+      ITEMS = Object.keys(_Data['LIST']['DOCTORS']);
+    }
+    if(Menu == "PAS"){
+      XTEMS = _Data['PACIENTES'];
+      ITEMS = Object.keys(_Data['PACIENTES']);
+    } 
+    if(ITEMS != undefined){
+      ITEMS.forEach((X)=>{
+        if(X != "SELECTED" && XTEMS[X]?.['ID'] != undefined){
+          let PREPARE = document.createElement('li');
+          PREPARE.innerHTML = `
+          <div class="Flex">
+            <div>
+              <p><strong>#${XTEMS[X]?.['ID'] ?? "#ERROR"}</strong><p>
+              <p>${XTEMS[X]?.['NOMBRE'] ?? "#ERROR"}</p>
+            </div>
+            <button type="button" onclick="DOCTOR_LIST('${Menu}','${X}')">Seleccionar</button>
+          </div>
+          `;
+          LIST.appendChild(PREPARE);
+        }
+      })
     }
   } else {
-    if(Menu == "DOC"){
-      let IDS = document.querySelectorAll('#NEW_DATE input[item="DOCTOR_2"]');
-      IDS.forEach((X) => {
-        X.value = WEB_DATA['LIST']['DOCTORS'][id]['ID'];
-      })
-    } else if(Menu == "PAS"){
-      let IDS = document.querySelectorAll('input[item="ID"]');
-      let KEYS = Object.keys(WEB_DATA['LIST']['PACIENTES']);
-      IDS.forEach((X) => {
-        X.value = WEB_DATA['LIST']['PACIENTES'][KEYS[id]]['ID'];
+    let IDS = undefined;
+    let DOMS_DOC = ["#TRNOTE","#EGNOTE","#DATES_NEW"]
+    let DOMS_PAS = ["#FNOTE","#ENOTE","#CNOTE","#TRNOTE","#EGNOTE","#RECIPE","#CART","#DATES_NEW"]
+    if(Menu == "DOC") {
+      DOMS_DOC.forEach((X)=>{
+        IDS = document.querySelector(`${X} input[item="DOCTOR_2"]`) ?? null;
+        if(IDS != null) IDS.value = id;
       })
     }
+    if(Menu == "PAS"){
+      DOMS_PAS.forEach((X)=>{
+        IDS = document.querySelector(`${X} input[item="ID"]`) ?? null;
+        if(IDS != null) IDS.value = id;
+      })
+    }
+
     DOM.classList.add('Hiden');
   }
 }
 
-window.addEventListener("DOMContentLoaded", () => {
-  GOTO_MENU("Login");
+function Send_Email() {
+  GOTO_MENU("LOGIN");
+  APP_ALERT("LOGIN",2);
+  return false;
 
-  let Config = LOAD_LOCAL();
-  if (Config == true) {
-    WEB_CONFIG["CONEXION"]["METHOD"] = "SERVER";
-    if (WEB_CONFIG["DATABASE"]["HOST"] == null) {
-      console.warn(
-        "ALERTA -> No hay una base de datos definida en la configuracion."
-      );
-    }
-    if (WEB_CONFIG["CONEXION"]["METHOD"] == "LOCAL") {
-    } else if (WEB_CONFIG["CONEXION"]["METHOD"] == "SERVER") {
-      WEB_DATA = WEB_DATA_EMPY;
-    } else if (WEB_CONFIG["CONEXION"]["METHOD"] == null) {
-      WEB_CONFIG["CONEXION"] = {
-        METHOD: "SERVER",
-        MODE: "LOCAL",
-        SEGURITY: "LOCAL",
-      };
-    }
+  let CODE = document.querySelector('#Mn_Recuperar #Forget_Email');
+  let EMAIL = document.querySelector('#Mn_Recuperar #Forget_Email2');
+  let WHERE = "";
+  let KEY = "";
+  let VALUE = "";
+  if((CODE.value).length > 2){
+    WHERE = `ID='${CODE.value}'`;
+    KEY = "ID";
+    VALUE = CODE.value;
   } else {
-    console.error("ERROR -> Ocurrio un problema al cargar la configuracion.");
-  }
-
-  document.getElementById("Mn_Toolbar").classList.add("Hiden");
-  setTimeout(() => {
-    let TB1 = document
-      .getElementById("TABLE_Historial_1")
-      .querySelectorAll("tr");
-    if (TB1.length < 2) {
-      Pacient_List_History();
+    if((EMAIL.value).length > 2){
+      WHERE = `CORREO='${EMAIL.value}'`;
+      KEY = "CORREO";
+      VALUE = EMAIL.value;
     }
+  }
+  if(VALUE.length > 2){
+    let SEND = {
+      DB_TABLE: _Config['DATABASE']['TABLA']['LOGIN'],
+      KEY: KEY,
+      VALUE: VALUE
+    }
+    SEND_TO_PHP("SEND_MAIL",SEND);
+    CODE.classList.remove("ERROR")
+    EMAIL.classList.remove("ERROR")
+  } else {
+    CODE.classList.add("ERROR")
+    EMAIL.classList.add("ERROR")
+  }
+}
+
+function SAVE_CONFIG() {
+  let DOM = document.querySelector('#CONFIG')
+  let TEMP_USER = DOM.querySelectorAll('#CONFIG_USER *[ITEM]')
+  let TEMP_CONS = DOM.querySelectorAll('#CONFIG_CONSULTORY *[ITEM]')
+  let TEMP_TIME = DOM.querySelectorAll('#CONFIG_TIME *[ITEM]')
+  let TEMP_DB = DOM.querySelectorAll('#CONFIG_DB *[ITEM]')
+
+  let PREPARE = ""
+  TEMP_USER.forEach((X)=>{
+    let KEY = X.getAttribute('ITEM')
+    let VALUE = X.value
+    PREPARE += (PREPARE.length > 2) ? `, ${KEY}='${VALUE}'`:`${KEY}='${VALUE}'`
+  })
+  let SEND = {
+    TABLE_NAME: _Config['DATABASE']['TABLA']['USER_DATA'],
+    SET: PREPARE,
+    WHERE: `ID='${_Data['USUARIO']['ID']}'`
+  }
+  SEND_TO_PHP('UPDATE_DATA',SEND)
+
+  PREPARE = ""
+  TEMP_TIME.forEach((X)=>{
+    let KEY = X.getAttribute('ITEM')
+    let VALUE = X.value
+    PREPARE += (PREPARE.length > 2) ? `, ${KEY}:${VALUE}`:`${KEY}:${VALUE}`
+  })
+  SEND = {
+    TABLE_NAME: _Config['DATABASE']['TABLA']['USER_DATA'],
+    SET: `HORARIO='${JSON.stringify(PREPARE)}'`,
+    WHERE: `ID='${_Data['USUARIO']['ID']}'`
+  }
+  SEND_TO_PHP('UPDATE_DATA',SEND)
+
+  PREPARE = ""
+  let KEYS = ['HOST','PASSWORD','USER','NOMBRE','DB_SEL']
+  TEMP_DB.forEach((X)=>{
+    let KEY = X.getAttribute('ITEM')
+    let VALUE = String(X.value).trim()
+    if(VALUE != "" && KEYS.includes(KEY)){
+      //_Config['DATABASE'][KEY] = VALUE;
+      PREPARE += (PREPARE.length > 2) ? `;${KEY}:${VALUE}`:`${KEY}:${VALUE}`
+    } 
+  })
+  SEND = {
+    TABLE_NAME: _Config['DATABASE']['TABLA']['USER_DATA'],
+    SET: `DB='${PREPARE}'`,
+    WHERE: `ID='${_Data['USUARIO']['ID']}'`
+  }
+  SEND_TO_PHP('UPDATE_DATA',SEND)
+
+
+}
+
+async function LOAD_LENGUAGE(){
+  let LENG = document.querySelector('html').getAttribute('lang').toUpperCase()
+  let RAWDATA = await LOAD_JSON("LANG",LENG)
+
+  let KEYS = Object.keys(RAWDATA)
+  KEYS.forEach((X)=>{
+    let ITEMS = document.querySelectorAll(`${X} *[lg]`);
+    ITEMS.forEach((Y)=>{
+      let RUT = Y.getAttribute('LG');
+      if(RUT != ""){
+        try {
+          if(Y.nodeName == "SPAN") Y.textContent = RAWDATA[X][RUT];
+          else if(Y.nodeName == "INPUT") Y.placeholder = RAWDATA[X][RUT];
+          else if(Y.nodeName == "TEXTAREA") Y.placeholder = RAWDATA[X][RUT];
+          else if(Y.nodeName == "P") Y.textContent = RAWDATA[X][RUT];
+          else if(Y.nodeName == "LABEL") Y.textContent = RAWDATA[X][RUT];
+        } catch {}
+      }
+    })
+  })
+
+  let ALERTS = await LOAD_JSON(".","ALERTS");
+  if(ALERTS != null) WEB_DATA['ALERTS'] = ALERTS;
+}
+
+async function LOAD_PRINT_TEMPLATES(Plantilla){
+  WEB_DATA['WEB_PRINT'] = await LOAD_JSON("PRINT/TEMPLATES",Plantilla)
+}
+
+window.addEventListener("DOMContentLoaded", () => {
+  GOTO_MENU("LOGIN");
+  _Config["CONEXION"]["METHOD"] = "SERVER";
+  if (_Config["DATABASE"]["HOST"] == null) {
+    console.warn(
+      "ALERTA -> No hay una base de datos definida en la configuracion."
+    );
+  }
+  if (_Config["CONEXION"]["METHOD"] == "SERVER") {
+    _Data = _Data_EMPY;
+  } else if (_Config["CONEXION"]["METHOD"] == null) {
+    _Config["CONEXION"] = {
+      METHOD: "SERVER",
+      MODE: "LOCAL",
+      SEGURITY: "LOCAL",
+    };
+  }
+  
+  document.querySelector("#TOOLBAR").classList.add("Hiden");
+  let REM = JSON.parse(localStorage.getItem('UDG_S_LOGIN'));
+  if(REM != null){
+    let DOM_1 = document.querySelectorAll("#LOGIN *[ITEM]")
+    DOM_1.forEach((X)=>{
+      let KEY = X.getAttribute('ITEM')
+      let TYPE = X.getAttribute('type').toUpperCase()
+      if(TYPE == "CHECKBOX") X.checked = true
+      else X.value = REM[KEY];
+      //document.querySelector('#LOGIN button[onclick="User_Login()"]').click()
+    })
+  } 
+
+  setTimeout(() => {
+    LOAD_LENGUAGE()
+    let TB1 = document.querySelectorAll("#TABLE_Historial_1 tr");
+    if (TB1.length < 2) Pacient_List_History();
   }, 1250);
 });
 
-setTimeout(() => {
-  document.querySelector('#LOGIN_USER').value = "00"
-  document.querySelector('#LOGIN_PASSWORD').value = "admin"
-}, 500)

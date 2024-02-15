@@ -19,20 +19,17 @@ $RAW2 = json_decode($RAW, true);
 $PHP_Function = $RAW2["EXECUTE"];
 $DB_JSON =  $RAW2["JSON"];
 
-if ($DB_JSON == "ERROR") {
-   $DB_DATA = "ERROR";
-} else {
-   $DB_DATA = json_decode($DB_JSON, true);
-}
+if ($DB_JSON == "ERROR") {$DB_DATA = "ERROR";} 
+else { $DB_DATA = json_decode($DB_JSON, true);}
 
-if($DEF_HOST != ""){$_DB_HOST = $DEF_HOST;}
-else {$_DB_HOST = $DB_DATA["DB_HOST"];}
-if($DEF_DB != ""){$DB_DB = $DEF_DB;}
-else {$DB_DB = $DB_DATA["DB_NAME"];}
-if($DEF_USER != ""){$_DB_USER = $DEF_USER;}
-else {$_DB_USER = $DB_DATA["DB_USER"];}
-if($DEF_PASSWORD != ""){$_DB_PASSWORD = $DEF_PASSWORD;}
-else {$_DB_PASSWORD = $DB_DATA["DB_PASSWORD"];}
+if($DB_DATA["DB_HOST"] != ""){$_DB_HOST = $DB_DATA["DB_HOST"];}
+else {$_DB_HOST = $DEF_HOST;}
+if($DB_DATA["DB_NAME"] != ""){$DB_DB = $DB_DATA["DB_NAME"];}
+else {$DB_DB = $DEF_DB;}
+if($DB_DATA["DB_USER"] != ""){$_DB_USER = $DB_DATA["DB_USER"];}
+else {$_DB_USER = $DEF_USER;}
+if($DB_DATA["DB_PASSWORD"] != ""){$_DB_PASSWORD = $DB_DATA["DB_PASSWORD"];}
+else {$_DB_PASSWORD = $DEF_PASSWORD;}
 
 try {
    $_DB_CONEXION = new PDO("mysql:host={$_DB_HOST};dbname={$DB_DB}", $_DB_USER, $_DB_PASSWORD);
@@ -105,6 +102,10 @@ function Diferenciador($PHP_Function, $DB_DATA, $_DB_CONEXION)
       DELETE_FILE($DB_DATA, $_DB_CONEXION);
    } else if ($PHP_Function == "DOCTOR_LIST"){
       DOCTOR_LIST($DB_DATA, $_DB_CONEXION);
+   } else if ($PHP_Function == "SEND_MAIL"){
+      SEND_MAIL($DB_DATA, $_DB_CONEXION);
+   } else if ($PHP_Function == "LOAD_CONSULTORIO"){
+      SEARCH($DB_DATA, $_DB_CONEXION);
    }
 }
 
@@ -235,13 +236,13 @@ function Update_Data($DB_DATA, $_DB_CONEXION)
       echo "ERROR";
       return "ERROR";
    } else {
-      $SQL = 'UPDATE FROM ' . $DB_DATA["TABLE_NAME"] . ' SET ' . $DB_DATA["SET_KEY"] . '=' . $DB_DATA["SET_VALUE"] . ' WHERE ' . $DB_DATA["WHERE_KEY"] . '=' . $DB_DATA["WHERE_VALUE"];
+      $SQL = 'UPDATE ' . $DB_DATA["TABLE_NAME"] . ' SET ' . $DB_DATA["SET"] . ' WHERE ' . $DB_DATA["WHERE"];
       try {
          $_DB_CONEXION->exec($SQL);
-         echo "SUCCESS";
+         echo json_encode("{'0':'SUCCESS'}");
          return "SUCCESS";
       } catch (PDOException $e) {
-         echo "ERROR";
+         echo "ERROR -> " . $e;
          return "ERROR";
       }
    }
@@ -280,30 +281,20 @@ function LOGIN($DB_DATA, $_DB_CONEXION)
       echo json_encode(array("RESULT" => "ERROR-NO-JSON"));
       return "ERROR";
    } else {
-      $SQL = 'SELECT * FROM USERS WHERE ' . $DB_DATA["WHERE_KEY"] . " = " . $DB_DATA["WHERE_VALUE"] . " LIMIT 1";
+      $SQL = 'SELECT * FROM USERS WHERE ' . $DB_DATA["WHERE"] . " LIMIT 1";
       $stmt = $_DB_CONEXION->prepare($SQL);
       $stmt->execute();
       try {
          $Result = $stmt->fetchAll(PDO::FETCH_ASSOC);
          if (count($Result) > 0) {
-            if ($Result[0]["ID"] == $DB_DATA["USER_ID"]) {
-               if ($Result[0]["USER_PASSWORD"] == $DB_DATA["USER_PASSWORD"]) {
-                  $SQL = 'SELECT * FROM USER_DATA WHERE ' . $DB_DATA["WHERE_KEY"] . " = " . $DB_DATA["WHERE_VALUE"];
-                  $stmt = $_DB_CONEXION->prepare($SQL);
-                  $stmt->execute();
-                  $Result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-                  echo json_encode(array("RESULT" => "SUCCESS", "LOGING" => "TRUE", $Result[0]));
-                  return "SUCCESS";
-               } else {
-                  echo json_encode(array("RESULT" => "SUCCESS", "LOGING" => "FALSE", $Result));
-                  return "SUCCESS";
-               }
-            } else {
-               echo json_encode(array("RESULT" => "SUCCESS", "LOGING" => "FALSE", $Result));
-               return "SUCCESS";
-            }
+            $SQL = 'SELECT * FROM USER_DATA WHERE ' . $DB_DATA["WHERE_2"] . ";";
+            $stmt = $_DB_CONEXION->prepare($SQL);
+            $stmt->execute();
+            $Result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            echo json_encode(array("RESULT" => "SUCCESS", "LOGING" => "TRUE", $Result));
+            return "SUCCESS";
          } else {
-            echo json_encode(array("RESULT" => "ERROR", "LOGING" => "FALSE", $Result));
+            echo json_encode(array("RESULT" => "ERROR", "LOGING" => "FALSE", array(null)));
             return "SUCCESS";
          }
       } catch (PDOException $e) {
@@ -418,7 +409,7 @@ function LOAD_PACIENT_LIST($DB_DATA, $_DB_CONEXION)
       echo json_encode(array("RESULT" => "ERROR"));
       return "ERROR";
    } else {
-      $SQL = "SELECT * FROM " . $DB_DATA["DB_TABLE"] . " WHERE " . $DB_DATA["WHERE"] .  " ORDER BY 'FECHA' DESC";
+      $SQL = "SELECT ID,NOMBRE,APELLIDO_1,APELLIDO_2,CURP,FECHA,TELEFONO_1,TELEFONO_2,GENERO,RH,CORREO FROM " . $DB_DATA["DB_TABLE"] . " WHERE " . $DB_DATA["WHERE"] .  " ORDER BY 'FECHA' DESC";
       $stmt = $_DB_CONEXION->prepare($SQL);
       $stmt->execute();
       try {
@@ -583,7 +574,7 @@ function LOAD_DATES($DB_DATA, $_DB_CONEXION)
       echo json_encode(array("RESULT" => "ERROR"));
       return "ERROR";
    } else {
-      $SQL = "SELECT * FROM " . $DB_DATA["DB_TABLE"] . " WHERE " . $DB_DATA["WHERE_KEY"] . "='" . $DB_DATA["WHERE_VALUE"]  . "' ORDER BY 'FECHA' DESC LIMIT 125";
+      $SQL = "SELECT * FROM " . $DB_DATA["DB_TABLE"] . " WHERE " . $DB_DATA["WHERE"] . " ORDER BY 'FECHA' DESC LIMIT 250";
       $stmt = $_DB_CONEXION->prepare($SQL);
       $stmt->execute();
       try {
@@ -661,20 +652,24 @@ function SEARCH($DB_DATA, $_DB_CONEXION)
       echo json_encode(array("RESULT" => "ERROR"));
       return "ERROR";
    } else {
-      $SQL = "SELECT " . $DB_DATA["KEYS"] . " FROM " . $DB_DATA["DB_TABLE"] . " WHERE " . $DB_DATA["WHERE_KEY"] . " LIKE '%" . $DB_DATA["WHERE_VALUE"]  . "%' ORDER BY 'FECHA' DESC LIMIT 50";
+      if(isset($DB_DATA['WHERE'])){
+         $SQL = "SELECT " . $DB_DATA["KEYS"] . " FROM " . $DB_DATA["DB_TABLE"] . " WHERE " . $DB_DATA["WHERE"] . " ORDER BY 'FECHA' DESC";
+      } else {
+         $SQL = "SELECT " . $DB_DATA["KEYS"] . " FROM " . $DB_DATA["DB_TABLE"] . " WHERE " . $DB_DATA["WHERE_KEY"] . " LIKE '%" . $DB_DATA["WHERE_VALUE"]  . "%' ORDER BY 'FECHA' DESC LIMIT 50";
+      }
       $stmt = $_DB_CONEXION->prepare($SQL);
       $stmt->execute();
       try {
          $Result = $stmt->fetchAll(PDO::FETCH_ASSOC);
          if (count($Result) > 0) {
             if (array_key_exists('SET', $DB_DATA)) {
-               $SQL = "UPDATE USER_DATA SET PACIENTES= concat(" . $DB_DATA["SET"] . ") WHERE ID='" . $DB_DATA["USER"] . "'";
+               $SQL = "UPDATE USER_DATA SET PACIENTES= concat('" . $DB_DATA["SET"] . "', PACIENTES) WHERE ID='" . $DB_DATA["USER"] . "'";
                $_DB_CONEXION->exec($SQL);
             }
             echo json_encode(array("RESULT" => "SUCCESS", $Result));
             return "SUCCESS";
          } else {
-            echo json_encode(array("RESULT" => "ERROR", ['undefined'], $DB_DATA));
+            echo json_encode(array("RESULT" => "ERROR", [null]));
             return "SUCCESS";
          }
       } catch (PDOException $e) {
@@ -780,14 +775,46 @@ function DOCTOR_LIST($DB_DATA, $_DB_CONEXION){
       $stmt->execute();
       try {
          $Result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-         if (count($Result) > 0) {
-            echo json_encode(array("RESULT" => "SUCCESS", $Result));
+         if (count($Result[0]) > 0) {
+            echo json_encode(array("RESULT" => "SUCCESS", $Result[0]));
             return "SUCCESS";
          } else {
             echo json_encode(array("RESULT" => "NO RESULT", ""));
             return "SUCCESS";
          }
       } catch (PDOException $e) {
+         echo json_encode(array("RESULT" => "ERROR", $e));
+         return "ERROR";
+      }
+   }
+}
+
+function SEND_MAIL($DB_DATA, $_DB_CONEXION){
+   if ($DB_DATA == "ERROR") {
+      echo json_encode(array("RESULT" => "ERROR"));
+      return "ERROR";
+   } else {
+      try{
+         $SQL = "SELECT * FROM " . $DB_DATA['DB_TABLE'] . " WHERE " . $DB_DATA["WHERE"] . " LIMIT 1";
+         $stmt = $_DB_CONEXION->prepare($SQL);
+         $stmt->execute();
+         $Result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+   
+         $MAIL_DIR = $Result[0]['CORREO'];
+         $MAIL_SUB = "UDG - EXPEDIENTE DIGITAL";
+         $MAIL_TEXT = '
+         RECUPERACION DE CONTRASEÑA\n
+         EXPEDIENTE DIGITAL - UDG\n
+         RECUPERACION DE CONTRASEÑA\n
+         CODIGO DE REGISTRO: ' .$Result[0]['ID']. '\n 
+         CONTRASEÑA: ' .$Result[0]['USER_PASSWORD']. ' 
+         ';
+         $MAIL_HEADERS = "From: UDG-CUTLAJO <UDG-CUTLAJO>\r\n";
+         $MAIL_HEADERS .= "Conten-type: text/html; charset=utf-8\r\n";
+         $MAIL_HEADERS .= "Return-path: $MAIL_DIR\r\n";        
+   
+         mail($MAIL_DIR,$MAIL_SUB,$MAIL_TEXT,$MAIL_HEADERS);
+      } catch(PDOException $e){
          echo json_encode(array("RESULT" => "ERROR", $e));
          return "ERROR";
       }
